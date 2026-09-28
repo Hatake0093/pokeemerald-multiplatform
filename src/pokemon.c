@@ -2931,6 +2931,35 @@ u8 GetLevelFromBoxMonExp(struct BoxPokemon *boxMon)
     return level - 1;
 }
 
+// Level cap = level of the strongest Pokémon of the next Gym Leader (or the Champion)
+static const u8 sLevelCaps[NUM_BADGES + 1] = {15, 19, 24, 29, 31, 33, 42, 46, 58};
+
+u8 GetCurrentLevelCap(void)
+{
+    u32 i, badges = 0;
+
+    if (FlagGet(FLAG_SYS_GAME_CLEAR))
+        return MAX_LEVEL;
+
+    for (i = 0; i < NUM_BADGES; i++)
+    {
+        if (FlagGet(FLAG_BADGE01_GET + i))
+            badges++;
+    }
+    return sLevelCaps[badges];
+}
+
+u32 GetExpUntilLevelCap(struct Pokemon *mon)
+{
+    u16 species = GetMonData(mon, MON_DATA_SPECIES, NULL);
+    u32 exp = GetMonData(mon, MON_DATA_EXP, NULL);
+    u32 capExp = gExperienceTables[gSpeciesInfo[species].growthRate][GetCurrentLevelCap()];
+
+    if (exp >= capExp)
+        return 0;
+    return capExp - exp;
+}
+
 u16 GiveMoveToMon(struct Pokemon *mon, u16 move)
 {
     return GiveMoveToBoxMon(&mon->box, move);
@@ -4918,7 +4947,7 @@ bool8 PokemonUseItemEffects(struct Pokemon *mon, u16 item, u8 partyIndex, u8 mov
 
             // Rare Candy
             if ((itemEffect[i] & ITEM3_LEVEL_UP)
-             && GetMonData(mon, MON_DATA_LEVEL, NULL) != MAX_LEVEL)
+             && GetMonData(mon, MON_DATA_LEVEL, NULL) < GetCurrentLevelCap())
             {
                 dataUnsigned = gExperienceTables[gSpeciesInfo[GetMonData(mon, MON_DATA_SPECIES, NULL)].growthRate][GetMonData(mon, MON_DATA_LEVEL, NULL) + 1];
                 SetMonData(mon, MON_DATA_EXP, &dataUnsigned);
