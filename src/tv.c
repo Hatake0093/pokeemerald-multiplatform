@@ -202,7 +202,7 @@ static const struct {
         .location = MAP_NUM(MAP_ROUTE102)
     },
     {
-        .species = SPECIES_NUZLEAF,
+        .species = SPECIES_SEEDOT,
         .moves = {MOVE_HARDEN, MOVE_GROWTH, MOVE_NATURE_POWER, MOVE_LEECH_SEED},
         .level = 15,
         .location = MAP_NUM(MAP_ROUTE114),
