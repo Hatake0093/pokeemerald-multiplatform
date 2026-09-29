@@ -1306,6 +1306,8 @@ bool8 PartyHasMonWithSurf(void)
                 break;
             if (MonKnowsMove(&gPlayerParty[i], MOVE_SURF))
                 return TRUE;
+            if (HasBadgeForHMMove(MOVE_SURF) && !GetMonData(&gPlayerParty[i], MON_DATA_IS_EGG))
+                return TRUE;
         }
     }
     return FALSE;

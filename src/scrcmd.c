@@ -1728,6 +1728,23 @@ bool8 ScrCmd_checkpartymove(struct ScriptContext *ctx)
             break;
         }
     }
+
+    // With the badge, the first non-egg party Pokemon uses the HM even without knowing it
+    if (gSpecialVar_Result == PARTY_SIZE && HasBadgeForHMMove(move))
+    {
+        for (i = 0; i < PARTY_SIZE; i++)
+        {
+            u16 species = GetMonData(&gPlayerParty[i], MON_DATA_SPECIES, NULL);
+            if (!species)
+                break;
+            if (!GetMonData(&gPlayerParty[i], MON_DATA_IS_EGG))
+            {
+                gSpecialVar_Result = i;
+                gSpecialVar_0x8004 = species;
+                break;
+            }
+        }
+    }
     return FALSE;
 }
 

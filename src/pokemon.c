@@ -6611,6 +6611,23 @@ bool32 IsHMMove2(u16 move)
     return FALSE;
 }
 
+// HMs can be used in the field without any Pokemon knowing them, once the matching badge is obtained.
+bool8 HasBadgeForHMMove(u16 move)
+{
+    switch (move)
+    {
+    case MOVE_CUT:        return FlagGet(FLAG_BADGE01_GET);
+    case MOVE_FLASH:      return FlagGet(FLAG_BADGE02_GET);
+    case MOVE_ROCK_SMASH: return FlagGet(FLAG_BADGE03_GET);
+    case MOVE_STRENGTH:   return FlagGet(FLAG_BADGE04_GET);
+    case MOVE_SURF:       return FlagGet(FLAG_BADGE05_GET);
+    case MOVE_FLY:        return FlagGet(FLAG_BADGE06_GET);
+    case MOVE_DIVE:       return FlagGet(FLAG_BADGE07_GET);
+    case MOVE_WATERFALL:  return FlagGet(FLAG_BADGE08_GET);
+    }
+    return FALSE;
+}
+
 bool8 IsMonSpriteNotFlipped(u16 species)
 {
     return gSpeciesInfo[species].noFlip;
