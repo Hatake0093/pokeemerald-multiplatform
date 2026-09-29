@@ -4776,14 +4776,10 @@ static void Task_LearnedMove(u8 taskId)
 {
     struct Pokemon *mon = &gPlayerParty[gPartyMenu.slotId];
     s16 *move = &gPartyMenu.data[0];
-    u16 item = gSpecialVar_ItemId;
 
+    // TMs are reusable, like HMs
     if (move[1] == 0)
-    {
         AdjustFriendship(mon, FRIENDSHIP_EVENT_LEARN_TMHM);
-        if (item < ITEM_HM01)
-            RemoveBagItem(item, 1);
-    }
     GetMonNickname(mon, gStringVar1);
     StringCopy(gStringVar2, gMoveNames[move[0]]);
     StringExpandPlaceholders(gStringVar4, gText_PkmnLearnedMove3);
