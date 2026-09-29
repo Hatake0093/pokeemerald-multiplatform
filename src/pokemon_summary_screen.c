@@ -745,6 +745,9 @@ static const TaskFunc sTextPrinterTasks[] =
 
 static const u8 sMemoNatureTextColor[] = _("{COLOR LIGHT_RED}{SHADOW GREEN}");
 static const u8 sMemoMiscTextColor[] = _("{COLOR WHITE}{SHADOW DARK_GRAY}"); // This is also affected by palettes, apparently
+static const u8 sStatNormalTextColor[] = _("{COLOR WHITE}{SHADOW DARK_GRAY}");
+static const u8 sStatRaisedTextColor[] = _("{COLOR LIGHT_RED}{SHADOW GREEN}");
+static const u8 sStatLoweredTextColor[] = _("{COLOR BLUE}{SHADOW LIGHT_GREEN}");
 static const u8 sStatsLeftColumnLayout[] = _("{DYNAMIC 0}/{DYNAMIC 1}\n{DYNAMIC 2}\n{DYNAMIC 3}");
 static const u8 sStatsRightColumnLayout[] = _("{DYNAMIC 0}\n{DYNAMIC 1}\n{DYNAMIC 2}");
 static const u8 sMovesPPLayout[] = _("{PP}{DYNAMIC 0}/{DYNAMIC 1}");
@@ -3388,17 +3391,31 @@ static void PrintRibbonCount(void)
     PrintTextOnWindow(AddWindowFromTemplateList(sPageSkillsTemplate, PSS_DATA_WINDOW_SKILLS_RIBBON_COUNT), text, x, 1, 0, 0);
 }
 
+// Stat value in red if the nature raises it, blue if it lowers it
+static void BufferStatWithNatureColor(u8 *dest, u16 value, u8 numDigits, u8 stat)
+{
+    const u8 *color = sStatNormalTextColor;
+    s8 modifier = gNatureStatTable[sMonSummaryScreen->summary.nature][stat - 1];
+
+    if (modifier > 0)
+        color = sStatRaisedTextColor;
+    else if (modifier < 0)
+        color = sStatLoweredTextColor;
+    dest = StringCopy(dest, color);
+    ConvertIntToDecimalStringN(dest, value, STR_CONV_MODE_RIGHT_ALIGN, numDigits);
+}
+
 static void BufferLeftColumnStats(void)
 {
     u8 *currentHPString = Alloc(8);
     u8 *maxHPString = Alloc(8);
-    u8 *attackString = Alloc(8);
-    u8 *defenseString = Alloc(8);
+    u8 *attackString = Alloc(16);
+    u8 *defenseString = Alloc(16);
 
     ConvertIntToDecimalStringN(currentHPString, sMonSummaryScreen->summary.currentHP, STR_CONV_MODE_RIGHT_ALIGN, 3);
     ConvertIntToDecimalStringN(maxHPString, sMonSummaryScreen->summary.maxHP, STR_CONV_MODE_RIGHT_ALIGN, 3);
-    ConvertIntToDecimalStringN(attackString, sMonSummaryScreen->summary.atk, STR_CONV_MODE_RIGHT_ALIGN, 7);
-    ConvertIntToDecimalStringN(defenseString, sMonSummaryScreen->summary.def, STR_CONV_MODE_RIGHT_ALIGN, 7);
+    BufferStatWithNatureColor(attackString, sMonSummaryScreen->summary.atk, 7, STAT_ATK);
+    BufferStatWithNatureColor(defenseString, sMonSummaryScreen->summary.def, 7, STAT_DEF);
 
     DynamicPlaceholderTextUtil_Reset();
     DynamicPlaceholderTextUtil_SetPlaceholderPtr(0, currentHPString);
@@ -3420,9 +3437,9 @@ static void PrintLeftColumnStats(void)
 
 static void BufferRightColumnStats(void)
 {
-    ConvertIntToDecimalStringN(gStringVar1, sMonSummaryScreen->summary.spatk, STR_CONV_MODE_RIGHT_ALIGN, 3);
-    ConvertIntToDecimalStringN(gStringVar2, sMonSummaryScreen->summary.spdef, STR_CONV_MODE_RIGHT_ALIGN, 3);
-    ConvertIntToDecimalStringN(gStringVar3, sMonSummaryScreen->summary.speed, STR_CONV_MODE_RIGHT_ALIGN, 3);
+    BufferStatWithNatureColor(gStringVar1, sMonSummaryScreen->summary.spatk, 3, STAT_SPATK);
+    BufferStatWithNatureColor(gStringVar2, sMonSummaryScreen->summary.spdef, 3, STAT_SPDEF);
+    BufferStatWithNatureColor(gStringVar3, sMonSummaryScreen->summary.speed, 3, STAT_SPEED);
 
     DynamicPlaceholderTextUtil_Reset();
     DynamicPlaceholderTextUtil_SetPlaceholderPtr(0, gStringVar1);
