@@ -9,6 +9,7 @@
 #include "metatile_behavior.h"
 #include "overworld.h"
 #include "pokeblock.h"
+#include "pokedex.h"
 #include "pokemon.h"
 #include "random.h"
 #include "roamer.h"
@@ -20,6 +21,7 @@
 #include "constants/game_stat.h"
 #include "constants/items.h"
 #include "constants/layouts.h"
+#include "constants/region_map_sections.h"
 #include "constants/weather.h"
 
 extern const u8 EventScript_RepelWoreOff[];
@@ -964,4 +966,46 @@ static void ApplyCleanseTagEncounterRateMod(u32 *encRate)
 {
     if (GetMonData(&gPlayerParty[0], MON_DATA_HELD_ITEM) == ITEM_CLEANSE_TAG)
         *encRate = *encRate * 2 / 3;
+}
+
+// Nuzlocke: each map section gets one wild encounter, tracked with a flag.
+STATIC_ASSERT(MAPSEC_LITTLEROOT_TOWN == 0 && MAPSEC_DYNAMIC + 1 == 88, ZoneEncounterFlagsHoenn)
+STATIC_ASSERT(MAPSEC_TRAINER_HILL - MAPSEC_AQUA_HIDEOUT + 1 == 16, ZoneEncounterFlagsEmerald)
+
+static u16 GetZoneEncounterFlag(u8 mapSec)
+{
+    if (mapSec <= MAPSEC_DYNAMIC)
+        return FLAG_ZONE_ENCOUNTERS_HOENN_START + mapSec;
+    if (mapSec >= MAPSEC_AQUA_HIDEOUT && mapSec <= MAPSEC_TRAINER_HILL)
+        return FLAG_ZONE_ENCOUNTERS_EMERALD_START + (mapSec - MAPSEC_AQUA_HIDEOUT);
+    return 0;
+}
+
+// TRUE if the current map has wild Pokémon and its zone's encounter hasn't been used yet.
+bool8 IsZoneEncounterAvailable(void)
+{
+    u16 flag = GetZoneEncounterFlag(gMapHeader.regionMapSectionId);
+
+    if (flag == 0 || !FlagGet(FLAG_ADVENTURE_STARTED))
+        return FALSE;
+    if (CurrentBattlePyramidLocation() != PYRAMID_LOCATION_NONE || InBattlePike())
+        return FALSE;
+    if (GetCurrentMapWildMonHeaderId() == HEADER_NONE)
+        return FALSE;
+    return !FlagGet(flag);
+}
+
+// Called when a wild battle starts with the wild Pokémon already in gEnemyParty[0].
+// Shinies and species already caught don't use up the zone's encounter.
+void TryUseZoneEncounter(void)
+{
+    u16 species = GetMonData(&gEnemyParty[0], MON_DATA_SPECIES);
+
+    if (!IsZoneEncounterAvailable())
+        return;
+    if (IsMonShiny(&gEnemyParty[0]))
+        return;
+    if (GetSetPokedexFlag(SpeciesToNationalPokedexNum(species), FLAG_GET_CAUGHT))
+        return;
+    FlagSet(GetZoneEncounterFlag(gMapHeader.regionMapSectionId));
 }

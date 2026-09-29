@@ -15,6 +15,7 @@
 #include "script_pokemon_util.h"
 #include "palette.h"
 #include "window.h"
+#include "wild_encounter.h"
 #include "event_object_movement.h"
 #include "event_scripts.h"
 #include "tv.h"
@@ -388,6 +389,7 @@ static void CreateBattleStartTask(u8 transition, u16 song)
 
 void BattleSetup_StartWildBattle(void)
 {
+    TryUseZoneEncounter();
     if (GetSafariZoneFlag())
         DoSafariBattle();
     else
