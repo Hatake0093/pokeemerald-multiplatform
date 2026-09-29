@@ -21,6 +21,8 @@ OldaleTown_PokemonCenter_1F_EventScript_Gentleman::
 	faceplayer
 	special BufferLeadMonFriendship
 	msgbox OldaleTown_PokemonCenter_1F_Text_FriendshipOfLeadMon, MSGBOX_DEFAULT
+	special BufferLeadMonIVsEVs
+	msgbox OldaleTown_PokemonCenter_1F_Text_IVsEVsOfLeadMon, MSGBOX_DEFAULT
 	release
 	end
 
@@ -46,6 +48,12 @@ OldaleTown_PokemonCenter_1F_Text_FriendshipOfLeadMon:
 	.string "{STR_VAR_1}…\p"
 	.string "Its friendship toward you is\n"
 	.string "{STR_VAR_2} out of 255.$"
+
+OldaleTown_PokemonCenter_1F_Text_IVsEVsOfLeadMon:
+	.string "Its individual values, out of 31:\p"
+	.string "{STR_VAR_2}\p"
+	.string "Its effort values, out of 255:\p"
+	.string "{STR_VAR_3}$"
 
 OldaleTown_PokemonCenter_1F_Text_PokemonCentersAreGreat:
 	.string "POKéMON CENTERS are great!\p"

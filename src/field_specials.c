@@ -974,6 +974,51 @@ void BufferLeadMonFriendship(void)
     ConvertIntToDecimalStringN(gStringVar2, GetMonData(mon, MON_DATA_FRIENDSHIP), STR_CONV_MODE_LEFT_ALIGN, 3);
 }
 
+static const u8 sText_StatHP[] = _("HP ");
+static const u8 sText_StatAtk[] = _("   ATK ");
+static const u8 sText_StatDef[] = _("   DEF ");
+static const u8 sText_StatSpAtk[] = _("SPA ");
+static const u8 sText_StatSpDef[] = _("   SPD ");
+static const u8 sText_StatSpeed[] = _("   SPE ");
+static const u8 sText_TotalEVs[] = _("Total: ");
+static const u8 sText_OutOf510[] = _(" out of 510");
+
+// Writes the 6 values starting at firstData (an IV or EV field) as two lines, in summary screen order
+static u8 *BufferMonStatValues(u8 *dest, struct Pokemon *mon, u8 firstData)
+{
+    static const u8 *const labels[NUM_STATS] = {sText_StatHP, sText_StatAtk, sText_StatDef, sText_StatSpAtk, sText_StatSpDef, sText_StatSpeed};
+    static const u8 offsets[NUM_STATS] = {STAT_HP, STAT_ATK, STAT_DEF, STAT_SPATK, STAT_SPDEF, STAT_SPEED};
+    u8 i;
+
+    for (i = 0; i < NUM_STATS; i++)
+    {
+        if (i == 3)
+            *dest++ = CHAR_NEWLINE;
+        dest = StringCopy(dest, labels[i]);
+        dest = ConvertIntToDecimalStringN(dest, GetMonData(mon, firstData + offsets[i]), STR_CONV_MODE_LEFT_ALIGN, 3);
+    }
+    return dest;
+}
+
+// IVs of the lead Pokemon in gStringVar2, its EVs and EV total in gStringVar3
+void BufferLeadMonIVsEVs(void)
+{
+    struct Pokemon *mon = &gPlayerParty[GetLeadMonIndex()];
+    u16 total = 0;
+    u8 i;
+    u8 *str;
+
+    BufferMonStatValues(gStringVar2, mon, MON_DATA_HP_IV);
+
+    str = BufferMonStatValues(gStringVar3, mon, MON_DATA_HP_EV);
+    for (i = 0; i < NUM_STATS; i++)
+        total += GetMonData(mon, MON_DATA_HP_EV + i);
+    *str++ = CHAR_PROMPT_CLEAR;
+    str = StringCopy(str, sText_TotalEVs);
+    str = ConvertIntToDecimalStringN(str, total, STR_CONV_MODE_LEFT_ALIGN, 3);
+    StringCopy(str, sText_OutOf510);
+}
+
 static void CB2_FieldShowRegionMap(void)
 {
     FieldInitRegionMap(CB2_ReturnToFieldContinueScriptPlayMapMusic);
