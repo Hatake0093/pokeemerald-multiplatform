@@ -39,4 +39,6 @@ bool8 UpdateRepelCounter(void);
 bool8 IsZoneEncounterAvailable(void);
 void TryUseZoneEncounter(void);
 
+extern bool8 gNuzlockeCatchBlocked;
+
 #endif // GUARD_WILD_ENCOUNTER_H

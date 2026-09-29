@@ -981,31 +981,41 @@ static u16 GetZoneEncounterFlag(u8 mapSec)
     return 0;
 }
 
-// TRUE if the current map has wild Pokémon and its zone's encounter hasn't been used yet.
-bool8 IsZoneEncounterAvailable(void)
-{
-    u16 flag = GetZoneEncounterFlag(gMapHeader.regionMapSectionId);
+EWRAM_DATA bool8 gNuzlockeCatchBlocked = FALSE;
 
-    if (flag == 0 || !FlagGet(FLAG_ADVENTURE_STARTED))
+// TRUE if the current map has wild Pokémon whose encounters are tracked per zone.
+static bool8 IsZoneEncounterTracked(void)
+{
+    if (GetZoneEncounterFlag(gMapHeader.regionMapSectionId) == 0 || !FlagGet(FLAG_ADVENTURE_STARTED))
         return FALSE;
     if (CurrentBattlePyramidLocation() != PYRAMID_LOCATION_NONE || InBattlePike())
         return FALSE;
-    if (GetCurrentMapWildMonHeaderId() == HEADER_NONE)
-        return FALSE;
-    return !FlagGet(flag);
+    return GetCurrentMapWildMonHeaderId() != HEADER_NONE;
+}
+
+// TRUE if the current map has wild Pokémon and its zone's encounter hasn't been used yet.
+bool8 IsZoneEncounterAvailable(void)
+{
+    return IsZoneEncounterTracked() && !FlagGet(GetZoneEncounterFlag(gMapHeader.regionMapSectionId));
 }
 
 // Called when a wild battle starts with the wild Pokémon already in gEnemyParty[0].
-// Shinies and species already caught don't use up the zone's encounter.
+// Uses up the zone's encounter, or blocks catching if the zone was already used
+// or the species was already caught. Shinies can always be caught and don't use it up.
 void TryUseZoneEncounter(void)
 {
     u16 species = GetMonData(&gEnemyParty[0], MON_DATA_SPECIES);
 
-    if (!IsZoneEncounterAvailable())
+    gNuzlockeCatchBlocked = FALSE;
+    if (!IsZoneEncounterTracked())
         return;
     if (IsMonShiny(&gEnemyParty[0]))
         return;
-    if (GetSetPokedexFlag(SpeciesToNationalPokedexNum(species), FLAG_GET_CAUGHT))
+    if (GetSetPokedexFlag(SpeciesToNationalPokedexNum(species), FLAG_GET_CAUGHT)
+     || !IsZoneEncounterAvailable())
+    {
+        gNuzlockeCatchBlocked = TRUE;
         return;
+    }
     FlagSet(GetZoneEncounterFlag(gMapHeader.regionMapSectionId));
 }

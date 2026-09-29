@@ -9,6 +9,7 @@
 #include "script.h"
 #include "string_util.h"
 #include "tv.h"
+#include "wild_encounter.h"
 #include "constants/game_stat.h"
 #include "field_screen_effect.h"
 
@@ -96,6 +97,7 @@ void SafariZoneRetirePrompt(void)
 
 void CB2_EndSafariBattle(void)
 {
+    gNuzlockeCatchBlocked = FALSE;
     sSafariZonePkblkUses += gBattleResults.pokeblockThrows;
     if (gBattleOutcome == B_OUTCOME_CAUGHT)
         sSafariZoneCaughtMons++;
