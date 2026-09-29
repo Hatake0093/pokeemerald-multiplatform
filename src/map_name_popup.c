@@ -12,6 +12,7 @@
 #include "string_util.h"
 #include "task.h"
 #include "text.h"
+#include "wild_encounter.h"
 #include "constants/battle_frontier.h"
 #include "constants/layouts.h"
 #include "constants/region_map_sections.h"
@@ -189,6 +190,8 @@ static const u8 sText_PyramidFloor6[] = _("PYRAMID FLOOR 6");
 static const u8 sText_PyramidFloor7[] = _("PYRAMID FLOOR 7");
 static const u8 sText_Pyramid[] = _("PYRAMID");
 
+static const u8 sText_ZoneEncounterAvailable[] = _("{EMOJI_BALL} ");
+
 static const u8 *const sBattlePyramid_MapHeaderStrings[FRONTIER_STAGES_PER_CHALLENGE + 1] =
 {
     sText_PyramidFloor1,
@@ -334,7 +337,7 @@ void HideMapNamePopUpWindow(void)
 
 static void ShowMapNamePopUpWindow(void)
 {
-    u8 mapDisplayHeader[24];
+    u8 mapDisplayHeader[32];
     u8 *withoutPrefixPtr;
     u8 x;
     const u8 *mapDisplayHeaderSource;
@@ -356,7 +359,10 @@ static void ShowMapNamePopUpWindow(void)
     else
     {
         withoutPrefixPtr = &(mapDisplayHeader[3]);
-        GetMapName(withoutPrefixPtr, gMapHeader.regionMapSectionId, 0);
+        if (IsZoneEncounterAvailable())
+            GetMapName(StringCopy(withoutPrefixPtr, sText_ZoneEncounterAvailable), gMapHeader.regionMapSectionId, 0);
+        else
+            GetMapName(withoutPrefixPtr, gMapHeader.regionMapSectionId, 0);
     }
     AddMapNamePopUpWindow();
     LoadMapNamePopUpWindowBg();
