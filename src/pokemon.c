@@ -6600,9 +6600,12 @@ const struct CompressedSpritePalette *GetMonSpritePalStructFromOtIdPersonality(u
         return &gMonPaletteTable[species];
 }
 
+// Only used to stop HM moves from being forgotten; HMs work with just the badge, so any move can be forgotten.
 bool32 IsHMMove2(u16 move)
 {
     int i = 0;
+
+    return FALSE;
     while (sHMMoves[i] != HM_MOVES_END)
     {
         if (sHMMoves[i++] == move)

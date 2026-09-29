@@ -4697,9 +4697,12 @@ u16 ItemIdToBattleMoveId(u16 item)
     return sTMHMMoves[tmNumber];
 }
 
+// Only used to stop HM moves from being forgotten; HMs work with just the badge, so any move can be forgotten.
 bool8 IsMoveHm(u16 move)
 {
     u8 i;
+
+    return FALSE;
 
     for (i = 0; i < NUM_HIDDEN_MACHINES; i++)
     {
@@ -6406,12 +6409,14 @@ void IsSelectedMonEgg(void)
         gSpecialVar_Result = FALSE;
 }
 
+// Surf works with just the badge, so the Move Deleter never needs to protect the last Surf user.
 void IsLastMonThatKnowsSurf(void)
 {
     u16 move;
     u32 i, j;
 
     gSpecialVar_Result = FALSE;
+    return;
     move = GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_MOVE1 + gSpecialVar_0x8005);
     if (move == MOVE_SURF)
     {
