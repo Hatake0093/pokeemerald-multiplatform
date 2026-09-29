@@ -965,6 +965,15 @@ u8 GetLeadMonFriendshipScore(void)
     return FRIENDSHIP_NONE;
 }
 
+// Nickname of the lead Pokemon in gStringVar1, its exact friendship in gStringVar2
+void BufferLeadMonFriendship(void)
+{
+    struct Pokemon *mon = &gPlayerParty[GetLeadMonIndex()];
+
+    GetMonNickname(mon, gStringVar1);
+    ConvertIntToDecimalStringN(gStringVar2, GetMonData(mon, MON_DATA_FRIENDSHIP), STR_CONV_MODE_LEFT_ALIGN, 3);
+}
+
 static void CB2_FieldShowRegionMap(void)
 {
     FieldInitRegionMap(CB2_ReturnToFieldContinueScriptPlayMapMusic);

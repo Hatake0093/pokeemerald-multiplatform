@@ -17,7 +17,11 @@ OldaleTown_PokemonCenter_1F_EventScript_Nurse::
 	end
 
 OldaleTown_PokemonCenter_1F_EventScript_Gentleman::
-	msgbox OldaleTown_PokemonCenter_1F_Text_TrainersCanUsePC, MSGBOX_NPC
+	lock
+	faceplayer
+	special BufferLeadMonFriendship
+	msgbox OldaleTown_PokemonCenter_1F_Text_FriendshipOfLeadMon, MSGBOX_DEFAULT
+	release
 	end
 
 OldaleTown_PokemonCenter_1F_EventScript_Boy::
@@ -37,11 +41,11 @@ OldaleTown_PokemonCenter_1F_EventScript_WirelessClubAvailable::
 	release
 	end
 
-OldaleTown_PokemonCenter_1F_Text_TrainersCanUsePC:
-	.string "That PC in the corner there is\n"
-	.string "for any POKéMON TRAINER to use.\p"
-	.string "Naturally, that means you're welcome\n"
-	.string "to use it, too.$"
+OldaleTown_PokemonCenter_1F_Text_FriendshipOfLeadMon:
+	.string "Let me have a look at your\n"
+	.string "{STR_VAR_1}…\p"
+	.string "Its friendship toward you is\n"
+	.string "{STR_VAR_2} out of 255.$"
 
 OldaleTown_PokemonCenter_1F_Text_PokemonCentersAreGreat:
 	.string "POKéMON CENTERS are great!\p"
