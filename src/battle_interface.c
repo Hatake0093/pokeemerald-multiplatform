@@ -6,6 +6,7 @@
 #include "graphics.h"
 #include "sprite.h"
 #include "window.h"
+#include "wild_encounter.h"
 #include "string_util.h"
 #include "text.h"
 #include "sound.h"
@@ -1979,7 +1980,8 @@ static void TryAddPokeballIconToHealthbox(u8 healthboxSpriteId, bool8 noStatus)
     battler = gSprites[healthboxSpriteId].hMain_Battler;
     if (GetBattlerSide(battler) == B_SIDE_PLAYER)
         return;
-    if (!GetSetPokedexFlag(SpeciesToNationalPokedexNum(GetMonData(&gEnemyParty[gBattlerPartyIndexes[battler]], MON_DATA_SPECIES)), FLAG_GET_CAUGHT))
+    // Nuzlocke: the ball icon marks a Pokemon that can't be caught
+    if (!gNuzlockeCatchBlocked)
         return;
 
     healthBarSpriteId = gSprites[healthboxSpriteId].hMain_HealthBarSpriteId;
