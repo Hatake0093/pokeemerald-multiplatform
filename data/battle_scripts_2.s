@@ -102,6 +102,11 @@ BattleScript_ShakeBallThrow::
 BattleScript_ShakeBallThrowEnd::
 	finishaction
 
+BattleScript_CantCatchMon::
+	printstring STRINGID_CANTCATCHMON
+	waitmessage B_WAIT_TIME_LONG
+	finishaction
+
 BattleScript_TrainerBallBlock::
 	waitmessage B_WAIT_TIME_LONG
 	printstring STRINGID_TRAINERBLOCKEDBALL
