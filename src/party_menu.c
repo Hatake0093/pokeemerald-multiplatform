@@ -2624,6 +2624,12 @@ static void SetPartyMonFieldSelectionActions(struct Pokemon *mons, u8 slotId)
         }
     }
 
+    // Fly and Flash can only be used from this menu, so offer them on every Pokemon once the badge is obtained
+    if (sPartyMenuInternal->numActions < 1 + MAX_MON_MOVES && HasBadgeForHMMove(MOVE_FLY) && !MonKnowsMove(&mons[slotId], MOVE_FLY))
+        AppendToList(sPartyMenuInternal->actions, &sPartyMenuInternal->numActions, FIELD_MOVE_FLY + MENU_FIELD_MOVES);
+    if (sPartyMenuInternal->numActions < 1 + MAX_MON_MOVES && HasBadgeForHMMove(MOVE_FLASH) && !MonKnowsMove(&mons[slotId], MOVE_FLASH))
+        AppendToList(sPartyMenuInternal->actions, &sPartyMenuInternal->numActions, FIELD_MOVE_FLASH + MENU_FIELD_MOVES);
+
     if (!InBattlePike())
     {
         if (GetMonData(&mons[1], MON_DATA_SPECIES) != SPECIES_NONE)
