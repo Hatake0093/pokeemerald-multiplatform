@@ -4028,3 +4028,36 @@ u8 IsMonDisobedient(void)
         }
     }
 }
+
+// Effectiveness of a move against a battler's types, in tenths (0, 2, 5, 10, 20, 40). Ignores abilities.
+u8 GetMoveEffectivenessForDisplay(u16 move, u8 targetBattler)
+{
+    u8 moveType = gBattleMoves[move].type;
+    u8 defType1 = gBattleMons[targetBattler].types[0];
+    u8 defType2 = gBattleMons[targetBattler].types[1];
+    u32 modifier = TYPE_MUL_NORMAL;
+    s32 i = 0;
+
+    if (gBattleMoves[move].power == 0)
+        return TYPE_MUL_NORMAL;
+
+    while (TYPE_EFFECT_ATK_TYPE(i) != TYPE_ENDTABLE)
+    {
+        if (TYPE_EFFECT_ATK_TYPE(i) == TYPE_FORESIGHT)
+        {
+            if (gBattleMons[targetBattler].status2 & STATUS2_FORESIGHT)
+                break;
+            i += 3;
+            continue;
+        }
+        if (TYPE_EFFECT_ATK_TYPE(i) == moveType)
+        {
+            if (TYPE_EFFECT_DEF_TYPE(i) == defType1)
+                modifier = modifier * TYPE_EFFECT_MULTIPLIER(i) / 10;
+            if (TYPE_EFFECT_DEF_TYPE(i) == defType2 && defType1 != defType2)
+                modifier = modifier * TYPE_EFFECT_MULTIPLIER(i) / 10;
+        }
+        i += 3;
+    }
+    return modifier;
+}

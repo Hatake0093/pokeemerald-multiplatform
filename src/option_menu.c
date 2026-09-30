@@ -23,6 +23,7 @@
 #define tSound data[4]
 #define tButtonMode data[5]
 #define tWindowFrameType data[6]
+#define tMoveColorsOff data[7]
 
 enum
 {
@@ -36,6 +37,16 @@ enum
     MENUITEM_COUNT,
 };
 
+// Second page (Jazz options)
+enum
+{
+    MENUITEM_JAZZ_MOVECOLORS,
+    MENUITEM_JAZZ_CANCEL,
+    MENUITEM_JAZZ_COUNT,
+};
+
+#define NUM_OPTION_PAGES 2
+
 enum
 {
     WIN_HEADER,
@@ -48,6 +59,7 @@ enum
 #define YPOS_SOUND        (MENUITEM_SOUND * 16)
 #define YPOS_BUTTONMODE   (MENUITEM_BUTTONMODE * 16)
 #define YPOS_FRAMETYPE    (MENUITEM_FRAMETYPE * 16)
+#define YPOS_MOVECOLORS   (MENUITEM_JAZZ_MOVECOLORS * 16)
 
 static void Task_OptionMenuFadeIn(u8 taskId);
 static void Task_OptionMenuProcessInput(u8 taskId);
@@ -66,11 +78,16 @@ static u8 FrameType_ProcessInput(u8 selection);
 static void FrameType_DrawChoices(u8 selection);
 static u8 ButtonMode_ProcessInput(u8 selection);
 static void ButtonMode_DrawChoices(u8 selection);
+static u8 MoveColors_ProcessInput(u8 selection);
+static void MoveColors_DrawChoices(u8 selection);
 static void DrawHeaderText(void);
 static void DrawOptionMenuTexts(void);
+static void DrawPageChoices(u8 taskId);
+static u8 GetCancelItem(void);
 static void DrawBgWindowFrames(void);
 
 EWRAM_DATA static bool8 sArrowPressed = FALSE;
+EWRAM_DATA static u8 sOptionPage = 0;
 
 static const u16 sOptionMenuText_Pal[] = INCGFX_U16("graphics/interface/option_menu_text.pal", ".gbapal");
 // note: this is only used in the Japanese release
@@ -85,6 +102,12 @@ static const u8 *const sOptionMenuItemsNames[MENUITEM_COUNT] =
     [MENUITEM_BUTTONMODE]  = gText_ButtonMode,
     [MENUITEM_FRAMETYPE]   = gText_Frame,
     [MENUITEM_CANCEL]      = gText_OptionMenuCancel,
+};
+
+static const u8 *const sOptionMenuItemsNamesPage2[MENUITEM_JAZZ_COUNT] =
+{
+    [MENUITEM_JAZZ_MOVECOLORS] = gText_MoveColors,
+    [MENUITEM_JAZZ_CANCEL]     = gText_OptionMenuCancel,
 };
 
 static const struct WindowTemplate sOptionMenuWinTemplates[] =
@@ -227,6 +250,7 @@ void CB2_InitOptionMenu(void)
     {
         u8 taskId = CreateTask(Task_OptionMenuFadeIn, 0);
 
+        sOptionPage = 0;
         gTasks[taskId].tMenuSelection = 0;
         gTasks[taskId].tTextSpeed = gSaveBlock2Ptr->optionsTextSpeed;
         gTasks[taskId].tBattleSceneOff = gSaveBlock2Ptr->optionsBattleSceneOff;
@@ -234,14 +258,9 @@ void CB2_InitOptionMenu(void)
         gTasks[taskId].tSound = gSaveBlock2Ptr->optionsSound;
         gTasks[taskId].tButtonMode = gSaveBlock2Ptr->optionsButtonMode;
         gTasks[taskId].tWindowFrameType = gSaveBlock2Ptr->optionsWindowFrameType;
+        gTasks[taskId].tMoveColorsOff = gSaveBlock2Ptr->optionsMoveColorsOff;
 
-        TextSpeed_DrawChoices(gTasks[taskId].tTextSpeed);
-        BattleScene_DrawChoices(gTasks[taskId].tBattleSceneOff);
-        BattleStyle_DrawChoices(gTasks[taskId].tBattleStyle);
-        Sound_DrawChoices(gTasks[taskId].tSound);
-        ButtonMode_DrawChoices(gTasks[taskId].tButtonMode);
-        FrameType_DrawChoices(gTasks[taskId].tWindowFrameType);
-        HighlightOptionMenuItem(gTasks[taskId].tMenuSelection);
+        DrawPageChoices(taskId);
 
         CopyWindowToVram(WIN_OPTIONS, COPYWIN_FULL);
         gMain.state++;
@@ -265,7 +284,7 @@ static void Task_OptionMenuProcessInput(u8 taskId)
 {
     if (JOY_NEW(A_BUTTON))
     {
-        if (gTasks[taskId].tMenuSelection == MENUITEM_CANCEL)
+        if (gTasks[taskId].tMenuSelection == GetCancelItem())
             gTasks[taskId].func = Task_OptionMenuSave;
     }
     else if (JOY_NEW(B_BUTTON))
@@ -277,16 +296,48 @@ static void Task_OptionMenuProcessInput(u8 taskId)
         if (gTasks[taskId].tMenuSelection > 0)
             gTasks[taskId].tMenuSelection--;
         else
-            gTasks[taskId].tMenuSelection = MENUITEM_CANCEL;
+            gTasks[taskId].tMenuSelection = GetCancelItem();
         HighlightOptionMenuItem(gTasks[taskId].tMenuSelection);
     }
     else if (JOY_NEW(DPAD_DOWN))
     {
-        if (gTasks[taskId].tMenuSelection < MENUITEM_CANCEL)
+        if (gTasks[taskId].tMenuSelection < GetCancelItem())
             gTasks[taskId].tMenuSelection++;
         else
             gTasks[taskId].tMenuSelection = 0;
         HighlightOptionMenuItem(gTasks[taskId].tMenuSelection);
+    }
+    else if (JOY_NEW(L_BUTTON | R_BUTTON))
+    {
+        sOptionPage = (sOptionPage + 1) % NUM_OPTION_PAGES;
+        gTasks[taskId].tMenuSelection = 0;
+        DrawHeaderText();
+        DrawOptionMenuTexts();
+        DrawPageChoices(taskId);
+        CopyWindowToVram(WIN_OPTIONS, COPYWIN_FULL);
+    }
+    else if (sOptionPage == 1)
+    {
+        u8 previousOption;
+
+        switch (gTasks[taskId].tMenuSelection)
+        {
+        case MENUITEM_JAZZ_MOVECOLORS:
+            previousOption = gTasks[taskId].tMoveColorsOff;
+            gTasks[taskId].tMoveColorsOff = MoveColors_ProcessInput(gTasks[taskId].tMoveColorsOff);
+
+            if (previousOption != gTasks[taskId].tMoveColorsOff)
+                MoveColors_DrawChoices(gTasks[taskId].tMoveColorsOff);
+            break;
+        default:
+            return;
+        }
+
+        if (sArrowPressed)
+        {
+            sArrowPressed = FALSE;
+            CopyWindowToVram(WIN_OPTIONS, COPYWIN_GFX);
+        }
     }
     else
     {
@@ -356,6 +407,7 @@ static void Task_OptionMenuSave(u8 taskId)
     gSaveBlock2Ptr->optionsSound = gTasks[taskId].tSound;
     gSaveBlock2Ptr->optionsButtonMode = gTasks[taskId].tButtonMode;
     gSaveBlock2Ptr->optionsWindowFrameType = gTasks[taskId].tWindowFrameType;
+    gSaveBlock2Ptr->optionsMoveColorsOff = gTasks[taskId].tMoveColorsOff;
 
     BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 16, RGB_BLACK);
     gTasks[taskId].func = Task_OptionMenuFadeOut;
@@ -615,20 +667,69 @@ static void ButtonMode_DrawChoices(u8 selection)
     DrawOptionMenuChoice(gText_ButtonTypeLEqualsA, GetStringRightAlignXOffset(FONT_NORMAL, gText_ButtonTypeLEqualsA, 198), YPOS_BUTTONMODE, styles[2]);
 }
 
+static u8 MoveColors_ProcessInput(u8 selection)
+{
+    if (JOY_NEW(DPAD_LEFT | DPAD_RIGHT))
+    {
+        selection ^= 1;
+        sArrowPressed = TRUE;
+    }
+
+    return selection;
+}
+
+static void MoveColors_DrawChoices(u8 selection)
+{
+    u8 styles[2];
+
+    styles[0] = 0;
+    styles[1] = 0;
+    styles[selection] = 1;
+
+    // selection is the "Off" flag, so On is choice 0
+    DrawOptionMenuChoice(gText_BattleSceneOn, 104, YPOS_MOVECOLORS, styles[0]);
+    DrawOptionMenuChoice(gText_BattleSceneOff, GetStringRightAlignXOffset(FONT_NORMAL, gText_BattleSceneOff, 198), YPOS_MOVECOLORS, styles[1]);
+}
+
+static u8 GetCancelItem(void)
+{
+    return sOptionPage == 0 ? MENUITEM_CANCEL : MENUITEM_JAZZ_CANCEL;
+}
+
+static void DrawPageChoices(u8 taskId)
+{
+    if (sOptionPage == 0)
+    {
+        TextSpeed_DrawChoices(gTasks[taskId].tTextSpeed);
+        BattleScene_DrawChoices(gTasks[taskId].tBattleSceneOff);
+        BattleStyle_DrawChoices(gTasks[taskId].tBattleStyle);
+        Sound_DrawChoices(gTasks[taskId].tSound);
+        ButtonMode_DrawChoices(gTasks[taskId].tButtonMode);
+        FrameType_DrawChoices(gTasks[taskId].tWindowFrameType);
+    }
+    else
+    {
+        MoveColors_DrawChoices(gTasks[taskId].tMoveColorsOff);
+    }
+    HighlightOptionMenuItem(gTasks[taskId].tMenuSelection);
+}
+
 static void DrawHeaderText(void)
 {
     FillWindowPixelBuffer(WIN_HEADER, PIXEL_FILL(1));
-    AddTextPrinterParameterized(WIN_HEADER, FONT_NORMAL, gText_Option, 8, 1, TEXT_SKIP_DRAW, NULL);
+    AddTextPrinterParameterized(WIN_HEADER, FONT_NORMAL, sOptionPage == 0 ? gText_OptionPage1 : gText_OptionPage2, 8, 1, TEXT_SKIP_DRAW, NULL);
     CopyWindowToVram(WIN_HEADER, COPYWIN_FULL);
 }
 
 static void DrawOptionMenuTexts(void)
 {
     u8 i;
+    u8 count = sOptionPage == 0 ? MENUITEM_COUNT : MENUITEM_JAZZ_COUNT;
+    const u8 *const *names = sOptionPage == 0 ? sOptionMenuItemsNames : sOptionMenuItemsNamesPage2;
 
     FillWindowPixelBuffer(WIN_OPTIONS, PIXEL_FILL(1));
-    for (i = 0; i < MENUITEM_COUNT; i++)
-        AddTextPrinterParameterized(WIN_OPTIONS, FONT_NORMAL, sOptionMenuItemsNames[i], 8, (i * 16) + 1, TEXT_SKIP_DRAW, NULL);
+    for (i = 0; i < count; i++)
+        AddTextPrinterParameterized(WIN_OPTIONS, FONT_NORMAL, names[i], 8, (i * 16) + 1, TEXT_SKIP_DRAW, NULL);
     CopyWindowToVram(WIN_OPTIONS, COPYWIN_FULL);
 }
 

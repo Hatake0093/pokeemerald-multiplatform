@@ -1453,6 +1453,47 @@ static void PlayerHandleYesNoInput(void)
     }
 }
 
+#define TEXT_PAL_MOVE_GREEN 5
+#define TEXT_PAL_MOVE_RED   6
+
+// Only single battles: the target is always the opposing battler
+static u8 GetMoveEffectivenessToDisplay(u16 move)
+{
+    if (gSaveBlock2Ptr->optionsMoveColorsOff || (gBattleTypeFlags & BATTLE_TYPE_DOUBLE))
+        return TYPE_MUL_NORMAL;
+    return GetMoveEffectivenessForDisplay(move, BATTLE_OPPOSITE(gActiveBattler));
+}
+
+static u8 *MoveSelectionAddEffectivenessColor(u8 *txtPtr, u16 move)
+{
+    u8 effectiveness = GetMoveEffectivenessToDisplay(move);
+    u8 color;
+
+    if (effectiveness > TYPE_MUL_NORMAL)
+        color = TEXT_PAL_MOVE_GREEN;
+    else if (effectiveness != TYPE_MUL_NORMAL && effectiveness != TYPE_MUL_NO_EFFECT)
+        color = TEXT_PAL_MOVE_RED;
+    else
+        return txtPtr;
+
+    *txtPtr++ = EXT_CTRL_CODE_BEGIN;
+    *txtPtr++ = EXT_CTRL_CODE_COLOR;
+    *txtPtr++ = color;
+    return txtPtr;
+}
+
+// x4 and x1/4 are marked with "+" (the font has no "*"); x0 with "-"
+static void MoveSelectionAddEffectivenessSymbol(u8 *txtPtr, u16 move)
+{
+    u8 effectiveness = GetMoveEffectivenessToDisplay(move);
+
+    if (effectiveness == TYPE_MUL_NO_EFFECT)
+        *txtPtr++ = CHAR_HYPHEN;
+    else if (effectiveness > TYPE_MUL_SUPER_EFFECTIVE || effectiveness < TYPE_MUL_NOT_EFFECTIVE)
+        *txtPtr++ = CHAR_PLUS;
+    *txtPtr = EOS;
+}
+
 static void MoveSelectionDisplayMoveNames(void)
 {
     s32 i;
@@ -1461,8 +1502,14 @@ static void MoveSelectionDisplayMoveNames(void)
 
     for (i = 0; i < MAX_MON_MOVES; i++)
     {
+        u8 *txtPtr = gDisplayedStringBattle;
+
         MoveSelectionDestroyCursorAt(i);
-        StringCopy(gDisplayedStringBattle, gMoveNames[moveInfo->moves[i]]);
+        if (moveInfo->moves[i] != MOVE_NONE)
+            txtPtr = MoveSelectionAddEffectivenessColor(txtPtr, moveInfo->moves[i]);
+        txtPtr = StringCopy(txtPtr, gMoveNames[moveInfo->moves[i]]);
+        if (moveInfo->moves[i] != MOVE_NONE)
+            MoveSelectionAddEffectivenessSymbol(txtPtr, moveInfo->moves[i]);
         // Prints on windows B_WIN_MOVE_NAME_1, B_WIN_MOVE_NAME_2, B_WIN_MOVE_NAME_3, B_WIN_MOVE_NAME_4
         BattlePutTextOnWindow(gDisplayedStringBattle, i + B_WIN_MOVE_NAME_1);
         if (moveInfo->moves[i] != MOVE_NONE)
