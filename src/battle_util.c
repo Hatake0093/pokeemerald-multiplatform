@@ -9,6 +9,7 @@
 #include "item.h"
 #include "util.h"
 #include "battle_scripts.h"
+#include "battle_script_commands.h"
 #include "random.h"
 #include "text.h"
 #include "safari_zone.h"
@@ -4060,4 +4061,117 @@ u8 GetMoveEffectivenessForDisplay(u16 move, u8 targetBattler)
         i += 3;
     }
     return modifier;
+}
+
+// Jazz risk warning: enemy moves seen so far, by enemy party slot
+static u16 sRiskUsedMoves[PARTY_SIZE][MAX_MON_MOVES];
+
+void RiskWarningReset(void)
+{
+    memset(sRiskUsedMoves, 0, sizeof(sRiskUsedMoves));
+}
+
+void RiskWarningRecordMove(u8 battler, u16 move)
+{
+    s32 i;
+    u16 *moves = sRiskUsedMoves[gBattlerPartyIndexes[battler]];
+
+    for (i = 0; i < MAX_MON_MOVES; i++)
+    {
+        if (moves[i] == move)
+            return;
+        if (moves[i] == MOVE_NONE)
+        {
+            moves[i] = move;
+            return;
+        }
+    }
+}
+
+// Highest damage the move can deal without a critical hit
+static u32 CalcRiskMoveDamage(u16 move, u8 attacker, u8 defender)
+{
+    u8 flags;
+    u32 damage = 0;
+    s32 savedDamage = gBattleMoveDamage;
+    u16 savedBasePower = gDynamicBasePower;
+    u8 savedType = gBattleStruct->dynamicMoveType;
+    u8 savedMultiplier = gBattleScripting.dmgMultiplier;
+    u16 effect = gBattleMoves[move].effect;
+
+    gBattleMoveDamage = 40;
+    flags = TypeCalc(move, attacker, defender);
+    if (flags & MOVE_RESULT_DOESNT_AFFECT_FOE)
+    {
+        damage = 0;
+    }
+    else if (effect == EFFECT_LEVEL_DAMAGE)
+    {
+        damage = gBattleMons[attacker].level;
+    }
+    else if (effect == EFFECT_DRAGON_RAGE)
+    {
+        damage = 40;
+    }
+    else if (effect == EFFECT_SONICBOOM)
+    {
+        damage = 20;
+    }
+    else if (effect == EFFECT_PSYWAVE)
+    {
+        damage = gBattleMons[attacker].level * 3 / 2;
+    }
+    else if (effect == EFFECT_SUPER_FANG)
+    {
+        damage = gBattleMons[defender].hp / 2;
+    }
+    else if (effect == EFFECT_OHKO)
+    {
+        if (gBattleMons[attacker].level >= gBattleMons[defender].level)
+            damage = gBattleMons[defender].hp;
+    }
+    else if (gBattleMoves[move].power > 1)
+    {
+        gDynamicBasePower = 0;
+        gBattleStruct->dynamicMoveType = 0;
+        gBattleScripting.dmgMultiplier = 1;
+        gBattleMoveDamage = CalculateBaseDamage(&gBattleMons[attacker], &gBattleMons[defender], move, gSideStatuses[GetBattlerSide(defender)], 0, 0, attacker, defender);
+        TypeCalc(move, attacker, defender);
+        damage = gBattleMoveDamage;
+    }
+
+    gBattleMoveDamage = savedDamage;
+    gDynamicBasePower = savedBasePower;
+    gBattleStruct->dynamicMoveType = savedType;
+    gBattleScripting.dmgMultiplier = savedMultiplier;
+    if (damage == 0)
+        return 0;
+    return damage;
+}
+
+// TRUE if an opposing Pokemon has already used a move in this battle that could KO the battler
+bool8 IsBattlerAtRiskOfKO(u8 battler)
+{
+    u8 opponent;
+    s32 i;
+
+    if (gBattleMons[battler].hp == 0)
+        return FALSE;
+
+    for (opponent = 0; opponent < gBattlersCount; opponent++)
+    {
+        if (GetBattlerSide(opponent) == GetBattlerSide(battler))
+            continue;
+        if (gBattleMons[opponent].hp == 0 || (gAbsentBattlerFlags & gBitTable[opponent]))
+            continue;
+
+        for (i = 0; i < MAX_MON_MOVES; i++)
+        {
+            u16 move = sRiskUsedMoves[gBattlerPartyIndexes[opponent]][i];
+
+            if (move != MOVE_NONE && CalcRiskMoveDamage(move, opponent, battler) >= gBattleMons[battler].hp)
+                return TRUE;
+        }
+    }
+    return FALSE;
 }

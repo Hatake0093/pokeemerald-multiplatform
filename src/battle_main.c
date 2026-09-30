@@ -3039,6 +3039,7 @@ static void BattleStartClearSetData(void)
 
     TurnValuesCleanUp(FALSE);
     SpecialStatusesClear();
+    RiskWarningReset();
 
     for (i = 0; i < MAX_BATTLERS_COUNT; i++)
     {

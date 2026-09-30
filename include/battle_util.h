@@ -100,5 +100,8 @@ void HandleAction_RunBattleScript(void);
 u8 GetMoveTarget(u16 move, u8 setTarget);
 u8 IsMonDisobedient(void);
 u8 GetMoveEffectivenessForDisplay(u16 move, u8 targetBattler);
+void RiskWarningReset(void);
+void RiskWarningRecordMove(u8 battler, u16 move);
+bool8 IsBattlerAtRiskOfKO(u8 battler);
 
 #endif // GUARD_BATTLE_UTIL_H

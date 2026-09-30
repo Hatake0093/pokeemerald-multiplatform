@@ -1477,6 +1477,7 @@ const u8 gText_Option[] = _("OPTION");
 const u8 gText_OptionPage1[] = _("OPTION  1/2  {L_BUTTON}{R_BUTTON}");
 const u8 gText_OptionPage2[] = _("OPTION  2/2  {L_BUTTON}{R_BUTTON}");
 const u8 gText_MoveColors[] = _("MOVE COLORS");
+const u8 gText_RiskWarning[] = _("RISK WARNING");
 const u8 gText_TextSpeed[] = _("TEXT SPEED");
 const u8 gText_BattleScene[] = _("BATTLE SCENE");
 const u8 gText_BattleStyle[] = _("BATTLE STYLE");

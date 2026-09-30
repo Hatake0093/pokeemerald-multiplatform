@@ -4,6 +4,7 @@
 #include "battle_anim.h"
 #include "battle_ai_script_commands.h"
 #include "battle_scripts.h"
+#include "battle_util.h"
 #include "item.h"
 #include "util.h"
 #include "pokemon.h"
@@ -1197,6 +1198,8 @@ static void Cmd_attackstring(void)
     {
         PrepareStringBattle(STRINGID_USEDMOVE, gBattlerAttacker);
         gHitMarker |= HITMARKER_ATTACKSTRING_PRINTED;
+        if (GetBattlerSide(gBattlerAttacker) == B_SIDE_OPPONENT)
+            RiskWarningRecordMove(gBattlerAttacker, gCurrentMove);
     }
     gBattlescriptCurrInstr++;
     gBattleCommunication[MSG_DISPLAY] = 0;

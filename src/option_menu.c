@@ -24,6 +24,7 @@
 #define tButtonMode data[5]
 #define tWindowFrameType data[6]
 #define tMoveColorsOff data[7]
+#define tRiskWarningOff data[8]
 
 enum
 {
@@ -41,6 +42,7 @@ enum
 enum
 {
     MENUITEM_JAZZ_MOVECOLORS,
+    MENUITEM_JAZZ_RISKWARNING,
     MENUITEM_JAZZ_CANCEL,
     MENUITEM_JAZZ_COUNT,
 };
@@ -60,6 +62,7 @@ enum
 #define YPOS_BUTTONMODE   (MENUITEM_BUTTONMODE * 16)
 #define YPOS_FRAMETYPE    (MENUITEM_FRAMETYPE * 16)
 #define YPOS_MOVECOLORS   (MENUITEM_JAZZ_MOVECOLORS * 16)
+#define YPOS_RISKWARNING  (MENUITEM_JAZZ_RISKWARNING * 16)
 
 static void Task_OptionMenuFadeIn(u8 taskId);
 static void Task_OptionMenuProcessInput(u8 taskId);
@@ -78,8 +81,8 @@ static u8 FrameType_ProcessInput(u8 selection);
 static void FrameType_DrawChoices(u8 selection);
 static u8 ButtonMode_ProcessInput(u8 selection);
 static void ButtonMode_DrawChoices(u8 selection);
-static u8 MoveColors_ProcessInput(u8 selection);
-static void MoveColors_DrawChoices(u8 selection);
+static u8 OnOff_ProcessInput(u8 selection);
+static void OnOff_DrawChoices(u8 selection, u8 yPos);
 static void DrawHeaderText(void);
 static void DrawOptionMenuTexts(void);
 static void DrawPageChoices(u8 taskId);
@@ -106,7 +109,8 @@ static const u8 *const sOptionMenuItemsNames[MENUITEM_COUNT] =
 
 static const u8 *const sOptionMenuItemsNamesPage2[MENUITEM_JAZZ_COUNT] =
 {
-    [MENUITEM_JAZZ_MOVECOLORS] = gText_MoveColors,
+    [MENUITEM_JAZZ_MOVECOLORS]  = gText_MoveColors,
+    [MENUITEM_JAZZ_RISKWARNING] = gText_RiskWarning,
     [MENUITEM_JAZZ_CANCEL]     = gText_OptionMenuCancel,
 };
 
@@ -259,6 +263,7 @@ void CB2_InitOptionMenu(void)
         gTasks[taskId].tButtonMode = gSaveBlock2Ptr->optionsButtonMode;
         gTasks[taskId].tWindowFrameType = gSaveBlock2Ptr->optionsWindowFrameType;
         gTasks[taskId].tMoveColorsOff = gSaveBlock2Ptr->optionsMoveColorsOff;
+        gTasks[taskId].tRiskWarningOff = gSaveBlock2Ptr->optionsRiskWarningOff;
 
         DrawPageChoices(taskId);
 
@@ -324,10 +329,17 @@ static void Task_OptionMenuProcessInput(u8 taskId)
         {
         case MENUITEM_JAZZ_MOVECOLORS:
             previousOption = gTasks[taskId].tMoveColorsOff;
-            gTasks[taskId].tMoveColorsOff = MoveColors_ProcessInput(gTasks[taskId].tMoveColorsOff);
+            gTasks[taskId].tMoveColorsOff = OnOff_ProcessInput(gTasks[taskId].tMoveColorsOff);
 
             if (previousOption != gTasks[taskId].tMoveColorsOff)
-                MoveColors_DrawChoices(gTasks[taskId].tMoveColorsOff);
+                OnOff_DrawChoices(gTasks[taskId].tMoveColorsOff, YPOS_MOVECOLORS);
+            break;
+        case MENUITEM_JAZZ_RISKWARNING:
+            previousOption = gTasks[taskId].tRiskWarningOff;
+            gTasks[taskId].tRiskWarningOff = OnOff_ProcessInput(gTasks[taskId].tRiskWarningOff);
+
+            if (previousOption != gTasks[taskId].tRiskWarningOff)
+                OnOff_DrawChoices(gTasks[taskId].tRiskWarningOff, YPOS_RISKWARNING);
             break;
         default:
             return;
@@ -408,6 +420,7 @@ static void Task_OptionMenuSave(u8 taskId)
     gSaveBlock2Ptr->optionsButtonMode = gTasks[taskId].tButtonMode;
     gSaveBlock2Ptr->optionsWindowFrameType = gTasks[taskId].tWindowFrameType;
     gSaveBlock2Ptr->optionsMoveColorsOff = gTasks[taskId].tMoveColorsOff;
+    gSaveBlock2Ptr->optionsRiskWarningOff = gTasks[taskId].tRiskWarningOff;
 
     BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 16, RGB_BLACK);
     gTasks[taskId].func = Task_OptionMenuFadeOut;
@@ -667,7 +680,7 @@ static void ButtonMode_DrawChoices(u8 selection)
     DrawOptionMenuChoice(gText_ButtonTypeLEqualsA, GetStringRightAlignXOffset(FONT_NORMAL, gText_ButtonTypeLEqualsA, 198), YPOS_BUTTONMODE, styles[2]);
 }
 
-static u8 MoveColors_ProcessInput(u8 selection)
+static u8 OnOff_ProcessInput(u8 selection)
 {
     if (JOY_NEW(DPAD_LEFT | DPAD_RIGHT))
     {
@@ -678,7 +691,7 @@ static u8 MoveColors_ProcessInput(u8 selection)
     return selection;
 }
 
-static void MoveColors_DrawChoices(u8 selection)
+static void OnOff_DrawChoices(u8 selection, u8 yPos)
 {
     u8 styles[2];
 
@@ -687,8 +700,8 @@ static void MoveColors_DrawChoices(u8 selection)
     styles[selection] = 1;
 
     // selection is the "Off" flag, so On is choice 0
-    DrawOptionMenuChoice(gText_BattleSceneOn, 104, YPOS_MOVECOLORS, styles[0]);
-    DrawOptionMenuChoice(gText_BattleSceneOff, GetStringRightAlignXOffset(FONT_NORMAL, gText_BattleSceneOff, 198), YPOS_MOVECOLORS, styles[1]);
+    DrawOptionMenuChoice(gText_BattleSceneOn, 104, yPos, styles[0]);
+    DrawOptionMenuChoice(gText_BattleSceneOff, GetStringRightAlignXOffset(FONT_NORMAL, gText_BattleSceneOff, 198), yPos, styles[1]);
 }
 
 static u8 GetCancelItem(void)
@@ -709,7 +722,8 @@ static void DrawPageChoices(u8 taskId)
     }
     else
     {
-        MoveColors_DrawChoices(gTasks[taskId].tMoveColorsOff);
+        OnOff_DrawChoices(gTasks[taskId].tMoveColorsOff, YPOS_MOVECOLORS);
+        OnOff_DrawChoices(gTasks[taskId].tRiskWarningOff, YPOS_RISKWARNING);
     }
     HighlightOptionMenuItem(gTasks[taskId].tMenuSelection);
 }

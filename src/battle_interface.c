@@ -3,6 +3,7 @@
 #include "pokemon.h"
 #include "battle_controllers.h"
 #include "battle_interface.h"
+#include "battle_util.h"
 #include "graphics.h"
 #include "sprite.h"
 #include "window.h"
@@ -1992,6 +1993,32 @@ static void TryAddPokeballIconToHealthbox(u8 healthboxSpriteId, bool8 noStatus)
         CpuFill32(0, (void *)(OBJ_VRAM0 + (gSprites[healthBarSpriteId].oam.tileNum + 8) * TILE_SIZE_4BPP), 32);
 }
 
+// "!" glyph, one bit per pixel, top row first
+static const u8 sRiskWarningRows[8] = {0x18, 0x18, 0x18, 0x18, 0x18, 0x00, 0x18, 0x18};
+
+// Draws a red "!" on the status icon slot of a healthy player Pokemon
+static void DrawRiskWarningOnHealthbox(u8 healthboxSpriteId, u8 battler, s16 tileNumAdder)
+{
+    s32 x, y;
+    u32 tile[8];
+    u32 glyphColor = battler + 12; // palette slot that status icons recolor per battler
+    u32 pltAdder = PLTT_ID(gSprites[healthboxSpriteId].oam.paletteNum) + battler + 12;
+
+    for (y = 0; y < 8; y++)
+    {
+        tile[y] = 0;
+        for (x = 0; x < 8; x++)
+        {
+            u32 pixel = (sRiskWarningRows[y] & (0x80 >> x)) ? glyphColor : 2;
+            tile[y] |= pixel << (x * 4);
+        }
+    }
+
+    FillPalette(RGB(28, 3, 3), OBJ_PLTT_OFFSET + pltAdder, PLTT_SIZEOF(1));
+    CpuCopy16(&gPlttBufferUnfaded[OBJ_PLTT_OFFSET + pltAdder], (u16 *)OBJ_PLTT + pltAdder, PLTT_SIZEOF(1));
+    CpuCopy32(tile, (void *)(OBJ_VRAM0 + (gSprites[healthboxSpriteId].oam.tileNum + tileNumAdder + 1) * TILE_SIZE_4BPP), TILE_SIZE_4BPP);
+}
+
 static void UpdateStatusIconInHealthbox(u8 healthboxSpriteId)
 {
     s32 i;
@@ -2048,6 +2075,12 @@ static void UpdateStatusIconInHealthbox(u8 healthboxSpriteId)
 
         for (i = 0; i < 3; i++)
             CpuCopy32(statusGfxPtr, (void *)(OBJ_VRAM0 + (gSprites[healthboxSpriteId].oam.tileNum + tileNumAdder + i) * TILE_SIZE_4BPP), 32);
+
+        if (GetBattlerSide(battler) == B_SIDE_PLAYER
+         && !gSaveBlock2Ptr->optionsRiskWarningOff
+         && !(gBattleTypeFlags & (BATTLE_TYPE_LINK | BATTLE_TYPE_RECORDED))
+         && IsBattlerAtRiskOfKO(battler))
+            DrawRiskWarningOnHealthbox(healthboxSpriteId, battler, tileNumAdder);
 
         if (!gBattleSpritesDataPtr->battlerData[battler].hpNumbersNoBars)
             CpuCopy32(GetHealthboxElementGfxPtr(HEALTHBOX_GFX_1), (void *)(OBJ_VRAM0 + gSprites[healthBarSpriteId].oam.tileNum * TILE_SIZE_4BPP), 64);

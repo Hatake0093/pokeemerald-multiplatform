@@ -311,6 +311,7 @@ extern const u8 gText_Option[];
 extern const u8 gText_OptionPage1[];
 extern const u8 gText_OptionPage2[];
 extern const u8 gText_MoveColors[];
+extern const u8 gText_RiskWarning[];
 extern const u8 gText_OptionMenu[];
 extern const u8 gText_TextSpeed[];
 extern const u8 gText_BattleScene[];
