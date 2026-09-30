@@ -14,10 +14,12 @@
 
 extern const u8 gText_ClearAllSaveData[];
 extern const u8 gText_ClearingData[];
+extern const u8 gText_PermadeathGameOver[];
 
 static void Task_DoClearSaveDataScreenYesNo(u8);
 static void Task_ClearSaveDataScreenYesNoChoice(u8);
 static void Task_ClearSaveData(u8);
+static void Task_ShowPermadeathGameOver(u8);
 static bool8 SetupClearSaveDataScreen(void);
 static void CB2_FadeAndDoReset(void);
 static void InitClearSaveDataScreenWindows(void);
@@ -75,6 +77,31 @@ void CB2_InitClearSaveDataScreen(void)
 {
     if (SetupClearSaveDataScreen())
         CreateTask(Task_DoClearSaveDataScreenYesNo, 0);
+}
+
+void CB2_InitPermadeathGameOver(void)
+{
+    if (SetupClearSaveDataScreen())
+        CreateTask(Task_ShowPermadeathGameOver, 0);
+}
+
+static void Task_ShowPermadeathGameOver(u8 taskId)
+{
+    switch (gTasks[taskId].data[0])
+    {
+    case 0:
+        DrawStdFrameWithCustomTileAndPalette(0, FALSE, 2, 14);
+        AddTextPrinterParameterized(0, FONT_NORMAL, gText_PermadeathGameOver, 0, 1, 0, 0);
+        gTasks[taskId].data[0]++;
+        break;
+    case 1:
+        if (JOY_NEW(A_BUTTON | B_BUTTON))
+        {
+            DestroyTask(taskId);
+            SetMainCallback2(CB2_FadeAndDoReset);
+        }
+        break;
+    }
 }
 
 static void Task_DoClearSaveDataScreenYesNo(u8 taskId)

@@ -1,4 +1,5 @@
 #include "global.h"
+#include "permadeath.h"
 #include "malloc.h"
 #include "battle.h"
 #include "battle_tower.h"
@@ -3477,7 +3478,7 @@ bool8 IsDestinationBoxFull(void)
     box = StorageGetCurrentBox();
     do
     {
-        for (i = 0; i < IN_BOX_COUNT; i++)
+        for (i = 0; i < IN_BOX_COUNT && !IsGraveyardBox(box); i++)
         {
             if (GetBoxMonData(GetBoxedMonPtr(box, i), MON_DATA_SPECIES, 0) == SPECIES_NONE)
             {

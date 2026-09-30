@@ -1,4 +1,5 @@
 #include "global.h"
+#include "permadeath.h"
 #include "malloc.h"
 #include "apprentice.h"
 #include "battle.h"
@@ -4483,7 +4484,7 @@ static u8 CopyMonToPC(struct Pokemon *mon)
 
     do
     {
-        for (boxPos = 0; boxPos < IN_BOX_COUNT; boxPos++)
+        for (boxPos = 0; boxPos < IN_BOX_COUNT && !IsGraveyardBox(boxNo); boxPos++)
         {
             struct BoxPokemon *checkingMon = GetBoxedMonPtr(boxNo, boxPos);
             if (GetBoxMonData(checkingMon, MON_DATA_SPECIES, NULL) == SPECIES_NONE)
@@ -4650,7 +4651,7 @@ bool8 IsPokemonStorageFull(void)
 {
     s32 i, j;
 
-    for (i = 0; i < TOTAL_BOXES_COUNT; i++)
+    for (i = 0; i < FIRST_GRAVEYARD_BOX; i++)
         for (j = 0; j < IN_BOX_COUNT; j++)
             if (GetBoxMonDataAt(i, j, MON_DATA_SPECIES) == SPECIES_NONE)
                 return FALSE;

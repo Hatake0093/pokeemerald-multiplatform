@@ -1,4 +1,5 @@
 #include "global.h"
+#include "permadeath.h"
 #include "overworld.h"
 #include "battle_pyramid.h"
 #include "battle_setup.h"
@@ -1556,6 +1557,12 @@ void CB2_WhiteOut(void)
         FieldClearVBlankHBlankCallbacks();
         StopMapMusic();
         ResetSafariZoneFlag_();
+        if (IsPermadeathOn() && IsPartyWiped())
+        {
+            gMain.state = 0;
+            SetMainCallback2(CB2_InitPermadeathGameOver);
+            return;
+        }
         DoWhiteOut();
         ResetInitialPlayerAvatarState();
         ScriptContext_Init();
@@ -1705,6 +1712,8 @@ static void FieldCB_FadeTryShowMapPopup(void)
 void CB2_ContinueSavedGame(void)
 {
     u8 trainerHillMapId;
+
+    InitGraveyardBoxNames();
 
     FieldClearVBlankHBlankCallbacks();
     StopMapMusic();

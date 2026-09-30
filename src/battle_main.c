@@ -1,4 +1,5 @@
 #include "global.h"
+#include "permadeath.h"
 #include "battle.h"
 #include "battle_anim.h"
 #include "battle_ai_script_commands.h"
@@ -5229,6 +5230,7 @@ static void ReturnFromBattleToOverworld(void)
     gSpecialVar_Result = gBattleOutcome;
     gMain.inBattle = FALSE;
     gMain.callback1 = gPreBattleCallback1;
+    SendFaintedMonsToGraveyardAfterBattle();
 
     if (gBattleTypeFlags & BATTLE_TYPE_ROAMER)
     {

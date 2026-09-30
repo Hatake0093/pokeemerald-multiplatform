@@ -1,4 +1,5 @@
 #include "global.h"
+#include "permadeath.h"
 #include "battle.h"
 #include "battle_pike.h"
 #include "battle_pyramid.h"
@@ -86,6 +87,7 @@ static void Task_TryFieldPoisonWhiteOut(u8 taskId)
             tState--;
         break;
     case 2:
+        SendFaintedMonsToGraveyard();
         if (AllMonsFainted())
         {
             // Battle facilities have their own white out script to handle the challenge loss

@@ -1,4 +1,5 @@
 #include "global.h"
+#include "permadeath.h"
 #include "malloc.h"
 #include "bg.h"
 #include "data.h"
@@ -1745,6 +1746,7 @@ void ResetPokemonStorageSystem(void)
     for (boxId = 0; boxId < TOTAL_BOXES_COUNT; boxId++)
         SetBoxWallpaper(boxId, boxId % (MAX_DEFAULT_WALLPAPER + 1));
 
+    InitGraveyardBoxNames();
     ResetWaldaWallpaper();
 }
 
@@ -6400,7 +6402,7 @@ static void SetShiftedMonData(u8 boxId, u8 position)
 static bool8 TryStorePartyMonInBox(u8 boxId)
 {
     s16 boxPosition = GetFirstFreeBoxSpot(boxId);
-    if (boxPosition == -1)
+    if (IsGraveyardBox(boxId) || boxPosition == -1)
         return FALSE;
 
     if (sIsMonBeingMoved)
@@ -7091,7 +7093,7 @@ static u8 InBoxInput_Normal(void)
 
         if ((JOY_NEW(A_BUTTON)) && SetSelectionMenuTexts())
         {
-            if (!sAutoActionOn)
+            if (!sAutoActionOn || IsGraveyardBox(StorageGetCurrentBox()))
                 return INPUT_IN_MENU;
 
             if (sStorage->boxOption != OPTION_MOVE_MONS || sIsMonBeingMoved == TRUE)
@@ -7621,6 +7623,16 @@ static u8 SetSelectionMenuTexts(void)
 static bool8 SetMenuTexts_Mon(void)
 {
     u16 species = GetSpeciesAtCursorPosition();
+
+    // Graveyard boxes are read-only: only the summary can be opened
+    if (sCursorArea == CURSOR_AREA_IN_BOX && IsGraveyardBox(StorageGetCurrentBox()))
+    {
+        if (species == SPECIES_NONE || sIsMonBeingMoved)
+            return FALSE;
+        SetMenuText(MENU_SUMMARY);
+        SetMenuText(MENU_CANCEL);
+        return TRUE;
+    }
 
     switch (sStorage->boxOption)
     {
@@ -8609,6 +8621,9 @@ static bool8 MultiMove_CanPlaceSelection(void)
     s32 rowCount = sMultiMove->minRow + sMultiMove->rowsTotal;
     u8 monArrayId = 0;
 
+    if (IsGraveyardBox(StorageGetCurrentBox()))
+        return FALSE;
+
     for (i = sMultiMove->minRow; i < rowCount; i++)
     {
         u8 boxPosition = (IN_BOX_COLUMNS * i) + sMultiMove->minColumn;
@@ -9573,7 +9588,7 @@ bool8 CheckFreePokemonStorageSpace(void)
 {
     s32 i, j;
 
-    for (i = 0; i < TOTAL_BOXES_COUNT; i++)
+    for (i = 0; i < FIRST_GRAVEYARD_BOX; i++)
     {
         for (j = 0; j < IN_BOX_COUNT; j++)
         {

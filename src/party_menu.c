@@ -1,4 +1,5 @@
 #include "global.h"
+#include "permadeath.h"
 #include "malloc.h"
 #include "battle.h"
 #include "battle_anim.h"
@@ -4405,6 +4406,19 @@ void ItemUseCB_Medicine(u8 taskId, TaskFunc task)
     struct Pokemon *mon = &gPlayerParty[gPartyMenu.slotId];
     u16 item = gSpecialVar_ItemId;
     bool8 canHeal, cannotUse;
+
+    if (IsPermadeathOn() && GetMonData(mon, MON_DATA_HP) == 0 && ITEM_HAS_EFFECT(item) && item != ITEM_ENIGMA_BERRY && (gItemEffectTable[item - ITEM_POTION][4] & ITEM4_REVIVE))
+    {
+        // Permadeath: the Revive is used up but the Pokemon stays fainted
+        gPartyMenuUseExitCallback = TRUE;
+        PlaySE(SE_USE_ITEM);
+        if (gPartyMenu.action != PARTY_ACTION_REUSABLE_ITEM)
+            RemoveBagItem(item, 1);
+        DisplayPartyMenuMessage(gText_WontHaveEffect, TRUE);
+        ScheduleBgCopyTilemapToVram(2);
+        gTasks[taskId].func = task;
+        return;
+    }
 
     if (NotUsingHPEVItemOnShedinja(mon, item) == FALSE)
     {
