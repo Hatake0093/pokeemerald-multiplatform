@@ -183,11 +183,13 @@ Route120_EventScript_StevenBattleKecleon::
 	closemessage
 	applywaitmovement LOCALID_BRIDGE_KECLEON, Common_Movement_WalkInPlaceFasterRight
 	applywaitmovement LOCALID_BRIDGE_KECLEON, Movement_KecleonAppears
+	setvar VAR_0x8004, 0
+	setvar VAR_0x8005, 30
+	special SetFixedEncounterWildMon
 	waitse
-	playmoncry SPECIES_KECLEON, CRY_MODE_ENCOUNTER
+	playmoncry VAR_0x8006, CRY_MODE_ENCOUNTER
 	delay 40
 	waitmoncry
-	setwildbattle SPECIES_KECLEON, 30
 	setvar VAR_0x8009, 0
 	setflag FLAG_SYS_CTRL_OBJ_DELETE
 	dowildbattle

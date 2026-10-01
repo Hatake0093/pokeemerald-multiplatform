@@ -61,15 +61,17 @@ EventScript_AskUseDevonScope::
 	end
 
 EventScript_BattleKecleon::
+	copyvar VAR_0x8004, VAR_0x8009
+	setvar VAR_0x8005, 30
+	special SetFixedEncounterWildMon
 	msgbox Kecleon_Text_UseDevonScopeMonAttacked, MSGBOX_DEFAULT
 	closemessage
 	applywaitmovement VAR_LAST_TALKED, Common_Movement_FacePlayer
 	applywaitmovement VAR_LAST_TALKED, Movement_KecleonAppears
 	waitse
-	playmoncry SPECIES_KECLEON, CRY_MODE_ENCOUNTER
+	playmoncry VAR_0x8006, CRY_MODE_ENCOUNTER
 	delay 40
 	waitmoncry
-	setwildbattle SPECIES_KECLEON, 30
 	setflag FLAG_SYS_CTRL_OBJ_DELETE
 	dowildbattle
 	clearflag FLAG_SYS_CTRL_OBJ_DELETE

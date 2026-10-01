@@ -542,3 +542,4 @@ gSpecials::
 	def_special TrySetBattleTowerLinkType
 	def_special BufferLeadMonFriendship
 	def_special BufferLeadMonIVsEVs
+	def_special SetFixedEncounterWildMon

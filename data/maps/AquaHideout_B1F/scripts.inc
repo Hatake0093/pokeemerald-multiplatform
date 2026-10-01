@@ -29,9 +29,11 @@ AquaHideout_B1F_EventScript_ShowElectrode2::
 AquaHideout_B1F_EventScript_Electrode1::
 	lock
 	faceplayer
-	setwildbattle SPECIES_VOLTORB, 30
+	setvar VAR_0x8004, 11
+	setvar VAR_0x8005, 30
+	special SetFixedEncounterWildMon
 	waitse
-	playmoncry SPECIES_VOLTORB, CRY_MODE_ENCOUNTER
+	playmoncry VAR_0x8006, CRY_MODE_ENCOUNTER
 	delay 40
 	waitmoncry
 	setflag FLAG_SYS_CTRL_OBJ_DELETE
@@ -53,9 +55,11 @@ AquaHideout_B1F_EventScript_DefeatedElectrode1::
 AquaHideout_B1F_EventScript_Electrode2::
 	lock
 	faceplayer
-	setwildbattle SPECIES_VOLTORB, 30
+	setvar VAR_0x8004, 12
+	setvar VAR_0x8005, 30
+	special SetFixedEncounterWildMon
 	waitse
-	playmoncry SPECIES_VOLTORB, CRY_MODE_ENCOUNTER
+	playmoncry VAR_0x8006, CRY_MODE_ENCOUNTER
 	delay 40
 	waitmoncry
 	setflag FLAG_SYS_CTRL_OBJ_DELETE

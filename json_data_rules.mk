@@ -34,6 +34,26 @@ endif
 
 $(C_BUILDDIR)/wild_encounter.o: c_dep += $(DATA_SRC_SUBDIR)/wild_encounters.h
 
+# The species of the fixed wild encounters (Kecleon, Voltorb) come from the same seed
+# The header has to exist before the dependency scan of fixed_encounters.c, so on the first
+# build it is made here, in the current mode; the rule below keeps it up to date afterwards.
+FIXED_ENCOUNTERS_H := $(DATA_SRC_SUBDIR)/fixed_encounters.h
+ifeq ($(MAKELEVEL),0)
+ifeq ($(RANDOM_WILD),1)
+$(shell [ -f $(FIXED_ENCOUNTERS_H) ] || perl tools/randomize_wild.pl $(DATA_SRC_SUBDIR)/wild_encounters.json $(BUILD_DIR)/wild_encounters_fixed_tmp.json $(WILD_SEED) $(FIXED_ENCOUNTERS_H))
+else
+$(shell [ -f $(FIXED_ENCOUNTERS_H) ] || perl tools/randomize_wild.pl --vanilla $(FIXED_ENCOUNTERS_H))
+endif
+endif
+$(DATA_SRC_SUBDIR)/fixed_encounters.h: $(DATA_SRC_SUBDIR)/wild_encounters.json $(WILD_CONFIG) tools/randomize_wild.pl
+ifeq ($(RANDOM_WILD),1)
+	perl tools/randomize_wild.pl $< $(BUILD_DIR)/wild_encounters_fixed_tmp.json $(WILD_SEED) $@
+else
+	perl tools/randomize_wild.pl --vanilla $@
+endif
+
+$(C_BUILDDIR)/fixed_encounters.o: c_dep += $(DATA_SRC_SUBDIR)/fixed_encounters.h
+
 AUTO_GEN_TARGETS += include/constants/wild_encounter.h
 include/constants/wild_encounter.h: $(DATA_SRC_SUBDIR)/wild_encounters.json $(DATA_SRC_SUBDIR)/wild_encounters.constants.json.txt
 	$(JSONPROC) $^ $@
