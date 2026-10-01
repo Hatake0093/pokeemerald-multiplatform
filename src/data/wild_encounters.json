@@ -1602,7 +1602,7 @@
               {
                 "min_level": 22,
                 "max_level": 22,
-                "species": "SPECIES_ELECTRIKE"
+                "species": "SPECIES_KECLEON"
               }
             ]
           },
@@ -3297,7 +3297,7 @@
               {
                 "min_level": 21,
                 "max_level": 21,
-                "species": "SPECIES_ELEKID"
+                "species": "SPECIES_VOLTORB"
               },
               {
                 "min_level": 21,
@@ -3307,7 +3307,7 @@
               {
                 "min_level": 22,
                 "max_level": 22,
-                "species": "SPECIES_MAGNEMITE"
+                "species": "SPECIES_VOLTORB"
               },
               {
                 "min_level": 22,
@@ -3327,7 +3327,7 @@
               {
                 "min_level": 23,
                 "max_level": 23,
-                "species": "SPECIES_ELEKID"
+                "species": "SPECIES_VOLTORB"
               },
               {
                 "min_level": 23,
@@ -3337,7 +3337,7 @@
               {
                 "min_level": 19,
                 "max_level": 19,
-                "species": "SPECIES_MAGNEMITE"
+                "species": "SPECIES_VOLTORB"
               },
               {
                 "min_level": 19,
@@ -3347,7 +3347,7 @@
               {
                 "min_level": 23,
                 "max_level": 23,
-                "species": "SPECIES_PORYGON"
+                "species": "SPECIES_VOLTORB"
               },
               {
                 "min_level": 23,
@@ -3419,9 +3419,9 @@
                 "species": "SPECIES_BULBASAUR"
               },
               {
-                "min_level": 24,
-                "max_level": 24,
-                "species": "SPECIES_TANGELA"
+                "min_level": 22,
+                "max_level": 22,
+                "species": "SPECIES_KECLEON"
               }
             ]
           },
@@ -3570,7 +3570,7 @@
               {
                 "min_level": 22,
                 "max_level": 22,
-                "species": "SPECIES_TOGEPI"
+                "species": "SPECIES_KECLEON"
               },
               {
                 "min_level": 22,
@@ -3727,9 +3727,9 @@
                 "species": "SPECIES_WINGULL"
               },
               {
-                "min_level": 25,
-                "max_level": 25,
-                "species": "SPECIES_MR_MIME"
+                "min_level": 22,
+                "max_level": 22,
+                "species": "SPECIES_KECLEON"
               }
             ]
           },
@@ -3970,9 +3970,9 @@
                 "species": "SPECIES_SNORLAX"
               },
               {
-                "min_level": 23,
-                "max_level": 23,
-                "species": "SPECIES_LICKITUNG"
+                "min_level": 22,
+                "max_level": 22,
+                "species": "SPECIES_KECLEON"
               }
             ]
           },
@@ -6823,7 +6823,7 @@
               {
                 "min_level": 21,
                 "max_level": 21,
-                "species": "SPECIES_ELEKID"
+                "species": "SPECIES_VOLTORB"
               },
               {
                 "min_level": 21,
@@ -6833,7 +6833,7 @@
               {
                 "min_level": 22,
                 "max_level": 22,
-                "species": "SPECIES_MAGNEMITE"
+                "species": "SPECIES_VOLTORB"
               },
               {
                 "min_level": 22,
@@ -6853,7 +6853,7 @@
               {
                 "min_level": 23,
                 "max_level": 23,
-                "species": "SPECIES_ELEKID"
+                "species": "SPECIES_VOLTORB"
               },
               {
                 "min_level": 23,
@@ -6863,7 +6863,7 @@
               {
                 "min_level": 19,
                 "max_level": 19,
-                "species": "SPECIES_MAGNEMITE"
+                "species": "SPECIES_VOLTORB"
               },
               {
                 "min_level": 19,
@@ -6873,7 +6873,7 @@
               {
                 "min_level": 19,
                 "max_level": 19,
-                "species": "SPECIES_PORYGON"
+                "species": "SPECIES_VOLTORB"
               },
               {
                 "min_level": 19,
