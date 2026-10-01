@@ -184,7 +184,7 @@ Route120_EventScript_StevenBattleKecleon::
 	applywaitmovement LOCALID_BRIDGE_KECLEON, Common_Movement_WalkInPlaceFasterRight
 	applywaitmovement LOCALID_BRIDGE_KECLEON, Movement_KecleonAppears
 	setvar VAR_0x8004, 0
-	setvar VAR_0x8005, 30
+	setvar VAR_0x8005, 15
 	special SetFixedEncounterWildMon
 	waitse
 	playmoncry VAR_0x8006, CRY_MODE_ENCOUNTER

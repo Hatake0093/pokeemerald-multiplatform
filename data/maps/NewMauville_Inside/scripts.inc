@@ -177,7 +177,7 @@ NewMauville_Inside_EventScript_Voltorb1::
 	lock
 	faceplayer
 	setvar VAR_0x8004, 8
-	setvar VAR_0x8005, 25
+	setvar VAR_0x8005, 15
 	special SetFixedEncounterWildMon
 	waitse
 	playmoncry VAR_0x8006, CRY_MODE_ENCOUNTER
@@ -203,7 +203,7 @@ NewMauville_Inside_EventScript_Voltorb2::
 	lock
 	faceplayer
 	setvar VAR_0x8004, 9
-	setvar VAR_0x8005, 25
+	setvar VAR_0x8005, 15
 	special SetFixedEncounterWildMon
 	waitse
 	playmoncry VAR_0x8006, CRY_MODE_ENCOUNTER
@@ -229,7 +229,7 @@ NewMauville_Inside_EventScript_Voltorb3::
 	lock
 	faceplayer
 	setvar VAR_0x8004, 10
-	setvar VAR_0x8005, 25
+	setvar VAR_0x8005, 15
 	special SetFixedEncounterWildMon
 	waitse
 	playmoncry VAR_0x8006, CRY_MODE_ENCOUNTER

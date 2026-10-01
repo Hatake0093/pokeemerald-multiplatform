@@ -62,7 +62,7 @@ EventScript_AskUseDevonScope::
 
 EventScript_BattleKecleon::
 	copyvar VAR_0x8004, VAR_0x8009
-	setvar VAR_0x8005, 30
+	setvar VAR_0x8005, 15
 	special SetFixedEncounterWildMon
 	msgbox Kecleon_Text_UseDevonScopeMonAttacked, MSGBOX_DEFAULT
 	closemessage

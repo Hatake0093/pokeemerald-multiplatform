@@ -30,7 +30,7 @@ AquaHideout_B1F_EventScript_Electrode1::
 	lock
 	faceplayer
 	setvar VAR_0x8004, 11
-	setvar VAR_0x8005, 30
+	setvar VAR_0x8005, 15
 	special SetFixedEncounterWildMon
 	waitse
 	playmoncry VAR_0x8006, CRY_MODE_ENCOUNTER
@@ -56,7 +56,7 @@ AquaHideout_B1F_EventScript_Electrode2::
 	lock
 	faceplayer
 	setvar VAR_0x8004, 12
-	setvar VAR_0x8005, 30
+	setvar VAR_0x8005, 15
 	special SetFixedEncounterWildMon
 	waitse
 	playmoncry VAR_0x8006, CRY_MODE_ENCOUNTER
