@@ -848,7 +848,7 @@
               {
                 "min_level": 18,
                 "max_level": 18,
-                "species": "SPECIES_SANDSHREW"
+                "species": "SPECIES_TORCHIC"
               },
               {
                 "min_level": 18,
@@ -1042,7 +1042,7 @@
               {
                 "min_level": 15,
                 "max_level": 15,
-                "species": "SPECIES_NUMEL"
+                "species": "SPECIES_TORCHIC"
               },
               {
                 "min_level": 15,
@@ -3396,7 +3396,7 @@
               {
                 "min_level": 24,
                 "max_level": 24,
-                "species": "SPECIES_ODDISH"
+                "species": "SPECIES_TREECKO"
               },
               {
                 "min_level": 21,
@@ -3550,7 +3550,7 @@
               {
                 "min_level": 24,
                 "max_level": 24,
-                "species": "SPECIES_ODDISH"
+                "species": "SPECIES_TREECKO"
               },
               {
                 "min_level": 24,
