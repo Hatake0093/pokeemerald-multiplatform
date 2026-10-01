@@ -40,7 +40,7 @@ $(C_BUILDDIR)/wild_encounter.o: c_dep += $(DATA_SRC_SUBDIR)/wild_encounters.h
 FIXED_ENCOUNTERS_H := $(DATA_SRC_SUBDIR)/fixed_encounters.h
 ifeq ($(MAKELEVEL),0)
 ifeq ($(RANDOM_WILD),1)
-$(shell [ -f $(FIXED_ENCOUNTERS_H) ] || perl tools/randomize_wild.pl $(DATA_SRC_SUBDIR)/wild_encounters.json $(BUILD_DIR)/wild_encounters_fixed_tmp.json $(WILD_SEED) $(FIXED_ENCOUNTERS_H))
+$(shell [ -f $(FIXED_ENCOUNTERS_H) ] || perl tools/randomize_wild.pl $(DATA_SRC_SUBDIR)/wild_encounters.json $(BUILD_DIR)/wild_encounters_fixed_tmp.json $(WILD_SEED) $(FIXED_ENCOUNTERS_H) > /dev/null)
 else
 $(shell [ -f $(FIXED_ENCOUNTERS_H) ] || perl tools/randomize_wild.pl --vanilla $(FIXED_ENCOUNTERS_H))
 endif
