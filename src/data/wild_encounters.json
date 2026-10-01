@@ -182,13 +182,13 @@
               },
               {
                 "min_level": 9,
-                "max_level": 19,
-                "species": "SPECIES_AZURILL"
+                "max_level": 9,
+                "species": "SPECIES_SQUIRTLE"
               },
               {
                 "min_level": 27,
-                "max_level": 32,
-                "species": "SPECIES_AZURILL"
+                "max_level": 27,
+                "species": "SPECIES_TOTODILE"
               },
               {
                 "min_level": 4,
@@ -471,7 +471,7 @@
               {
                 "min_level": 3,
                 "max_level": 3,
-                "species": "SPECIES_SQUIRTLE"
+                "species": "SPECIES_WURMPLE"
               },
               {
                 "min_level": 4,
@@ -887,13 +887,13 @@
               },
               {
                 "min_level": 9,
-                "max_level": 19,
-                "species": "SPECIES_AZURILL"
+                "max_level": 9,
+                "species": "SPECIES_MUDKIP"
               },
               {
                 "min_level": 27,
-                "max_level": 32,
-                "species": "SPECIES_AZURILL"
+                "max_level": 27,
+                "species": "SPECIES_SQUIRTLE"
               },
               {
                 "min_level": 4,
@@ -1209,13 +1209,13 @@
               },
               {
                 "min_level": 9,
-                "max_level": 19,
-                "species": "SPECIES_AZURILL"
+                "max_level": 9,
+                "species": "SPECIES_TOTODILE"
               },
               {
                 "min_level": 27,
-                "max_level": 32,
-                "species": "SPECIES_AZURILL"
+                "max_level": 27,
+                "species": "SPECIES_MUDKIP"
               },
               {
                 "min_level": 4,
@@ -1462,13 +1462,13 @@
               },
               {
                 "min_level": 9,
-                "max_level": 19,
-                "species": "SPECIES_AZURILL"
+                "max_level": 9,
+                "species": "SPECIES_SQUIRTLE"
               },
               {
                 "min_level": 27,
-                "max_level": 32,
-                "species": "SPECIES_AZURILL"
+                "max_level": 27,
+                "species": "SPECIES_TOTODILE"
               },
               {
                 "min_level": 4,
@@ -3589,13 +3589,13 @@
               },
               {
                 "min_level": 9,
-                "max_level": 19,
-                "species": "SPECIES_AZURILL"
+                "max_level": 9,
+                "species": "SPECIES_MUDKIP"
               },
               {
                 "min_level": 27,
-                "max_level": 32,
-                "species": "SPECIES_AZURILL"
+                "max_level": 27,
+                "species": "SPECIES_SQUIRTLE"
               },
               {
                 "min_level": 4,
