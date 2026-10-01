@@ -2748,7 +2748,7 @@
               {
                 "min_level": 18,
                 "max_level": 18,
-                "species": "SPECIES_SPOINK"
+                "species": "SPECIES_SUDOWOODO"
               },
               {
                 "min_level": 19,
@@ -2758,7 +2758,7 @@
               {
                 "min_level": 19,
                 "max_level": 19,
-                "species": "SPECIES_NUMEL"
+                "species": "SPECIES_SUDOWOODO"
               },
               {
                 "min_level": 19,
@@ -9206,7 +9206,7 @@
               {
                 "min_level": 33,
                 "max_level": 33,
-                "species": "SPECIES_SHUPPET"
+                "species": "SPECIES_UNOWN"
               },
               {
                 "min_level": 34,
@@ -9364,7 +9364,7 @@
               {
                 "min_level": 33,
                 "max_level": 33,
-                "species": "SPECIES_SHUPPET"
+                "species": "SPECIES_UNOWN"
               },
               {
                 "min_level": 34,
@@ -9433,7 +9433,7 @@
               {
                 "min_level": 33,
                 "max_level": 33,
-                "species": "SPECIES_SHUPPET"
+                "species": "SPECIES_UNOWN"
               },
               {
                 "min_level": 34,
