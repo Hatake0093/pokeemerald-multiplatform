@@ -704,7 +704,7 @@
               {
                 "min_level": 11,
                 "max_level": 11,
-                "species": "SPECIES_WINGULL"
+                "species": "SPECIES_CHIKORITA"
               },
               {
                 "min_level": 11,
@@ -1032,7 +1032,7 @@
               {
                 "min_level": 15,
                 "max_level": 15,
-                "species": "SPECIES_NUMEL"
+                "species": "SPECIES_CYNDAQUIL"
               },
               {
                 "min_level": 15,
@@ -1111,7 +1111,7 @@
               {
                 "min_level": 15,
                 "max_level": 15,
-                "species": "SPECIES_SPINDA"
+                "species": "SPECIES_CYNDAQUIL"
               },
               {
                 "min_level": 15,
@@ -1423,7 +1423,7 @@
               {
                 "min_level": 12,
                 "max_level": 12,
-                "species": "SPECIES_ILLUMISE"
+                "species": "SPECIES_CHIKORITA"
               },
               {
                 "min_level": 12,
