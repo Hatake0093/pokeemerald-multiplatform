@@ -18,6 +18,9 @@ die "usage: $0 <in.json> <out.json> [seed]\n" unless defined $out;
 $seed = int(rand(2**31)) unless defined $seed && $seed ne '';
 srand($seed);
 
+# Species that are obtained some other way (gift, egg) and must never be in the pool
+my %excluded = map { $_ => 1 } qw(SPECIES_CASTFORM SPECIES_WYNAUT);
+
 # Slots with an encounter rate of 10% or more, by index in their table
 my %commonSlots = (
     land_mons       => [0 .. 5],   # 20 20 10 10 10 10
@@ -44,7 +47,7 @@ for my $i (0 .. $#lines) {
         push @{$tables{$type}}, $table;
     }
     if ($lines[$i] =~ /"species":\s*"(\w+)"/) {
-        push @{$species{$type}}, $1 unless $seen{$type}{$1}++;
+        push @{$species{$type}}, $1 unless $excluded{$1} || $seen{$type}{$1}++;
         push @{$table->{slots}}, { line => $i, species => undef };
     }
 }
