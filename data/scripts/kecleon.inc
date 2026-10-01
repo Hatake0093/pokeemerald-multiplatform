@@ -56,7 +56,33 @@ EventScript_Kecleon::
 
 EventScript_AskUseDevonScope::
 	msgbox Kecleon_Text_WantToUseDevonScope, MSGBOX_YESNO
-	goto_if_eq VAR_RESULT, YES, EventScript_BattleKecleon
+	goto_if_eq VAR_RESULT, YES, EventScript_DevonScopeYes
+	release
+	end
+
+@ Jazz: the Route 119 hidden Pokemon number 6 is a Beldum, every other hidden one is gone
+EventScript_DevonScopeYes::
+	goto_if_eq VAR_0x8009, 6, EventScript_BattleBeldum
+	goto EventScript_BattleKecleon
+	end
+
+EventScript_BattleBeldum::
+	msgbox Kecleon_Text_UseDevonScopeMonAttacked, MSGBOX_DEFAULT
+	closemessage
+	applywaitmovement VAR_LAST_TALKED, Common_Movement_FacePlayer
+	applywaitmovement VAR_LAST_TALKED, Movement_KecleonAppears
+	waitse
+	playmoncry SPECIES_BELDUM, CRY_MODE_ENCOUNTER
+	delay 40
+	waitmoncry
+	setwildbattle SPECIES_BELDUM, 30
+	setflag FLAG_SYS_CTRL_OBJ_DELETE
+	dowildbattle
+	clearflag FLAG_SYS_CTRL_OBJ_DELETE
+	specialvar VAR_RESULT, GetBattleOutcome
+	goto_if_eq VAR_RESULT, B_OUTCOME_WON, EventScript_RemoveKecleon
+	goto_if_eq VAR_RESULT, B_OUTCOME_RAN, EventScript_RemoveKecleon
+	goto_if_eq VAR_RESULT, B_OUTCOME_PLAYER_TELEPORTED, EventScript_RemoveKecleon
 	release
 	end
 
