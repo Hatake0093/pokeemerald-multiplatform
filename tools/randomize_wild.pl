@@ -19,7 +19,7 @@ $seed = int(rand(2**31)) unless defined $seed && $seed ne '';
 srand($seed);
 
 # Species that are obtained some other way (gift, egg) and must never be in the pool
-my %excluded = map { $_ => 1 } qw(SPECIES_CASTFORM SPECIES_WYNAUT);
+my %excluded = map { $_ => 1 } qw(SPECIES_CASTFORM SPECIES_WYNAUT SPECIES_KECLEON SPECIES_VOLTORB);
 
 # Slots with an encounter rate of 10% or more, by index in their table
 my %commonSlots = (
