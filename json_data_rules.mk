@@ -27,6 +27,7 @@ endif
 $(DATA_SRC_SUBDIR)/wild_encounters.h: $(DATA_SRC_SUBDIR)/wild_encounters.json $(DATA_SRC_SUBDIR)/wild_encounters.json.txt $(WILD_CONFIG) tools/randomize_wild.pl
 ifeq ($(RANDOM_WILD),1)
 	perl tools/randomize_wild.pl $< $(BUILD_DIR)/wild_encounters_random.json $(WILD_SEED)
+	@echo "$$(date '+%Y-%m-%d %H:%M:%S') seed $(WILD_SEED)" >> random_builds.log
 	$(JSONPROC) $(BUILD_DIR)/wild_encounters_random.json $(DATA_SRC_SUBDIR)/wild_encounters.json.txt $@
 else
 	$(JSONPROC) $(DATA_SRC_SUBDIR)/wild_encounters.json $(DATA_SRC_SUBDIR)/wild_encounters.json.txt $@
