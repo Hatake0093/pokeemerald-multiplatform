@@ -202,6 +202,23 @@ static u32 CB2_HandleCallExitInput(struct Pokenav_MatchCallMenu *state)
     return POKENAV_MC_FUNC_NONE;
 }
 
+// Jazz: the contacts are ordered by the place where they are, towns first and then the routes
+// in numeric order (the order of the map sections). Insertion sort keeps entries from the same
+// place in their original order.
+static void SortMatchCallEntriesByLocation(struct Pokenav_MatchCallMenu *state)
+{
+    int i, j;
+
+    for (i = 1; i < state->numRegistered; i++)
+    {
+        struct PokenavMatchCallEntry entry = state->matchCallEntries[i];
+
+        for (j = i - 1; j >= 0 && state->matchCallEntries[j].mapSec > entry.mapSec; j--)
+            state->matchCallEntries[j + 1] = state->matchCallEntries[j];
+        state->matchCallEntries[j + 1] = entry;
+    }
+}
+
 static u32 LoopedTask_BuildMatchCallList(s32 taskState)
 {
     int i, j;
@@ -251,6 +268,7 @@ static u32 LoopedTask_BuildMatchCallList(s32 taskState)
 
         return LT_CONTINUE;
     case 3:
+        SortMatchCallEntriesByLocation(state);
         state->initFinished = TRUE;
         break;
     }
