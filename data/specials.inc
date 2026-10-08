@@ -543,3 +543,4 @@ gSpecials::
 	def_special BufferLeadMonFriendship
 	def_special BufferLeadMonIVsEVs
 	def_special SetFixedEncounterWildMon
+	def_special BuyPokeblock

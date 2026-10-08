@@ -762,6 +762,16 @@ static const struct MenuAction MultichoiceList_FallarborTentRules[] =
     {gText_Exit},
 };
 
+static const struct MenuAction MultichoiceList_PokeblockShop[] =
+{
+    {gText_RedPokeblock},
+    {gText_BluePokeblock},
+    {gText_PinkPokeblock},
+    {gText_GreenPokeblock},
+    {gText_YellowPokeblock},
+    {gText_Exit},
+};
+
 static const struct MenuAction MultichoiceList_TagMatchType[] =
 {
     {gText_NormalTagMatch},
@@ -898,6 +908,7 @@ static const struct MultichoiceListStruct sMultichoiceLists[] =
     [MULTI_SLATEPORT_TENT_RULES]       = MULTICHOICE(MultichoiceList_SlateportTentRules),
     [MULTI_FALLARBOR_TENT_RULES]       = MULTICHOICE(MultichoiceList_FallarborTentRules),
     [MULTI_TAG_MATCH_TYPE]             = MULTICHOICE(MultichoiceList_TagMatchType),
+    [MULTI_POKEBLOCK_SHOP]             = MULTICHOICE(MultichoiceList_PokeblockShop),
 };
 
 const u8 *const gStdStrings[] =

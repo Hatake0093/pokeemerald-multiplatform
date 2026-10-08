@@ -15,101 +15,92 @@ LilycoveCity_DepartmentStore_5F_EventScript_BlockRoofStairs::
 	turnobject LOCALID_DEPARTMENT_STORE_STAIRS_WOMAN, DIR_NORTH
 	end
 
+@ Jazz: the four decoration clerks are POKEBLOCK vendors
 LilycoveCity_DepartmentStore_5F_EventScript_ClerkFarLeft::
-	lock
-	faceplayer
-	message gText_HowMayIServeYou
-	waitmessage
-	pokemartdecoration2 LilycoveCity_DepartmentStore_5F_Pokemart_Dolls
-	msgbox gText_PleaseComeAgain, MSGBOX_DEFAULT
-	release
+	goto LilycoveCity_DepartmentStore_5F_EventScript_PokeblockClerk
 	end
-
-	.align 2
-LilycoveCity_DepartmentStore_5F_Pokemart_Dolls:
-	.2byte DECOR_PICHU_DOLL
-	.2byte DECOR_PIKACHU_DOLL
-	.2byte DECOR_MARILL_DOLL
-	.2byte DECOR_JIGGLYPUFF_DOLL
-	.2byte DECOR_DUSKULL_DOLL
-	.2byte DECOR_WYNAUT_DOLL
-	.2byte DECOR_BALTOY_DOLL
-	.2byte DECOR_KECLEON_DOLL
-	.2byte DECOR_AZURILL_DOLL
-	.2byte DECOR_SKITTY_DOLL
-	.2byte DECOR_SWABLU_DOLL
-	.2byte DECOR_GULPIN_DOLL
-	pokemartlistend
 
 LilycoveCity_DepartmentStore_5F_EventScript_ClerkMidLeft::
-	lock
-	faceplayer
-	message gText_HowMayIServeYou
-	waitmessage
-	pokemartdecoration2 LilycoveCity_DepartmentStore_5F_Pokemart_Cushions
-	msgbox gText_PleaseComeAgain, MSGBOX_DEFAULT
-	release
+	goto LilycoveCity_DepartmentStore_5F_EventScript_PokeblockClerk
 	end
-
-	.align 2
-LilycoveCity_DepartmentStore_5F_Pokemart_Cushions:
-	.2byte DECOR_PIKA_CUSHION
-	.2byte DECOR_ROUND_CUSHION
-	.2byte DECOR_ZIGZAG_CUSHION
-	.2byte DECOR_SPIN_CUSHION
-	.2byte DECOR_DIAMOND_CUSHION
-	.2byte DECOR_BALL_CUSHION
-	.2byte DECOR_GRASS_CUSHION
-	.2byte DECOR_FIRE_CUSHION
-	.2byte DECOR_WATER_CUSHION
-	pokemartlistend
 
 LilycoveCity_DepartmentStore_5F_EventScript_ClerkMidRight::
-	lock
-	faceplayer
-	message gText_HowMayIServeYou
-	waitmessage
-	pokemartdecoration2 LilycoveCity_DepartmentStore_5F_Pokemart_Posters
-	msgbox gText_PleaseComeAgain, MSGBOX_DEFAULT
-	release
+	goto LilycoveCity_DepartmentStore_5F_EventScript_PokeblockClerk
 	end
-
-	.align 2
-LilycoveCity_DepartmentStore_5F_Pokemart_Posters:
-	.2byte DECOR_BALL_POSTER
-	.2byte DECOR_GREEN_POSTER
-	.2byte DECOR_RED_POSTER
-	.2byte DECOR_BLUE_POSTER
-	.2byte DECOR_CUTE_POSTER
-	.2byte DECOR_PIKA_POSTER
-	.2byte DECOR_LONG_POSTER
-	.2byte DECOR_SEA_POSTER
-	.2byte DECOR_SKY_POSTER
-	pokemartlistend
 
 LilycoveCity_DepartmentStore_5F_EventScript_ClerkFarRight::
+	goto LilycoveCity_DepartmentStore_5F_EventScript_PokeblockClerk
+	end
+
+LilycoveCity_DepartmentStore_5F_EventScript_PokeblockClerk::
 	lock
 	faceplayer
-	message gText_HowMayIServeYou
+	checkitem ITEM_POKEBLOCK_CASE
+	goto_if_eq VAR_RESULT, FALSE, LilycoveCity_DepartmentStore_5F_EventScript_NoPokeblockCase
+	message LilycoveCity_DepartmentStore_5F_Text_PokeblocksForSale
 	waitmessage
-	pokemartdecoration2 LilycoveCity_DepartmentStore_5F_Pokemart_Mats
+	showmoneybox 0, 0
+	goto LilycoveCity_DepartmentStore_5F_EventScript_PokeblockMenu
+	end
+
+LilycoveCity_DepartmentStore_5F_EventScript_PokeblockMenu::
+	multichoice 17, 0, MULTI_POKEBLOCK_SHOP, FALSE
+	switch VAR_RESULT
+	case 0, LilycoveCity_DepartmentStore_5F_EventScript_BuyPokeblock
+	case 1, LilycoveCity_DepartmentStore_5F_EventScript_BuyPokeblock
+	case 2, LilycoveCity_DepartmentStore_5F_EventScript_BuyPokeblock
+	case 3, LilycoveCity_DepartmentStore_5F_EventScript_BuyPokeblock
+	case 4, LilycoveCity_DepartmentStore_5F_EventScript_BuyPokeblock
+	hidemoneybox
 	msgbox gText_PleaseComeAgain, MSGBOX_DEFAULT
 	release
 	end
 
-	.align 2
-LilycoveCity_DepartmentStore_5F_Pokemart_Mats:
-	.2byte DECOR_SURF_MAT
-	.2byte DECOR_THUNDER_MAT
-	.2byte DECOR_FIRE_BLAST_MAT
-	.2byte DECOR_POWDER_SNOW_MAT
-	.2byte DECOR_ATTRACT_MAT
-	.2byte DECOR_FISSURE_MAT
-	.2byte DECOR_SPIKES_MAT
-	.2byte DECOR_GLITTER_MAT
-	.2byte DECOR_JUMP_MAT
-	.2byte DECOR_SPIN_MAT
-	pokemartlistend
+LilycoveCity_DepartmentStore_5F_EventScript_BuyPokeblock::
+	copyvar VAR_0x8004, VAR_0x8000
+	special BuyPokeblock
+	switch VAR_RESULT
+	case 1, LilycoveCity_DepartmentStore_5F_EventScript_NotEnoughMoneyForPokeblock
+	case 2, LilycoveCity_DepartmentStore_5F_EventScript_NoRoomForPokeblock
+	playse SE_SHOP
+	updatemoneybox
+	msgbox LilycoveCity_DepartmentStore_5F_Text_ThankYouPokeblock, MSGBOX_DEFAULT
+	goto LilycoveCity_DepartmentStore_5F_EventScript_PokeblockMenu
+	end
+
+LilycoveCity_DepartmentStore_5F_EventScript_NotEnoughMoneyForPokeblock::
+	msgbox LilycoveCity_DepartmentStore_5F_Text_NotEnoughMoney, MSGBOX_DEFAULT
+	goto LilycoveCity_DepartmentStore_5F_EventScript_PokeblockMenu
+	end
+
+LilycoveCity_DepartmentStore_5F_EventScript_NoRoomForPokeblock::
+	msgbox LilycoveCity_DepartmentStore_5F_Text_NoRoomInCase, MSGBOX_DEFAULT
+	goto LilycoveCity_DepartmentStore_5F_EventScript_PokeblockMenu
+	end
+
+LilycoveCity_DepartmentStore_5F_EventScript_NoPokeblockCase::
+	msgbox LilycoveCity_DepartmentStore_5F_Text_NeedPokeblockCase, MSGBOX_DEFAULT
+	release
+	end
+
+LilycoveCity_DepartmentStore_5F_Text_PokeblocksForSale:
+	.string "Welcome!\n"
+	.string "{POKEBLOCK}S are ¥500 each.\p"
+	.string "Which one would you like?$"
+
+LilycoveCity_DepartmentStore_5F_Text_ThankYouPokeblock:
+	.string "Thank you!\n"
+	.string "Anything else?$"
+
+LilycoveCity_DepartmentStore_5F_Text_NotEnoughMoney:
+	.string "You don't have enough money.$"
+
+LilycoveCity_DepartmentStore_5F_Text_NoRoomInCase:
+	.string "Your {POKEBLOCK} CASE is full.$"
+
+LilycoveCity_DepartmentStore_5F_Text_NeedPokeblockCase:
+	.string "You need a {POKEBLOCK} CASE to carry\n"
+	.string "{POKEBLOCK}S.$"
 
 LilycoveCity_DepartmentStore_5F_EventScript_PokefanF::
 	msgbox LilycoveCity_DepartmentStore_5F_Text_PlaceFullOfCuteDolls, MSGBOX_NPC
