@@ -525,7 +525,9 @@ struct SaveBlock2
              u16 optionsMoveColorsOff:1; // Jazz: color battle moves by type effectiveness
              u16 optionsRiskWarningOff:1; // Jazz: warn when a known enemy move can KO
              u16 optionsPermadeath:1; // Jazz: fainted Pokemon go to the graveyard boxes
-             //u16 padding1:1;
+             u16 optionsZoneLimitOff:1; // Jazz: one catch per zone (Nuzlocke) switched off
+             u16 optionsLevelCapOff:1; // Jazz: badge level cap switched off
+             //u16 padding1:15;
              //u16 padding2;
     /*0x18*/ struct Pokedex pokedex;
     /*0x90*/ u8 filler_90[0x8];

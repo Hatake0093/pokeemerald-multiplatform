@@ -2939,7 +2939,7 @@ u8 GetCurrentLevelCap(void)
 {
     u32 i, badges = 0;
 
-    if (FlagGet(FLAG_SYS_GAME_CLEAR))
+    if (gSaveBlock2Ptr->optionsLevelCapOff || FlagGet(FLAG_SYS_GAME_CLEAR))
         return MAX_LEVEL;
 
     for (i = 0; i < NUM_BADGES; i++)

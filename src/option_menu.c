@@ -26,6 +26,8 @@
 #define tMoveColorsOff data[7]
 #define tRiskWarningOff data[8]
 #define tPermadeathOff data[9]
+#define tZoneLimitOff data[10]
+#define tLevelCapOff data[11]
 
 enum
 {
@@ -45,6 +47,8 @@ enum
     MENUITEM_JAZZ_MOVECOLORS,
     MENUITEM_JAZZ_RISKWARNING,
     MENUITEM_JAZZ_PERMADEATH,
+    MENUITEM_JAZZ_ZONELIMIT,
+    MENUITEM_JAZZ_LEVELCAP,
     MENUITEM_JAZZ_CANCEL,
     MENUITEM_JAZZ_COUNT,
 };
@@ -66,6 +70,8 @@ enum
 #define YPOS_MOVECOLORS   (MENUITEM_JAZZ_MOVECOLORS * 16)
 #define YPOS_RISKWARNING  (MENUITEM_JAZZ_RISKWARNING * 16)
 #define YPOS_PERMADEATH   (MENUITEM_JAZZ_PERMADEATH * 16)
+#define YPOS_ZONELIMIT    (MENUITEM_JAZZ_ZONELIMIT * 16)
+#define YPOS_LEVELCAP     (MENUITEM_JAZZ_LEVELCAP * 16)
 
 static void Task_OptionMenuFadeIn(u8 taskId);
 static void Task_OptionMenuProcessInput(u8 taskId);
@@ -115,6 +121,8 @@ static const u8 *const sOptionMenuItemsNamesPage2[MENUITEM_JAZZ_COUNT] =
     [MENUITEM_JAZZ_MOVECOLORS]  = gText_MoveColors,
     [MENUITEM_JAZZ_RISKWARNING] = gText_RiskWarning,
     [MENUITEM_JAZZ_PERMADEATH]  = gText_Permadeath,
+    [MENUITEM_JAZZ_ZONELIMIT]   = gText_ZoneLimit,
+    [MENUITEM_JAZZ_LEVELCAP]    = gText_LevelCap,
     [MENUITEM_JAZZ_CANCEL]     = gText_OptionMenuCancel,
 };
 
@@ -269,6 +277,8 @@ void CB2_InitOptionMenu(void)
         gTasks[taskId].tMoveColorsOff = gSaveBlock2Ptr->optionsMoveColorsOff;
         gTasks[taskId].tRiskWarningOff = gSaveBlock2Ptr->optionsRiskWarningOff;
         gTasks[taskId].tPermadeathOff = !gSaveBlock2Ptr->optionsPermadeath; // off by default
+        gTasks[taskId].tZoneLimitOff = gSaveBlock2Ptr->optionsZoneLimitOff;
+        gTasks[taskId].tLevelCapOff = gSaveBlock2Ptr->optionsLevelCapOff;
 
         DrawPageChoices(taskId);
 
@@ -353,6 +363,20 @@ static void Task_OptionMenuProcessInput(u8 taskId)
             if (previousOption != gTasks[taskId].tPermadeathOff)
                 OnOff_DrawChoices(gTasks[taskId].tPermadeathOff, YPOS_PERMADEATH);
             break;
+        case MENUITEM_JAZZ_ZONELIMIT:
+            previousOption = gTasks[taskId].tZoneLimitOff;
+            gTasks[taskId].tZoneLimitOff = OnOff_ProcessInput(gTasks[taskId].tZoneLimitOff);
+
+            if (previousOption != gTasks[taskId].tZoneLimitOff)
+                OnOff_DrawChoices(gTasks[taskId].tZoneLimitOff, YPOS_ZONELIMIT);
+            break;
+        case MENUITEM_JAZZ_LEVELCAP:
+            previousOption = gTasks[taskId].tLevelCapOff;
+            gTasks[taskId].tLevelCapOff = OnOff_ProcessInput(gTasks[taskId].tLevelCapOff);
+
+            if (previousOption != gTasks[taskId].tLevelCapOff)
+                OnOff_DrawChoices(gTasks[taskId].tLevelCapOff, YPOS_LEVELCAP);
+            break;
         default:
             return;
         }
@@ -434,6 +458,8 @@ static void Task_OptionMenuSave(u8 taskId)
     gSaveBlock2Ptr->optionsMoveColorsOff = gTasks[taskId].tMoveColorsOff;
     gSaveBlock2Ptr->optionsRiskWarningOff = gTasks[taskId].tRiskWarningOff;
     gSaveBlock2Ptr->optionsPermadeath = !gTasks[taskId].tPermadeathOff;
+    gSaveBlock2Ptr->optionsZoneLimitOff = gTasks[taskId].tZoneLimitOff;
+    gSaveBlock2Ptr->optionsLevelCapOff = gTasks[taskId].tLevelCapOff;
 
     BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 16, RGB_BLACK);
     gTasks[taskId].func = Task_OptionMenuFadeOut;
@@ -738,6 +764,8 @@ static void DrawPageChoices(u8 taskId)
         OnOff_DrawChoices(gTasks[taskId].tMoveColorsOff, YPOS_MOVECOLORS);
         OnOff_DrawChoices(gTasks[taskId].tRiskWarningOff, YPOS_RISKWARNING);
         OnOff_DrawChoices(gTasks[taskId].tPermadeathOff, YPOS_PERMADEATH);
+        OnOff_DrawChoices(gTasks[taskId].tZoneLimitOff, YPOS_ZONELIMIT);
+        OnOff_DrawChoices(gTasks[taskId].tLevelCapOff, YPOS_LEVELCAP);
     }
     HighlightOptionMenuItem(gTasks[taskId].tMenuSelection);
 }

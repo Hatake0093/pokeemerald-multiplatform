@@ -986,6 +986,8 @@ EWRAM_DATA bool8 gNuzlockeCatchBlocked = FALSE;
 // TRUE if the current map has wild Pokémon whose encounters are tracked per zone.
 static bool8 IsZoneEncounterTracked(void)
 {
+    if (gSaveBlock2Ptr->optionsZoneLimitOff)
+        return FALSE;
     if (GetZoneEncounterFlag(gMapHeader.regionMapSectionId) == 0 || !FlagGet(FLAG_ADVENTURE_STARTED))
         return FALSE;
     if (CurrentBattlePyramidLocation() != PYRAMID_LOCATION_NONE || InBattlePike())
