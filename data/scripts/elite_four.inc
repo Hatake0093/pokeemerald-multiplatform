@@ -58,3 +58,14 @@ PokemonLeague_EliteFour_EventScript_CloseDoor::
 	setmetatile 6, 13, METATILE_EliteFour_EntryDoor_ClosedBottom, TRUE
 	setmetatile 7, 13, METATILE_EliteFour_EntryDoor_ClosedBottom, TRUE
 	return
+
+@ Jazz: the whole team is fully healed right after beating an Elite Four member
+PokemonLeague_EliteFour_EventScript_HealTeam::
+	special HealPlayerParty
+	playfanfare MUS_HEAL
+	waitfanfare
+	msgbox PokemonLeague_EliteFour_Text_TeamHealed, MSGBOX_DEFAULT
+	return
+
+PokemonLeague_EliteFour_Text_TeamHealed:
+	.string "{PLAYER}'s POKéMON were fully healed!$"
