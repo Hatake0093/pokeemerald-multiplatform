@@ -101,7 +101,7 @@ VerdanturfTown_BattleTentLobby_EventScript_ResumeChallenge::
 	setvar VAR_TEMP_CHALLENGE_STATUS, 255
 	goto VerdanturfTown_BattleTentLobby_EventScript_EnterChallenge
 
-@ Jazz: the attendant is a training coach. Repeatable battle, a prize on every win.
+@ Jazz: the attendant is a training coach. Repeatable battle, no prize: it is only there to farm less.
 VerdanturfTown_BattleTentLobby_EventScript_Attendant::
 	lock
 	faceplayer
@@ -111,7 +111,6 @@ VerdanturfTown_BattleTentLobby_EventScript_Attendant::
 	trainerbattle_no_intro TRAINER_TENT_VERDANTURF, VerdanturfTown_BattleTentLobby_Text_TrainingDefeat
 	cleartrainerflag TRAINER_TENT_VERDANTURF
 	msgbox VerdanturfTown_BattleTentLobby_Text_TrainingReward, MSGBOX_DEFAULT
-	giveitem ITEM_NEST_BALL
 	release
 	end
 
@@ -131,7 +130,7 @@ VerdanturfTown_BattleTentLobby_Text_TrainingDefeat:
 	.string "Well fought!$"
 
 VerdanturfTown_BattleTentLobby_Text_TrainingReward:
-	.string "Here, take this for your training.$"
+	.string "Good training! Come back any time.$"
 
 VerdanturfTown_BattleTentLobby_Text_TrainingDeclined:
 	.string "Come back when you're ready.$"

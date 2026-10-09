@@ -87,7 +87,7 @@ SlateportCity_BattleTentLobby_EventScript_ResumeChallenge::
 	setvar VAR_0x8006, 2
 	goto SlateportCity_BattleTentLobby_EventScript_EnterChallenge
 
-@ Jazz: the attendant is a training coach. Repeatable battle, a prize on every win.
+@ Jazz: the attendant is a training coach. Repeatable battle, no prize: it is only there to farm less.
 SlateportCity_BattleTentLobby_EventScript_Attendant::
 	lock
 	faceplayer
@@ -97,7 +97,6 @@ SlateportCity_BattleTentLobby_EventScript_Attendant::
 	trainerbattle_no_intro TRAINER_TENT_SLATEPORT, SlateportCity_BattleTentLobby_Text_TrainingDefeat
 	cleartrainerflag TRAINER_TENT_SLATEPORT
 	msgbox SlateportCity_BattleTentLobby_Text_TrainingReward, MSGBOX_DEFAULT
-	giveitem ITEM_FULL_HEAL
 	release
 	end
 
@@ -117,7 +116,7 @@ SlateportCity_BattleTentLobby_Text_TrainingDefeat:
 	.string "Well fought!$"
 
 SlateportCity_BattleTentLobby_Text_TrainingReward:
-	.string "Here, take this for your training.$"
+	.string "Good training! Come back any time.$"
 
 SlateportCity_BattleTentLobby_Text_TrainingDeclined:
 	.string "Come back when you're ready.$"
