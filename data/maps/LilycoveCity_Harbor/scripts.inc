@@ -550,16 +550,13 @@ LilycoveCity_Harbor_Movement_SailorBoardWithBrineyEast:
 	step_end
 
 LilycoveCity_Harbor_Text_EventTicketsIntro:
-	.string "¡Ah, {PLAYER}! ¡Así que eres el nuevo
-"
+	.string "¡Ah, {PLAYER}! ¡Así que eres el nuevo\n"
 	.string "CAMPEÓN de la LIGA!\p"
-	.string "Para ti hay rutas especiales del ferry.
-"
+	.string "Para ti hay rutas especiales del ferry.\n"
 	.string "¡Toma estos billetes!$"
 
 LilycoveCity_Harbor_Text_EventTicketsBagFull:
-	.string "Tengo más billetes para ti, pero tu
-"
+	.string "Tengo más billetes para ti, pero tu\n"
 	.string "bolsa de OBJ. CLAVE está llena.\p"
 	.string "Guarda algo en el PC y vuelve.$"
 
