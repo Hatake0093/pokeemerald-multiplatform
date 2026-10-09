@@ -204,6 +204,7 @@ void NewGameInitData(void)
     WipeTrainerNameRecords();
     ResetTrainerHillResults();
     ResetContestLinkResults();
+    EnableNationalPokedex(); // Jazz: National Dex from the start
 }
 
 static void ResetMiniGamesRecords(void)
