@@ -772,6 +772,60 @@ static const struct MenuAction MultichoiceList_PokeblockShop[] =
     {gText_Exit},
 };
 
+static const struct MenuAction MultichoiceList_JazzTutor1[] =
+{
+    {gMoveNames[MOVE_FIRE_PUNCH]},
+    {gMoveNames[MOVE_ICE_PUNCH]},
+    {gMoveNames[MOVE_THUNDER_PUNCH]},
+    {gMoveNames[MOVE_DYNAMIC_PUNCH]},
+    {gText_Exit},
+};
+
+static const struct MenuAction MultichoiceList_JazzTutor2[] =
+{
+    {gMoveNames[MOVE_MEGA_PUNCH]},
+    {gMoveNames[MOVE_MEGA_KICK]},
+    {gMoveNames[MOVE_BODY_SLAM]},
+    {gMoveNames[MOVE_DOUBLE_EDGE]},
+    {gText_Exit},
+};
+
+static const struct MenuAction MultichoiceList_JazzTutor3[] =
+{
+    {gMoveNames[MOVE_SEISMIC_TOSS]},
+    {gMoveNames[MOVE_COUNTER]},
+    {gMoveNames[MOVE_ROCK_SLIDE]},
+    {gMoveNames[MOVE_SWIFT]},
+    {gText_Exit},
+};
+
+static const struct MenuAction MultichoiceList_JazzTutor4[] =
+{
+    {gMoveNames[MOVE_THUNDER_WAVE]},
+    {gMoveNames[MOVE_SWORDS_DANCE]},
+    {gMoveNames[MOVE_SUBSTITUTE]},
+    {gMoveNames[MOVE_ENDURE]},
+    {gText_Exit},
+};
+
+static const struct MenuAction MultichoiceList_JazzTutor5[] =
+{
+    {gMoveNames[MOVE_SOFT_BOILED]},
+    {gMoveNames[MOVE_DREAM_EATER]},
+    {gMoveNames[MOVE_PSYCH_UP]},
+    {gMoveNames[MOVE_SLEEP_TALK]},
+    {gText_Exit},
+};
+
+static const struct MenuAction MultichoiceList_JazzTutor6[] =
+{
+    {gMoveNames[MOVE_DEFENSE_CURL]},
+    {gMoveNames[MOVE_SNORE]},
+    {gMoveNames[MOVE_MUD_SLAP]},
+    {gMoveNames[MOVE_ICY_WIND]},
+    {gText_Exit},
+};
+
 static const struct MenuAction MultichoiceList_TagMatchType[] =
 {
     {gText_NormalTagMatch},
@@ -909,6 +963,12 @@ static const struct MultichoiceListStruct sMultichoiceLists[] =
     [MULTI_FALLARBOR_TENT_RULES]       = MULTICHOICE(MultichoiceList_FallarborTentRules),
     [MULTI_TAG_MATCH_TYPE]             = MULTICHOICE(MultichoiceList_TagMatchType),
     [MULTI_POKEBLOCK_SHOP]             = MULTICHOICE(MultichoiceList_PokeblockShop),
+    [MULTI_JAZZ_TUTOR_1]                 = MULTICHOICE(MultichoiceList_JazzTutor1),
+    [MULTI_JAZZ_TUTOR_2]                 = MULTICHOICE(MultichoiceList_JazzTutor2),
+    [MULTI_JAZZ_TUTOR_3]                 = MULTICHOICE(MultichoiceList_JazzTutor3),
+    [MULTI_JAZZ_TUTOR_4]                 = MULTICHOICE(MultichoiceList_JazzTutor4),
+    [MULTI_JAZZ_TUTOR_5]                 = MULTICHOICE(MultichoiceList_JazzTutor5),
+    [MULTI_JAZZ_TUTOR_6]                 = MULTICHOICE(MultichoiceList_JazzTutor6),
 };
 
 const u8 *const gStdStrings[] =

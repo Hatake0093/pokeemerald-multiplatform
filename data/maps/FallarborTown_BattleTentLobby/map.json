@@ -79,6 +79,32 @@
       "trainer_sight_or_berry_tree_id": "0",
       "script": "FallarborTown_BattleTentLobby_EventScript_Scott",
       "flag": "FLAG_HIDE_FALLARBOR_TOWN_BATTLE_TENT_SCOTT"
+    },
+    {
+      "graphics_id": "OBJ_EVENT_GFX_EXPERT_F",
+      "x": 3,
+      "y": 6,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "JazzTutor_FallarborTown_TutorA",
+      "flag": "0"
+    },
+    {
+      "graphics_id": "OBJ_EVENT_GFX_EXPERT_F",
+      "x": 9,
+      "y": 6,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "JazzTutor_FallarborTown_TutorB",
+      "flag": "0"
     }
   ],
   "warp_events": [

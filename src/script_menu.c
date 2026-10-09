@@ -1,4 +1,5 @@
 #include "global.h"
+#include "data.h"
 #include "main.h"
 #include "event_data.h"
 #include "field_effect.h"
@@ -15,6 +16,7 @@
 #include "text.h"
 #include "constants/field_specials.h"
 #include "constants/items.h"
+#include "constants/moves.h"
 #include "constants/script_menu.h"
 #include "constants/songs.h"
 

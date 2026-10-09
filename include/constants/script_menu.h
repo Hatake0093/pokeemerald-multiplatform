@@ -123,6 +123,12 @@
 #define MULTI_FALLARBOR_TENT_RULES         112
 #define MULTI_TAG_MATCH_TYPE               113
 #define MULTI_POKEBLOCK_SHOP               114
+#define MULTI_JAZZ_TUTOR_1                 115
+#define MULTI_JAZZ_TUTOR_2                 116
+#define MULTI_JAZZ_TUTOR_3                 117
+#define MULTI_JAZZ_TUTOR_4                 118
+#define MULTI_JAZZ_TUTOR_5                 119
+#define MULTI_JAZZ_TUTOR_6                 120
 
 // Lilycove SS Tidal Multichoice Selections
 #define SSTIDAL_SELECTION_SLATEPORT        0
