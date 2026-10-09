@@ -10,6 +10,7 @@ LilycoveCity_Harbor_EventScript_FerryAttendant::
 	lock
 	faceplayer
 	goto_if_unset FLAG_SYS_GAME_CLEAR, LilycoveCity_Harbor_EventScript_FerryUnavailable
+	call LilycoveCity_Harbor_EventScript_GiveEventTickets
 	call LilycoveCity_Harbor_EventScript_GetEonTicketState
 	call LilycoveCity_Harbor_EventScript_GetAuroraTicketState
 	call LilycoveCity_Harbor_EventScript_GetOldSeaMapState
@@ -95,6 +96,37 @@ LilycoveCity_Harbor_EventScript_GoToBattleFrontier::
 	waitstate
 	release
 	end
+
+LilycoveCity_Harbor_EventScript_GiveEventTickets::
+	goto_if_set FLAG_ENABLE_SHIP_SOUTHERN_ISLAND, LilycoveCity_Harbor_EventScript_GiveEventTicketsCheckBirth
+	checkitemspace ITEM_EON_TICKET
+	goto_if_eq VAR_RESULT, FALSE, LilycoveCity_Harbor_EventScript_EventTicketsBagFull
+	msgbox LilycoveCity_Harbor_Text_EventTicketsIntro, MSGBOX_DEFAULT
+	giveitem ITEM_EON_TICKET
+	setflag FLAG_ENABLE_SHIP_SOUTHERN_ISLAND
+LilycoveCity_Harbor_EventScript_GiveEventTicketsCheckBirth::
+	goto_if_set FLAG_ENABLE_SHIP_BIRTH_ISLAND, LilycoveCity_Harbor_EventScript_GiveEventTicketsCheckFaraway
+	checkitemspace ITEM_AURORA_TICKET
+	goto_if_eq VAR_RESULT, FALSE, LilycoveCity_Harbor_EventScript_EventTicketsBagFull
+	giveitem ITEM_AURORA_TICKET
+	setflag FLAG_ENABLE_SHIP_BIRTH_ISLAND
+LilycoveCity_Harbor_EventScript_GiveEventTicketsCheckFaraway::
+	goto_if_set FLAG_ENABLE_SHIP_FARAWAY_ISLAND, LilycoveCity_Harbor_EventScript_GiveEventTicketsCheckNavel
+	checkitemspace ITEM_OLD_SEA_MAP
+	goto_if_eq VAR_RESULT, FALSE, LilycoveCity_Harbor_EventScript_EventTicketsBagFull
+	giveitem ITEM_OLD_SEA_MAP
+	setflag FLAG_ENABLE_SHIP_FARAWAY_ISLAND
+LilycoveCity_Harbor_EventScript_GiveEventTicketsCheckNavel::
+	goto_if_set FLAG_ENABLE_SHIP_NAVEL_ROCK, Common_EventScript_NopReturn
+	checkitemspace ITEM_MYSTIC_TICKET
+	goto_if_eq VAR_RESULT, FALSE, LilycoveCity_Harbor_EventScript_EventTicketsBagFull
+	giveitem ITEM_MYSTIC_TICKET
+	setflag FLAG_ENABLE_SHIP_NAVEL_ROCK
+	return
+
+LilycoveCity_Harbor_EventScript_EventTicketsBagFull::
+	msgbox LilycoveCity_Harbor_Text_EventTicketsBagFull, MSGBOX_DEFAULT
+	return
 
 LilycoveCity_Harbor_EventScript_GetEonTicketState::
 	setvar VAR_TEMP_E, 0
@@ -516,6 +548,20 @@ LilycoveCity_Harbor_Movement_SailorBoardWithBrineyEast:
 	delay_16
 	set_invisible
 	step_end
+
+LilycoveCity_Harbor_Text_EventTicketsIntro:
+	.string "¡Ah, {PLAYER}! ¡Así que eres el nuevo
+"
+	.string "CAMPEÓN de la LIGA!\p"
+	.string "Para ti hay rutas especiales del ferry.
+"
+	.string "¡Toma estos billetes!$"
+
+LilycoveCity_Harbor_Text_EventTicketsBagFull:
+	.string "Tengo más billetes para ti, pero tu
+"
+	.string "bolsa de OBJ. CLAVE está llena.\p"
+	.string "Guarda algo en el PC y vuelve.$"
 
 LilycoveCity_Harbor_Text_FerryUnavailable:
 	.string "I beg your pardon?\n"
