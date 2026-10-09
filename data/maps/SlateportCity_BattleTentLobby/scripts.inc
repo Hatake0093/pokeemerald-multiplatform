@@ -87,13 +87,41 @@ SlateportCity_BattleTentLobby_EventScript_ResumeChallenge::
 	setvar VAR_0x8006, 2
 	goto SlateportCity_BattleTentLobby_EventScript_EnterChallenge
 
+@ Jazz: the attendant is a training coach. Repeatable battle, a prize on every win.
 SlateportCity_BattleTentLobby_EventScript_Attendant::
 	lock
 	faceplayer
-	slateporttent_getprize
-	goto_if_ne VAR_RESULT, ITEM_NONE, SlateportCity_BattleTentLobby_EventScript_GivePrize
-	special SavePlayerParty
-	msgbox SlateportCity_BattleTentLobby_Text_WelcomeToBattleTent, MSGBOX_DEFAULT
+	msgbox SlateportCity_BattleTentLobby_Text_TrainingIntro, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, SlateportCity_BattleTentLobby_EventScript_TrainingDeclined
+	msgbox SlateportCity_BattleTentLobby_Text_TrainingStart, MSGBOX_DEFAULT
+	trainerbattle_no_intro TRAINER_TENT_SLATEPORT, SlateportCity_BattleTentLobby_Text_TrainingDefeat
+	cleartrainerflag TRAINER_TENT_SLATEPORT
+	msgbox SlateportCity_BattleTentLobby_Text_TrainingReward, MSGBOX_DEFAULT
+	giveitem ITEM_FULL_HEAL
+	release
+	end
+
+SlateportCity_BattleTentLobby_EventScript_TrainingDeclined::
+	msgbox SlateportCity_BattleTentLobby_Text_TrainingDeclined, MSGBOX_DEFAULT
+	release
+	end
+
+SlateportCity_BattleTentLobby_Text_TrainingIntro:
+	.string "Welcome to the TRAINING TENT!\p"
+	.string "Would you like to train with me?$"
+
+SlateportCity_BattleTentLobby_Text_TrainingStart:
+	.string "Let's see what you've got!$"
+
+SlateportCity_BattleTentLobby_Text_TrainingDefeat:
+	.string "Well fought!$"
+
+SlateportCity_BattleTentLobby_Text_TrainingReward:
+	.string "Here, take this for your training.$"
+
+SlateportCity_BattleTentLobby_Text_TrainingDeclined:
+	.string "Come back when you're ready.$"
+
 SlateportCity_BattleTentLobby_EventScript_AskEnterChallenge::
 	message SlateportCity_BattleTentLobby_Text_TakeChallenge
 	waitmessage

@@ -100,13 +100,41 @@ FallarborTown_BattleTentLobby_EventScript_ResumeChallenge::
 	setvar VAR_TEMP_CHALLENGE_STATUS, 255
 	goto FallarborTown_BattleTentLobby_EventScript_EnterChallenge
 
+@ Jazz: the attendant is a training coach. Repeatable battle, a prize on every win.
 FallarborTown_BattleTentLobby_EventScript_Attendant::
 	lock
 	faceplayer
-	fallarbortent_getprize
-	goto_if_ne VAR_RESULT, ITEM_NONE, FallarborTown_BattleTentLobby_EventScript_PrizeWaiting
-	special SavePlayerParty
-	msgbox FallarborTown_BattleTentLobby_Text_WelcomeToBattleTent, MSGBOX_DEFAULT
+	msgbox FallarborTown_BattleTentLobby_Text_TrainingIntro, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, FallarborTown_BattleTentLobby_EventScript_TrainingDeclined
+	msgbox FallarborTown_BattleTentLobby_Text_TrainingStart, MSGBOX_DEFAULT
+	trainerbattle_no_intro TRAINER_TENT_FALLARBOR, FallarborTown_BattleTentLobby_Text_TrainingDefeat
+	cleartrainerflag TRAINER_TENT_FALLARBOR
+	msgbox FallarborTown_BattleTentLobby_Text_TrainingReward, MSGBOX_DEFAULT
+	giveitem ITEM_HYPER_POTION
+	release
+	end
+
+FallarborTown_BattleTentLobby_EventScript_TrainingDeclined::
+	msgbox FallarborTown_BattleTentLobby_Text_TrainingDeclined, MSGBOX_DEFAULT
+	release
+	end
+
+FallarborTown_BattleTentLobby_Text_TrainingIntro:
+	.string "Welcome to the TRAINING TENT!\p"
+	.string "Would you like to train with me?$"
+
+FallarborTown_BattleTentLobby_Text_TrainingStart:
+	.string "Let's see what you've got!$"
+
+FallarborTown_BattleTentLobby_Text_TrainingDefeat:
+	.string "Well fought!$"
+
+FallarborTown_BattleTentLobby_Text_TrainingReward:
+	.string "Here, take this for your training.$"
+
+FallarborTown_BattleTentLobby_Text_TrainingDeclined:
+	.string "Come back when you're ready.$"
+
 FallarborTown_BattleTentLobby_EventScript_AskEnterChallenge::
 	message FallarborTown_BattleTentLobby_Text_TakeChallenge
 	waitmessage

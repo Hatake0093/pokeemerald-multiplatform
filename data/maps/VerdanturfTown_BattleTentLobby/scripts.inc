@@ -101,13 +101,41 @@ VerdanturfTown_BattleTentLobby_EventScript_ResumeChallenge::
 	setvar VAR_TEMP_CHALLENGE_STATUS, 255
 	goto VerdanturfTown_BattleTentLobby_EventScript_EnterChallenge
 
+@ Jazz: the attendant is a training coach. Repeatable battle, a prize on every win.
 VerdanturfTown_BattleTentLobby_EventScript_Attendant::
 	lock
 	faceplayer
-	verdanturftent_getprize
-	goto_if_ne VAR_RESULT, ITEM_NONE, VerdanturfTown_BattleTentLobby_EventScript_PrizeWaiting
-	special SavePlayerParty
-	msgbox VerdanturfTown_BattleTentLobby_Text_WelcomeToBattleTent, MSGBOX_DEFAULT
+	msgbox VerdanturfTown_BattleTentLobby_Text_TrainingIntro, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, VerdanturfTown_BattleTentLobby_EventScript_TrainingDeclined
+	msgbox VerdanturfTown_BattleTentLobby_Text_TrainingStart, MSGBOX_DEFAULT
+	trainerbattle_no_intro TRAINER_TENT_VERDANTURF, VerdanturfTown_BattleTentLobby_Text_TrainingDefeat
+	cleartrainerflag TRAINER_TENT_VERDANTURF
+	msgbox VerdanturfTown_BattleTentLobby_Text_TrainingReward, MSGBOX_DEFAULT
+	giveitem ITEM_NEST_BALL
+	release
+	end
+
+VerdanturfTown_BattleTentLobby_EventScript_TrainingDeclined::
+	msgbox VerdanturfTown_BattleTentLobby_Text_TrainingDeclined, MSGBOX_DEFAULT
+	release
+	end
+
+VerdanturfTown_BattleTentLobby_Text_TrainingIntro:
+	.string "Welcome to the TRAINING TENT!\p"
+	.string "Would you like to train with me?$"
+
+VerdanturfTown_BattleTentLobby_Text_TrainingStart:
+	.string "Let's see what you've got!$"
+
+VerdanturfTown_BattleTentLobby_Text_TrainingDefeat:
+	.string "Well fought!$"
+
+VerdanturfTown_BattleTentLobby_Text_TrainingReward:
+	.string "Here, take this for your training.$"
+
+VerdanturfTown_BattleTentLobby_Text_TrainingDeclined:
+	.string "Come back when you're ready.$"
+
 VerdanturfTown_BattleTentLobby_EventScript_AskEnterChallenge::
 	message VerdanturfTown_BattleTentLobby_Text_TakeChallenge
 	waitmessage
