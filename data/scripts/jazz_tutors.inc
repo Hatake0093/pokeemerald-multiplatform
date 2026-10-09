@@ -255,9 +255,9 @@ JazzTutor_FallarborTown_TutorB::
 	end
 
 JazzTutor_FallarborTown_TutorB_Move0::
-	buffermovename STR_VAR_1, MOVE_DEFENSE_CURL
-	setvar VAR_0x8006, TUTOR_MOVE_DEFENSE_CURL
-	goto JazzTutor_Tier1600
+	buffermovename STR_VAR_1, MOVE_FALSE_SWIPE
+	setvar VAR_0x8006, TUTOR_MOVE_FALSE_SWIPE
+	goto JazzTutor_Tier2400
 	end
 
 JazzTutor_FallarborTown_TutorB_Move1::
