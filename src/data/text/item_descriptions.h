@@ -44,8 +44,8 @@ static const u8 sNestBallDesc[] = _(
 
 static const u8 sRepeatBallDesc[] = _(
     "A BALL that works\n"
-    "better on POKéMON\n"
-    "caught before.");
+    "well on PSYCHIC- and\n"
+    "GHOST-type POKéMON.");
 
 static const u8 sTimerBallDesc[] = _(
     "A BALL that gains\n"

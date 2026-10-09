@@ -9968,8 +9968,8 @@ static void Cmd_handleballthrow(void)
                     ballMultiplier = 10;
                 }
                 break;
-            case ITEM_REPEAT_BALL:
-                if (GetSetPokedexFlag(SpeciesToNationalPokedexNum(gBattleMons[gBattlerTarget].species), FLAG_GET_CAUGHT))
+            case ITEM_REPEAT_BALL: // Jazz: the Psychic Ball, x3 on Psychic and Ghost types
+                if (IS_BATTLER_OF_TYPE(gBattlerTarget, TYPE_PSYCHIC) || IS_BATTLER_OF_TYPE(gBattlerTarget, TYPE_GHOST))
                     ballMultiplier = 30;
                 else
                     ballMultiplier = 10;

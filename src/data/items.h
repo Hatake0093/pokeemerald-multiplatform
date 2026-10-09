@@ -119,7 +119,7 @@ const struct Item gItems[] =
 
     [ITEM_REPEAT_BALL] =
     {
-        .name = _("REPEAT BALL"),
+        .name = _("PSYCHIC BALL"),
         .itemId = ITEM_REPEAT_BALL,
         .price = 1000,
         .description = sRepeatBallDesc,
