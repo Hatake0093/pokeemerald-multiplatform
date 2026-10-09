@@ -59,7 +59,7 @@ void EnterSafariMode(void)
     SetSafariZoneFlag();
     ClearAllPokeblockFeeders();
     gNumSafariBalls = 30;
-    sSafariZoneStepCounter = 500;
+    sSafariZoneStepCounter = 1500; // Jazz: three times the original 500 steps
     sSafariZoneCaughtMons = 0;
     sSafariZonePkblkUses = 0;
 }
