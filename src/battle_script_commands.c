@@ -841,8 +841,8 @@ static const u8 sEnvironmentToType[] =
 // - ITEM_ULTRA_BALL skips Master Ball and ITEM_NONE
 static const u8 sBallCatchBonuses[] =
 {
-    [ITEM_ULTRA_BALL - ITEM_ULTRA_BALL]  = 20,
-    [ITEM_GREAT_BALL - ITEM_ULTRA_BALL]  = 15,
+    [ITEM_ULTRA_BALL - ITEM_ULTRA_BALL]  = 25,
+    [ITEM_GREAT_BALL - ITEM_ULTRA_BALL]  = 20,
     [ITEM_POKE_BALL - ITEM_ULTRA_BALL]   = 10,
     [ITEM_SAFARI_BALL - ITEM_ULTRA_BALL] = 15
 };
@@ -9946,7 +9946,7 @@ static void Cmd_handleballthrow(void)
             {
             case ITEM_NET_BALL:
                 if (IS_BATTLER_OF_TYPE(gBattlerTarget, TYPE_WATER) || IS_BATTLER_OF_TYPE(gBattlerTarget, TYPE_BUG))
-                    ballMultiplier = 30;
+                    ballMultiplier = 35;
                 else
                     ballMultiplier = 10;
                 break;
@@ -9968,9 +9968,9 @@ static void Cmd_handleballthrow(void)
                     ballMultiplier = 10;
                 }
                 break;
-            case ITEM_REPEAT_BALL: // Jazz: the Psychic Ball, x3 on Psychic and Ghost types
+            case ITEM_REPEAT_BALL: // Jazz: the Psychic Ball, x3.5 on Psychic and Ghost types
                 if (IS_BATTLER_OF_TYPE(gBattlerTarget, TYPE_PSYCHIC) || IS_BATTLER_OF_TYPE(gBattlerTarget, TYPE_GHOST))
-                    ballMultiplier = 30;
+                    ballMultiplier = 35;
                 else
                     ballMultiplier = 10;
                 break;
@@ -9984,7 +9984,7 @@ static void Cmd_handleballthrow(void)
                 ballMultiplier = 100; // Jazz: x10, it is a very rare ball
                 break;
             case ITEM_PREMIER_BALL:
-                ballMultiplier = 10;
+                ballMultiplier = 15; // Jazz: x1.5
                 break;
             }
         }
