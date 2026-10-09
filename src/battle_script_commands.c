@@ -3289,7 +3289,7 @@ static void Cmd_getexp(void)
         break;
     case 1: // calculate experience points to redistribute
         {
-            u16 calculatedExp;
+            u32 calculatedExp;
             s32 viaSentIn;
 
             for (viaSentIn = 0, i = 0; i < PARTY_SIZE; i++)
@@ -3311,6 +3311,12 @@ static void Cmd_getexp(void)
             }
 
             calculatedExp = gSpeciesInfo[gBattleMons[gBattlerFainted].species].expYield * gBattleMons[gBattlerFainted].level * 2 / 7; // 2x exp
+
+            // Jazz: wild Pokemon give x3 exp and trainer battles x5
+            if (gBattleTypeFlags & BATTLE_TYPE_TRAINER)
+                calculatedExp *= 5;
+            else
+                calculatedExp *= 3;
 
             if (viaExpShare) // at least one mon is getting exp via exp share
             {
