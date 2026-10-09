@@ -9975,9 +9975,10 @@ static void Cmd_handleballthrow(void)
                     ballMultiplier = 10;
                 break;
             case ITEM_TIMER_BALL:
-                ballMultiplier = gBattleResults.battleTurnCounter + 10;
-                if (ballMultiplier > 40)
-                    ballMultiplier = 40;
+                // Jazz: x1.0 on the first turn, +1/6 per turn, x6.0 from turn 30 on (in tenths)
+                ballMultiplier = 10 + gBattleResults.battleTurnCounter * 5 / 3;
+                if (ballMultiplier > 60)
+                    ballMultiplier = 60;
                 break;
             case ITEM_LUXURY_BALL:
             case ITEM_PREMIER_BALL:
