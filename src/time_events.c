@@ -39,16 +39,15 @@ void UpdateMirageRnd(u16 days)
     SetMirageRnd(rnd);
 }
 
+// Mirage Island shows up every Sunday once the player is Champion.
+// Day 0 of the RTC (2000-01-01) is a Saturday.
+#define MIRAGE_ISLAND_WEEKDAY 0 // 0 = Sunday ... 6 = Saturday
+
 bool8 IsMirageIslandPresent(void)
 {
-    u16 rnd = GetMirageRnd() >> 16;
-    int i;
-
-    for (i = 0; i < PARTY_SIZE; i++)
-        if (GetMonData(&gPlayerParty[i], MON_DATA_SPECIES) && (GetMonData(&gPlayerParty[i], MON_DATA_PERSONALITY) & 0xFFFF) == rnd)
-            return TRUE;
-
-    return FALSE;
+    if (!FlagGet(FLAG_SYS_GAME_CLEAR))
+        return FALSE;
+    return (gLocalTime.days + 6) % 7 == MIRAGE_ISLAND_WEEKDAY;
 }
 
 void UpdateShoalTideFlag(void)
