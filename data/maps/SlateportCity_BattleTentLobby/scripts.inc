@@ -106,20 +106,21 @@ SlateportCity_BattleTentLobby_EventScript_TrainingDeclined::
 	end
 
 SlateportCity_BattleTentLobby_Text_TrainingIntro:
-	.string "Welcome to the TRAINING TENT!\p"
-	.string "Would you like to train with me?$"
+	.string "¡Eh! ¿Te animas a\n"
+	.string "un entrenamiento?$"
 
 SlateportCity_BattleTentLobby_Text_TrainingStart:
-	.string "Let's see what you've got!$"
+	.string "¡Dame lo mejor que tengas!$"
 
 SlateportCity_BattleTentLobby_Text_TrainingDefeat:
-	.string "Well fought!$"
+	.string "¡Qué fuerza!$"
 
 SlateportCity_BattleTentLobby_Text_TrainingReward:
-	.string "Good training! Come back any time.$"
+	.string "¡Gran sesión!\n"
+	.string "Regresa pronto.$"
 
 SlateportCity_BattleTentLobby_Text_TrainingDeclined:
-	.string "Come back when you're ready.$"
+	.string "Otra vez será.$"
 
 SlateportCity_BattleTentLobby_EventScript_AskEnterChallenge::
 	message SlateportCity_BattleTentLobby_Text_TakeChallenge

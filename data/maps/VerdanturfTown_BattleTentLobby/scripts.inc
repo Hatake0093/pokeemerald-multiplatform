@@ -120,20 +120,21 @@ VerdanturfTown_BattleTentLobby_EventScript_TrainingDeclined::
 	end
 
 VerdanturfTown_BattleTentLobby_Text_TrainingIntro:
-	.string "Welcome to the TRAINING TENT!\p"
-	.string "Would you like to train with me?$"
+	.string "¿Quieres entrenar conmigo?$"
 
 VerdanturfTown_BattleTentLobby_Text_TrainingStart:
-	.string "Let's see what you've got!$"
+	.string "¡Vamos allá!$"
 
 VerdanturfTown_BattleTentLobby_Text_TrainingDefeat:
-	.string "Well fought!$"
+	.string "¡Buen combate!$"
 
 VerdanturfTown_BattleTentLobby_Text_TrainingReward:
-	.string "Good training! Come back any time.$"
+	.string "Buen trabajo.\n"
+	.string "Vuelve cuando quieras.$"
 
 VerdanturfTown_BattleTentLobby_Text_TrainingDeclined:
-	.string "Come back when you're ready.$"
+	.string "Está bien.\n"
+	.string "Aquí estaré.$"
 
 VerdanturfTown_BattleTentLobby_EventScript_AskEnterChallenge::
 	message VerdanturfTown_BattleTentLobby_Text_TakeChallenge

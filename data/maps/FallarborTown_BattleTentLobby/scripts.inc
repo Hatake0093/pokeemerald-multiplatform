@@ -119,20 +119,23 @@ FallarborTown_BattleTentLobby_EventScript_TrainingDeclined::
 	end
 
 FallarborTown_BattleTentLobby_Text_TrainingIntro:
-	.string "Welcome to the TRAINING TENT!\p"
-	.string "Would you like to train with me?$"
+	.string "El entrenamiento forja\n"
+	.string "campeones. ¿Empezamos?$"
 
 FallarborTown_BattleTentLobby_Text_TrainingStart:
-	.string "Let's see what you've got!$"
+	.string "No me contendré.$"
 
 FallarborTown_BattleTentLobby_Text_TrainingDefeat:
-	.string "Well fought!$"
+	.string "Has mejorado.\n"
+	.string "Sigue así.$"
 
 FallarborTown_BattleTentLobby_Text_TrainingReward:
-	.string "Good training! Come back any time.$"
+	.string "Descansa y vuelve\n"
+	.string "más fuerte.$"
 
 FallarborTown_BattleTentLobby_Text_TrainingDeclined:
-	.string "Come back when you're ready.$"
+	.string "Vuelve cuando\n"
+	.string "estés listo.$"
 
 FallarborTown_BattleTentLobby_EventScript_AskEnterChallenge::
 	message FallarborTown_BattleTentLobby_Text_TakeChallenge
