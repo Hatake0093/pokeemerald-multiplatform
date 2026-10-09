@@ -12439,32 +12439,32 @@ static const struct TrainerMonNoItemDefaultMoves sParty_MayLinkPlaceholder[] = {
 static const struct TrainerMonNoItemDefaultMoves sParty_TentVerdanturf[] = {
     {
     .iv = 200,
-    .lvl = 24,
+    .lvl = 25,
     .species = SPECIES_GYARADOS,
     },
     {
     .iv = 200,
-    .lvl = 24,
+    .lvl = 25,
     .species = SPECIES_HOUNDOOM,
     },
     {
     .iv = 200,
-    .lvl = 24,
+    .lvl = 25,
     .species = SPECIES_HARIYAMA,
     },
     {
     .iv = 200,
-    .lvl = 24,
+    .lvl = 25,
     .species = SPECIES_GRANBULL,
     },
     {
     .iv = 200,
-    .lvl = 24,
+    .lvl = 25,
     .species = SPECIES_GOLBAT,
     },
     {
     .iv = 200,
-    .lvl = 24,
+    .lvl = 25,
     .species = SPECIES_BRELOOM,
     },
 };
@@ -12472,32 +12472,32 @@ static const struct TrainerMonNoItemDefaultMoves sParty_TentVerdanturf[] = {
 static const struct TrainerMonNoItemDefaultMoves sParty_TentSlateport[] = {
     {
     .iv = 200,
-    .lvl = 31,
+    .lvl = 15,
     .species = SPECIES_FERALIGATR,
     },
     {
     .iv = 200,
-    .lvl = 31,
+    .lvl = 15,
     .species = SPECIES_GARDEVOIR,
     },
     {
     .iv = 200,
-    .lvl = 31,
+    .lvl = 15,
     .species = SPECIES_KINGLER,
     },
     {
     .iv = 200,
-    .lvl = 31,
+    .lvl = 15,
     .species = SPECIES_TENTACRUEL,
     },
     {
     .iv = 200,
-    .lvl = 31,
+    .lvl = 15,
     .species = SPECIES_SCIZOR,
     },
     {
     .iv = 200,
-    .lvl = 31,
+    .lvl = 15,
     .species = SPECIES_STEELIX,
     },
 };
