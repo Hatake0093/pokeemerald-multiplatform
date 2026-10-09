@@ -242,7 +242,8 @@ LittlerootTown_EventScript_FatMan::
 	end
 
 LittlerootTown_EventScript_Boy::
-	msgbox LittlerootTown_Text_BirchSpendsDaysInLab, MSGBOX_NPC
+	special BufferDayAndTime
+	msgbox LittlerootTown_Text_DayAndTime, MSGBOX_NPC
 	end
 
 LittlerootTown_EventScript_Twin::
@@ -904,6 +905,10 @@ LittlerootTown_Text_CanUsePCToStoreItems:
 	.string "y POKéMON.\p"
 	.string "¡El poder de la ciencia es\n"
 	.string "asombroso!$"
+
+LittlerootTown_Text_DayAndTime:
+	.string "Hoy es {STR_VAR_1}.\n"
+	.string "Son las {STR_VAR_2}.$"
 
 LittlerootTown_Text_BirchSpendsDaysInLab:
 	.string "El PROF. ABEDUL pasa días\n"

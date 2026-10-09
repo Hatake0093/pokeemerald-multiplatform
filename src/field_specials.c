@@ -4323,3 +4323,26 @@ u8 Script_TryGainNewFanFromCounter(void)
 {
     return TryGainNewFanFromCounter(gSpecialVar_0x8004);
 }
+
+// Jazz: buffers the weekday (STR_VAR_1) and the time as HH:MM (STR_VAR_2) of the clock
+void BufferDayAndTime(void)
+{
+    static const u8 sDayNames[][12] = {
+        _("domingo"),
+        _("lunes"),
+        _("martes"),
+        _("miércoles"),
+        _("jueves"),
+        _("viernes"),
+        _("sábado"),
+    };
+    u8 *str;
+
+    RtcCalcLocalTime();
+    // The day count starts on 2000-01-01, which was a Saturday
+    StringCopy(gStringVar1, sDayNames[(gLocalTime.days + 6) % 7]);
+    str = ConvertIntToDecimalStringN(gStringVar2, gLocalTime.hours, STR_CONV_MODE_LEADING_ZEROS, 2);
+    *str++ = CHAR_COLON;
+    str = ConvertIntToDecimalStringN(str, gLocalTime.minutes, STR_CONV_MODE_LEADING_ZEROS, 2);
+    *str = EOS;
+}
