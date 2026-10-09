@@ -982,7 +982,7 @@ static const u8 sText_StatSpAtk[] = _("SPA ");
 static const u8 sText_StatSpDef[] = _("   SPD ");
 static const u8 sText_StatSpeed[] = _("   SPE ");
 static const u8 sText_TotalEVs[] = _("Total: ");
-static const u8 sText_OutOf510[] = _(" out of 510");
+static const u8 sText_OutOf510[] = _(" sobre 510");
 
 // Writes the 6 values starting at firstData (an IV or EV field) as two lines, in summary screen order
 static u8 *BufferMonStatValues(u8 *dest, struct Pokemon *mon, u8 firstData)

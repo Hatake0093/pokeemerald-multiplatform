@@ -44,31 +44,29 @@ OldaleTown_PokemonCenter_1F_EventScript_WirelessClubAvailable::
 	end
 
 OldaleTown_PokemonCenter_1F_Text_FriendshipOfLeadMon:
-	.string "Let me have a look at your\n"
-	.string "{STR_VAR_1}…\p"
-	.string "Its friendship toward you is\n"
-	.string "{STR_VAR_2} out of 255.$"
+	.string "Déjame ver a {STR_VAR_1}…\p"
+	.string "Su amistad contigo es de\n"
+	.string "{STR_VAR_2} sobre 255.$"
 
 OldaleTown_PokemonCenter_1F_Text_IVsEVsOfLeadMon:
-	.string "Its individual values, out of 31:\p"
+	.string "Sus valores individuales, sobre 31:\p"
 	.string "{STR_VAR_2}\p"
-	.string "Its effort values, out of 255:\p"
+	.string "Sus valores de esfuerzo, sobre 255:\p"
 	.string "{STR_VAR_3}$"
 
 OldaleTown_PokemonCenter_1F_Text_PokemonCentersAreGreat:
-	.string "POKéMON CENTERS are great!\p"
-	.string "You can use their services as much\n"
-	.string "as you like, and it's all for free.\l"
-	.string "You never have to worry!$"
+	.string "¡Los CENTROS POKéMON son geniales!\p"
+	.string "Puedes usar sus servicios cuanto\n"
+	.string "quieras, ¡y todo es gratis!\l"
+	.string "¡Nunca hay de qué preocuparse!$"
 
 OldaleTown_PokemonCenter_1F_Text_WirelessClubNotAvailable:
-	.string "The POKéMON WIRELESS CLUB on\n"
-	.string "the second floor was built recently.\p"
-	.string "But they say they're still making\n"
-	.string "adjustments.$"
+	.string "El POKéMON WIRELESS CLUB del\n"
+	.string "segundo piso se construyó hace poco.\p"
+	.string "Pero dicen que aún hacen ajustes.$"
 
 OldaleTown_PokemonCenter_1F_Text_TradedInWirelessClub:
-	.string "The POKéMON WIRELESS CLUB on\n"
-	.string "the second floor was built recently.\p"
-	.string "I traded POKéMON right away.$"
+	.string "El POKéMON WIRELESS CLUB del\n"
+	.string "segundo piso se construyó hace poco.\p"
+	.string "Yo intercambié POKéMON enseguida.$"
 
