@@ -1,15 +1,25 @@
 #!/usr/bin/perl
 # Randomizes the species of the gWildMonHeaders group of wild_encounters.json.
-# Levels, slots and rates stay the same. For each encounter type
-# (land/water/rock_smash/fishing):
-#   1. the pool is the list of distinct species of that type, so a species that
-#      filled many slots originally (Zubat, Wingull...) is no more likely than any other;
-#   2. every species is first placed once in a common slot, so everything that was
-#      obtainable before still is, and not only in a 1% slot;
-#   3. the remaining slots are filled uniformly at random from the pool;
-#   4. a species never appears twice in the same table.
+# Levels, slots and rates stay the same. There are two independent pools:
 #
-# Usage: randomize_wild.pl <in.json> <out.json> [seed]
+#   terrestrial = grass (land_mons) + rock smash (rock_smash_mons)
+#   water       = surf (water_mons) + fishing (fishing_mons)
+#
+# A species is in the pool of the tables it appears in, so a species never goes from one pool
+# to the other (the data keeps the two pools disjoint).
+#
+# Terrestrial: land and rock smash tables share one pool.
+#   1. every species is first placed once in a common slot (rate >= 10%), so everything that
+#      was obtainable before still is, and not only in a 1% slot;
+#   2. the remaining slots are filled uniformly at random from the pool;
+#   3. a species never appears twice in the same table.
+#
+# Water: every route that has surf gets ONE list of 5 species, ordered from most to least common.
+#   surf uses all 5 (60/30/5/4/1), the old rod the first 2, the good rod the first 3 and the
+#   super rod all 5. Each species is first placed once in one of the two most common positions.
+#
+# Usage: randomize_wild.pl <in.json> <out.json> [seed] [fixed.h]
+#        randomize_wild.pl --vanilla <fixed.h>
 use strict;
 use warnings;
 
@@ -45,47 +55,16 @@ my %excluded = map { $_ => 1 } qw(SPECIES_CASTFORM SPECIES_WYNAUT);
 # Slots with an encounter rate of 10% or more, by index in their table
 my %commonSlots = (
     land_mons       => [0 .. 5],   # 20 20 10 10 10 10
-    water_mons      => [0 .. 1],   # 60 30
     rock_smash_mons => [0 .. 1],   # 60 30
-    fishing_mons    => [0 .. 7],   # old 70 30, good 60 20 20, super 40 40 15
 );
-
-open(my $fh, '<', $in) or die "$in: $!\n";
-my @lines = <$fh>;
-close($fh);
-
-# Collect every species line of the Hoenn group, grouped into tables by encounter type
-my (%species, %seen, %tables);
-my ($inGroup, $type, $table) = (0, '', undef);
-for my $i (0 .. $#lines) {
-    if ($lines[$i] =~ /"label":\s*"(\w+)"/) {
-        $inGroup = ($1 eq 'gWildMonHeaders');
-    }
-    next unless $inGroup;
-    if ($lines[$i] =~ /"(\w+_mons)":\s*\{/) {
-        $type = $1;
-        $table = { slots => [], has => {} };
-        push @{$tables{$type}}, $table;
-    }
-    if ($lines[$i] =~ /"species":\s*"(\w+)"/) {
-        push @{$species{$type}}, $1 unless $excluded{$1} || $seen{$type}{$1}++;
-        push @{$table->{slots}}, { line => $i, species => undef };
-    }
-}
-
-# The 13 fixed encounters take distinct species from the grass-only pool (so water, fishing and
-# rock smash keep theirs). Those species are removed from every pool: they can only be caught
-# in their fixed encounter.
-{
-    my %elsewhere;
-    $elsewhere{$_} = 1 for map { @{$species{$_}} } grep { $_ ne 'land_mons' } keys %species;
-    my @candidates = shuffle(grep { !$elsewhere{$_} } @{$species{land_mons}});
-    die "not enough grass-only species for the fixed encounters\n" if @candidates < @fixedNames;
-    my @fixed = @candidates[0 .. $#fixedNames];
-    my %isFixed = map { $_ => 1 } @fixed;
-    @{$species{land_mons}} = grep { !$isFixed{$_} } @{$species{land_mons}};
-    write_fixed_header($fixedOut, @fixed) if defined $fixedOut && $fixedOut ne '';
-}
+my %poolOf = (
+    land_mons       => 'terrestrial',
+    rock_smash_mons => 'terrestrial',
+    water_mons      => 'water',
+    fishing_mons    => 'water',
+);
+# Water list position used by each of the 10 fishing slots (old 2, good 3, super 5)
+my @fishingPosition = (0, 1,  0, 1, 2,  0, 1, 2, 3, 4);
 
 sub shuffle {
     my @list = @_;
@@ -96,39 +75,126 @@ sub shuffle {
     return @list;
 }
 
+open(my $fh, '<', $in) or die "$in: $!\n";
+my @lines = <$fh>;
+close($fh);
+
+# Collect every species line of the Hoenn group, grouped into tables
+my (%species, %seen, @terrestrialTables, %waterMaps);
+my ($inGroup, $type, $table, $map) = (0, '', undef, '');
+for my $i (0 .. $#lines) {
+    if ($lines[$i] =~ /"label":\s*"(\w+)"/) {
+        $inGroup = ($1 eq 'gWildMonHeaders');
+    }
+    next unless $inGroup;
+    $map = $1 if $lines[$i] =~ /"map":\s*"(\w+)"/;
+    if ($lines[$i] =~ /"(\w+_mons)":\s*\{/) {
+        $type = $1;
+        $table = { type => $type, slots => [], has => {} };
+        if ($poolOf{$type} eq 'terrestrial') {
+            push @terrestrialTables, $table;
+        } else {
+            $waterMaps{$map}{$type eq 'water_mons' ? 'surf' : 'fishing'} = $table;
+        }
+    }
+    if ($lines[$i] =~ /"species":\s*"(\w+)"/) {
+        my $pool = $poolOf{$type};
+        push @{$species{$pool}}, $1 unless $excluded{$1} || $seen{$pool}{$1}++;
+        push @{$table->{slots}}, { line => $i, species => undef };
+    }
+}
+
+# The pools must be disjoint: a species in both would be both a land and a water Pokemon
+for my $s (@{$species{water}}) {
+    die "$s is in the terrestrial and in the water pool\n" if $seen{terrestrial}{$s};
+}
+
 sub place {
     my ($table, $slot, $species) = @_;
     $slot->{species} = $species;
-    $table->{has}{$species} = 1;
+    $table->{has}{$species} = 1 if $table;
     $lines[$slot->{line}] =~ s/("species":\s*")\w+(")/$1$species$2/;
 }
 
-for my $t (sort keys %tables) {
-    my @pool = @{$species{$t}};
+# The 13 fixed encounters take distinct species from the terrestrial pool. Those species are
+# removed from the pool: they can only be caught in their fixed encounter.
+{
+    my @candidates = shuffle(@{$species{terrestrial}});
+    die "not enough species for the fixed encounters\n" if @candidates < @fixedNames;
+    my @fixed = @candidates[0 .. $#fixedNames];
+    my %isFixed = map { $_ => 1 } @fixed;
+    @{$species{terrestrial}} = grep { !$isFixed{$_} } @{$species{terrestrial}};
+    write_fixed_header($fixedOut, @fixed) if defined $fixedOut && $fixedOut ne '';
+}
 
-    # Step 2: each species once, in a common slot of a table that doesn't have it yet
+# ---- Terrestrial: land and rock smash tables share one pool
+{
+    my @pool = @{$species{terrestrial}};
     my @common;
-    for my $table (@{$tables{$t}}) {
-        for my $idx (@{$commonSlots{$t}}) {
-            push @common, [$table, $table->{slots}[$idx]] if $idx < @{$table->{slots}};
+    for my $t (@terrestrialTables) {
+        for my $idx (@{$commonSlots{$t->{type}}}) {
+            push @common, [$t, $t->{slots}[$idx]] if $idx < @{$t->{slots}};
         }
     }
     @common = shuffle(@common);
     for my $species (shuffle(@pool)) {
         my ($pick) = grep { !defined $_->[1]{species} && !$_->[0]{has}{$species} } @common;
-        die "$t: no common slot left for $species\n" unless $pick;
+        die "terrestrial: no common slot left for $species\n" unless $pick;
         place(@$pick, $species);
     }
 
-    # Steps 3 and 4: fill the rest uniformly, skipping species already in the table
     my @rest;
-    for my $table (@{$tables{$t}}) {
-        push @rest, map { [$table, $_] } grep { !defined $_->{species} } @{$table->{slots}};
+    for my $t (@terrestrialTables) {
+        push @rest, map { [$t, $_] } grep { !defined $_->{species} } @{$t->{slots}};
     }
     for my $pick (shuffle(@rest)) {
         my @choices = grep { !$pick->[0]{has}{$_} } @pool;
         @choices = @pool unless @choices;   # table bigger than the pool
         place(@$pick, $choices[int(rand(@choices))]);
+    }
+}
+
+# ---- Water: one list of 5 species per route, used by surf and fishing
+{
+    my @pool = @{$species{water}};
+    die "water: fewer than 5 species\n" if @pool < 5;
+    my @routes = sort keys %waterMaps;
+    my %list = map { $_ => { species => [undef, undef, undef, undef, undef], has => {} } } @routes;
+
+    # every species once in position 0 or 1 of a route that doesn't have it yet
+    my @common = shuffle(map { my $r = $_; ([$r, 0], [$r, 1]) } @routes);
+    for my $species (shuffle(@pool)) {
+        my ($pick) = grep { !defined $list{$_->[0]}{species}[$_->[1]] && !$list{$_->[0]}{has}{$species} } @common;
+        die "water: no common position left for $species\n" unless $pick;
+        $list{$pick->[0]}{species}[$pick->[1]] = $species;
+        $list{$pick->[0]}{has}{$species} = 1;
+    }
+
+    # the other positions: uniform, no repeats inside a route
+    my @rest;
+    for my $r (@routes) {
+        push @rest, map { [$r, $_] } grep { !defined $list{$r}{species}[$_] } 0 .. 4;
+    }
+    for my $pick (shuffle(@rest)) {
+        my $l = $list{$pick->[0]};
+        my @choices = grep { !$l->{has}{$_} } @pool;
+        my $s = $choices[int(rand(@choices))];
+        $l->{species}[$pick->[1]] = $s;
+        $l->{has}{$s} = 1;
+    }
+
+    # write the list into the surf slots and the fishing slots of every route
+    for my $r (@routes) {
+        my @s = @{$list{$r}{species}};
+        my $t = $waterMaps{$r};
+        if ($t->{surf}) {
+            die "$r: surf table without 5 slots\n" unless @{$t->{surf}{slots}} == 5;
+            place(undef, $t->{surf}{slots}[$_], $s[$_]) for 0 .. 4;
+        }
+        if ($t->{fishing}) {
+            die "$r: fishing table without 10 slots\n" unless @{$t->{fishing}{slots}} == 10;
+            place(undef, $t->{fishing}{slots}[$_], $s[$fishingPosition[$_]]) for 0 .. 9;
+        }
     }
 }
 
