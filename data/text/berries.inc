@@ -169,21 +169,12 @@ Route104_PrettyPetalFlowerShop_Text_FlowersBringHappiness:
 	.string "people, don't they?$"
 
 Route104_PrettyPetalFlowerShop_Text_YouCanHaveThis:
-	.string "Hello!\p"
-	.string "The more attention you give to flowers,\n"
-	.string "the more beautifully they bloom.\p"
-	.string "You'll like tending flowers. I'm sure\n"
-	.string "of it. You can have this.$"
+	.string "Te regalo esto: {STR_VAR_1}.\n"
+	.string "Sirve para regar las bayas.$"
 
 Route104_PrettyPetalFlowerShop_Text_WailmerPailExplanation:
-	.string "While BERRY plants are growing,\n"
-	.string "water them with the WAILMER PAIL.\p"
-	.string "Oh, another thing.\p"
-	.string "If you don't pick BERRIES for a while,\n"
-	.string "they'll drop off onto the ground.\l"
-	.string "But they'll sprout again.\p"
-	.string "Isn't that awesome?\n"
-	.string "It's like they have the will to live.$"
+	.string "El {STR_VAR_1} sirve para regar\n"
+	.string "las bayas.$"
 
 Route104_PrettyPetalFlowerShop_Text_ImGrowingFlowers:
 	.string "I'm trying to be like my big sisters.\n"
