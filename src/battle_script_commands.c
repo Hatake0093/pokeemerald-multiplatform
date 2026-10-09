@@ -9981,6 +9981,8 @@ static void Cmd_handleballthrow(void)
                     ballMultiplier = 60;
                 break;
             case ITEM_LUXURY_BALL:
+                ballMultiplier = 100; // Jazz: x10, it is a very rare ball
+                break;
             case ITEM_PREMIER_BALL:
                 ballMultiplier = 10;
                 break;
