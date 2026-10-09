@@ -373,9 +373,8 @@ PlayersHouse_1F_Text_TheresAMovieOnTV:
 PlayersHouse_1F_Text_RunningShoesManual:
 	.string "Es el manual de las ZAPATILLAS\n"
 	.string "DEPORTIVAS.\p"
-	.string "“Mantén B para correr con tus
-"
-	.string "ZAPATILLAS DEPORTIVAS.p"
+	.string "“Mantén B para correr con tus\n"
+	.string "ZAPATILLAS DEPORTIVAS.\p"
 	.string "¡Póntelas y sal a correr!”$"
 
 PlayersHouse_1F_Text_TicketFromBrineyCameForYou:
