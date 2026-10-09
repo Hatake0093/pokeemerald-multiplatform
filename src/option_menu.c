@@ -276,7 +276,7 @@ void CB2_InitOptionMenu(void)
         gTasks[taskId].tWindowFrameType = gSaveBlock2Ptr->optionsWindowFrameType;
         gTasks[taskId].tMoveColorsOff = gSaveBlock2Ptr->optionsMoveColorsOff;
         gTasks[taskId].tRiskWarningOff = gSaveBlock2Ptr->optionsRiskWarningOff;
-        gTasks[taskId].tPermadeathOff = !gSaveBlock2Ptr->optionsPermadeath; // off by default
+        gTasks[taskId].tPermadeathOff = !gSaveBlock2Ptr->optionsPermadeath; // on by default (see SetDefaultOptions)
         gTasks[taskId].tZoneLimitOff = gSaveBlock2Ptr->optionsZoneLimitOff;
         gTasks[taskId].tLevelCapOff = gSaveBlock2Ptr->optionsLevelCapOff;
 
