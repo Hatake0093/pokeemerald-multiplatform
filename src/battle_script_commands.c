@@ -3310,13 +3310,11 @@ static void Cmd_getexp(void)
                     viaExpShare++;
             }
 
-            calculatedExp = gSpeciesInfo[gBattleMons[gBattlerFainted].species].expYield * gBattleMons[gBattlerFainted].level * 2 / 7; // 2x exp
-
-            // Jazz: wild Pokemon give x3 exp and trainer battles x5
+            // Jazz: wild Pokemon give x5 exp and trainer battles x10 (the usual formula is expYield * level / 7)
             if (gBattleTypeFlags & BATTLE_TYPE_TRAINER)
-                calculatedExp *= 5;
+                calculatedExp = gSpeciesInfo[gBattleMons[gBattlerFainted].species].expYield * gBattleMons[gBattlerFainted].level * 10 / 7;
             else
-                calculatedExp *= 3;
+                calculatedExp = gSpeciesInfo[gBattleMons[gBattlerFainted].species].expYield * gBattleMons[gBattlerFainted].level * 5 / 7;
 
             if (viaExpShare) // at least one mon is getting exp via exp share
             {
@@ -3383,8 +3381,6 @@ static void Cmd_getexp(void)
                     if (holdEffect == HOLD_EFFECT_EXP_SHARE)
                         gBattleMoveDamage += gExpShareExp;
                     if (holdEffect == HOLD_EFFECT_LUCKY_EGG)
-                        gBattleMoveDamage = (gBattleMoveDamage * 150) / 100;
-                    if (gBattleTypeFlags & BATTLE_TYPE_TRAINER)
                         gBattleMoveDamage = (gBattleMoveDamage * 150) / 100;
 
                     if (IsTradedMon(&gPlayerParty[gBattleStruct->expGetterMonId]))
