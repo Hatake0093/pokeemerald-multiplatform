@@ -42,63 +42,63 @@
             "encounter_rate": 20,
             "mons": [
               {
-                "min_level": 6,
-                "max_level": 6,
+                "min_level": 5,
+                "max_level": 5,
                 "species": "SPECIES_WURMPLE"
               },
               {
-                "min_level": 6,
-                "max_level": 6,
+                "min_level": 5,
+                "max_level": 5,
                 "species": "SPECIES_POOCHYENA"
               },
               {
-                "min_level": 6,
-                "max_level": 6,
+                "min_level": 5,
+                "max_level": 5,
                 "species": "SPECIES_PIDGEY"
               },
               {
-                "min_level": 6,
-                "max_level": 6,
+                "min_level": 5,
+                "max_level": 5,
                 "species": "SPECIES_WURMPLE"
               },
               {
-                "min_level": 6,
-                "max_level": 6,
+                "min_level": 5,
+                "max_level": 5,
                 "species": "SPECIES_POOCHYENA"
               },
               {
-                "min_level": 6,
-                "max_level": 6,
+                "min_level": 5,
+                "max_level": 5,
                 "species": "SPECIES_SENTRET"
               },
               {
-                "min_level": 6,
-                "max_level": 6,
+                "min_level": 5,
+                "max_level": 5,
                 "species": "SPECIES_WURMPLE"
               },
               {
-                "min_level": 6,
-                "max_level": 6,
+                "min_level": 5,
+                "max_level": 5,
                 "species": "SPECIES_POOCHYENA"
               },
               {
-                "min_level": 6,
-                "max_level": 6,
+                "min_level": 5,
+                "max_level": 5,
                 "species": "SPECIES_ZIGZAGOON"
               },
               {
-                "min_level": 6,
-                "max_level": 6,
+                "min_level": 5,
+                "max_level": 5,
                 "species": "SPECIES_ZIGZAGOON"
               },
               {
-                "min_level": 6,
-                "max_level": 6,
+                "min_level": 5,
+                "max_level": 5,
                 "species": "SPECIES_ZIGZAGOON"
               },
               {
-                "min_level": 6,
-                "max_level": 6,
+                "min_level": 5,
+                "max_level": 5,
                 "species": "SPECIES_ZIGZAGOON"
               }
             ]
