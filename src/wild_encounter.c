@@ -559,6 +559,10 @@ bool8 StandardWildEncounter(u16 curMetatileBehavior, u16 prevMetatileBehavior)
     if (sWildEncountersDisabled == TRUE)
         return FALSE;
 
+    // Jazz: no wild encounters until Birch gives the Poke Balls
+    if (!FlagGet(FLAG_ADVENTURE_STARTED))
+        return FALSE;
+
     headerId = GetCurrentMapWildMonHeaderId();
     if (headerId == HEADER_NONE)
     {
