@@ -40,6 +40,25 @@ LilycoveCity_DepartmentStore_3F_Pokemart_StatBoosters:
 	.2byte ITEM_DIRE_HIT
 	.2byte ITEM_GUARD_SPEC
 	.2byte ITEM_X_ACCURACY
+	.2byte ITEM_CHOICE_BAND
+	.2byte ITEM_SCOPE_LENS
+	.2byte ITEM_BRIGHT_POWDER
+	.2byte ITEM_BLACK_BELT
+	.2byte ITEM_SPELL_TAG
+	.2byte ITEM_METAL_COAT
+	.2byte ITEM_DRAGON_SCALE
+	.2byte ITEM_DRAGON_FANG
+	.2byte ITEM_SILVER_POWDER
+	.2byte ITEM_LIGHT_BALL
+	.2byte ITEM_SHARP_BEAK
+	.2byte ITEM_POISON_BARB
+	.2byte ITEM_TWISTED_SPOON
+	.2byte ITEM_LUCKY_EGG
+	.2byte ITEM_THICK_CLUB
+	.2byte ITEM_STICK
+	.2byte ITEM_METAL_POWDER
+	.2byte ITEM_LUCKY_PUNCH
+	.2byte ITEM_UP_GRADE
 	pokemartlistend
 
 LilycoveCity_DepartmentStore_3F_EventScript_TriathleteM::

@@ -161,6 +161,29 @@ static u32 GetShopBuyPrice(u16 itemId)
 {
     if (itemId == ITEM_HEART_SCALE)
         return 3000;
+    switch (itemId)
+    {
+    case ITEM_CHOICE_BAND:
+    case ITEM_SCOPE_LENS:
+    case ITEM_BRIGHT_POWDER:
+    case ITEM_BLACK_BELT:
+    case ITEM_SPELL_TAG:
+    case ITEM_METAL_COAT:
+    case ITEM_DRAGON_SCALE:
+    case ITEM_DRAGON_FANG:
+    case ITEM_SILVER_POWDER:
+    case ITEM_LIGHT_BALL:
+    case ITEM_SHARP_BEAK:
+    case ITEM_POISON_BARB:
+    case ITEM_TWISTED_SPOON:
+    case ITEM_LUCKY_EGG:
+    case ITEM_THICK_CLUB:
+    case ITEM_STICK:
+    case ITEM_METAL_POWDER:
+    case ITEM_LUCKY_PUNCH:
+    case ITEM_UP_GRADE:
+        return 3000;
+    }
     return GetItemPrice(itemId);
 }
 
