@@ -116,8 +116,8 @@ Text_WantToSmash:
 	.string "Would you like to use ROCK SMASH?$"
 
 Text_CantSmash:
-	.string "It's a rugged rock, but a POKéMON\n"
-	.string "may be able to smash it.$"
+	.string "Necesitas la MEDALLA DINAMO para\n"
+	.string "usar GOLPE ROCA.$"
 
 EventScript_StrengthBoulder::
 	lockall
@@ -173,8 +173,8 @@ Text_MonUsedStrength:
 	.string "possible to move boulders around!$"
 
 Text_CantStrength:
-	.string "It's a big boulder, but a POKéMON\n"
-	.string "may be able to push it aside.$"
+	.string "Necesitas la MEDALLA CALOR para\n"
+	.string "usar FUERZA.$"
 
 Text_StrengthActivated:
 	.string "STRENGTH made it possible to move\n"
@@ -196,11 +196,40 @@ EventScript_CannotUseWaterfall::
 	lockall
 
 EventScript_CantWaterfall::
+	goto_if_unset FLAG_BADGE08_GET, EventScript_NeedRainBadge
 	msgbox Text_CantWaterfall, MSGBOX_DEFAULT
 
 EventScript_EndWaterfall::
 	releaseall
 	end
+
+EventScript_NeedRainBadge::
+	msgbox Text_NeedRainBadge, MSGBOX_DEFAULT
+	goto EventScript_EndWaterfall
+
+EventScript_NeedBalanceBadge::
+	lockall
+	msgbox Text_NeedBalanceBadge, MSGBOX_DEFAULT
+	releaseall
+	end
+
+EventScript_NeedMindBadge::
+	lockall
+	msgbox Text_NeedMindBadge, MSGBOX_DEFAULT
+	releaseall
+	end
+
+Text_NeedRainBadge:
+	.string "Necesitas la MEDALLA LLUVIA para\n"
+	.string "usar CASCADA.$"
+
+Text_NeedBalanceBadge:
+	.string "Necesitas la MEDALLA EQUILIBRIO\n"
+	.string "para usar SURF.$"
+
+Text_NeedMindBadge:
+	.string "Necesitas la MEDALLA MENTE para\n"
+	.string "usar BUCEO.$"
 
 Text_CantWaterfall:
 	.string "A wall of water is crashing down with\n"

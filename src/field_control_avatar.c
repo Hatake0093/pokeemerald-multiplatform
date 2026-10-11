@@ -454,6 +454,9 @@ static const u8 *GetInteractedWaterScript(struct MapPosition *unused1, u8 metati
 {
     if (FlagGet(FLAG_BADGE05_GET) == TRUE && PartyHasMonWithSurf() == TRUE && IsPlayerFacingSurfableFishableWater() == TRUE)
         return EventScript_UseSurf;
+    // Jazz: tell the player which badge is missing
+    if (FlagGet(FLAG_BADGE05_GET) == FALSE && IsPlayerFacingSurfableFishableWater() == TRUE)
+        return EventScript_NeedBalanceBadge;
 
     if (MetatileBehavior_IsWaterfall(metatileBehavior) == TRUE)
     {
@@ -470,6 +473,11 @@ static bool32 TrySetupDiveDownScript(void)
     if (FlagGet(FLAG_BADGE07_GET) && TrySetDiveWarp() == 2)
     {
         ScriptContext_SetupScript(EventScript_UseDive);
+        return TRUE;
+    }
+    if (!FlagGet(FLAG_BADGE07_GET) && TrySetDiveWarp() == 2)
+    {
+        ScriptContext_SetupScript(EventScript_NeedMindBadge);
         return TRUE;
     }
     return FALSE;
