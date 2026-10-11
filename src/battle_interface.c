@@ -3,6 +3,7 @@
 #include "pokemon.h"
 #include "battle_controllers.h"
 #include "battle_interface.h"
+#include "battle_setup.h"
 #include "battle_util.h"
 #include "graphics.h"
 #include "sprite.h"
@@ -27,6 +28,8 @@
 #include "constants/battle_anim.h"
 #include "constants/rgb.h"
 #include "constants/songs.h"
+#include "constants/opponents.h"
+#include "constants/trainers.h"
 
 struct TestingBar
 {
@@ -2195,6 +2198,31 @@ static void UpdateLeftNoOfBallsTextOnHealthbox(u8 healthboxSpriteId)
     RemoveWindowOnHealthbox(windowId);
 }
 
+// Jazz: HP numbers on the enemy healthbox (they replace the bar), except against Gym Leaders,
+// the Elite Four and the Champion
+static bool8 ShouldShowEnemyHpNumbers(u8 battler)
+{
+    u16 trainerId;
+    u8 class;
+
+    if (GetBattlerSide(battler) != B_SIDE_OPPONENT)
+        return FALSE;
+    if (gBattleTypeFlags & (BATTLE_TYPE_SAFARI | BATTLE_TYPE_LINK | BATTLE_TYPE_RECORDED))
+        return FALSE;
+    if (!(gBattleTypeFlags & BATTLE_TYPE_TRAINER))
+        return TRUE;
+
+    if ((gBattleTypeFlags & BATTLE_TYPE_TWO_OPPONENTS) && GetBattlerPosition(battler) == B_POSITION_OPPONENT_RIGHT)
+        trainerId = gTrainerBattleOpponent_B;
+    else
+        trainerId = gTrainerBattleOpponent_A;
+    if (trainerId >= TRAINERS_COUNT)
+        return FALSE;
+
+    class = gTrainers[trainerId].trainerClass;
+    return class != TRAINER_CLASS_LEADER && class != TRAINER_CLASS_ELITE_FOUR && class != TRAINER_CLASS_CHAMPION;
+}
+
 void UpdateHealthboxAttribute(u8 healthboxSpriteId, struct Pokemon *mon, u8 elementId)
 {
     s32 maxHp, currHp;
@@ -2254,11 +2282,22 @@ void UpdateHealthboxAttribute(u8 healthboxSpriteId, struct Pokemon *mon, u8 elem
             UpdateLvlInHealthbox(healthboxSpriteId, GetMonData(mon, MON_DATA_LEVEL));
         if (elementId == HEALTHBOX_HEALTH_BAR || elementId == HEALTHBOX_ALL)
         {
+            bool8 showNumbers = ShouldShowEnemyHpNumbers(battler);
+
             LoadBattleBarGfx(0);
             maxHp = GetMonData(mon, MON_DATA_MAX_HP);
             currHp = GetMonData(mon, MON_DATA_HP);
+            gBattleSpritesDataPtr->battlerData[battler].hpNumbersNoBars = showNumbers;
             SetBattleBarStruct(battler, healthboxSpriteId, maxHp, currHp, 0);
             MoveBattleBar(battler, healthboxSpriteId, HEALTH_BAR, 0);
+            if (showNumbers)
+            {
+                u8 healthBarSpriteId = gSprites[healthboxSpriteId].hMain_HealthBarSpriteId;
+
+                CpuFill32(0, (void *)(OBJ_VRAM0 + gSprites[healthBarSpriteId].oam.tileNum * TILE_SIZE_4BPP), 0x100);
+                UpdateHpTextInHealthboxInDoubles(healthboxSpriteId, currHp, HP_CURRENT);
+                UpdateHpTextInHealthboxInDoubles(healthboxSpriteId, maxHp, HP_MAX);
+            }
         }
         if (elementId == HEALTHBOX_NICK || elementId == HEALTHBOX_ALL)
             UpdateNickInHealthbox(healthboxSpriteId, mon);
