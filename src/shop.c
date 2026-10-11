@@ -161,6 +161,8 @@ static u32 GetShopBuyPrice(u16 itemId)
 {
     if (itemId == ITEM_HEART_SCALE)
         return 3000;
+    if (itemId == ITEM_RARE_CANDY)
+        return 15000;
     switch (itemId)
     {
     case ITEM_CHOICE_BAND:
@@ -181,7 +183,6 @@ static u32 GetShopBuyPrice(u16 itemId)
     case ITEM_STICK:
     case ITEM_METAL_POWDER:
     case ITEM_LUCKY_PUNCH:
-    case ITEM_UP_GRADE:
         return 3000;
     }
     return GetItemPrice(itemId);

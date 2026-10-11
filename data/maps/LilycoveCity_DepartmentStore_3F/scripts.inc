@@ -58,7 +58,7 @@ LilycoveCity_DepartmentStore_3F_Pokemart_StatBoosters:
 	.2byte ITEM_STICK
 	.2byte ITEM_METAL_POWDER
 	.2byte ITEM_LUCKY_PUNCH
-	.2byte ITEM_UP_GRADE
+	.2byte ITEM_RARE_CANDY
 	pokemartlistend
 
 LilycoveCity_DepartmentStore_3F_EventScript_TriathleteM::
