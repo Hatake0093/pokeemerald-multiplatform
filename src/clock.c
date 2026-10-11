@@ -67,7 +67,7 @@ static void UpdatePerMinute(struct Time *localTime)
     {
         if (minutes >= 0)
         {
-            BerryTreeTimeUpdate(minutes);
+            // Jazz: berries grow with steps (see field_control_avatar.c), not with the clock
             gSaveBlock2Ptr->lastBerryTreeUpdate = *localTime;
         }
     }
