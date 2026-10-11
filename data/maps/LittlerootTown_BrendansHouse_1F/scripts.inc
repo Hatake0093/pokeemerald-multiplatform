@@ -279,14 +279,9 @@ PlayersHouse_1F_Text_IsntItNiceInHere:
 	.string "¡Aquí dentro también es lindo!$"
 
 PlayersHouse_1F_Text_MoversPokemonGoSetClock:
-	.string "Los POKéMON de la mudanza hicieron\n"
-	.string "todo el trabajo de instalarnos\l"
-	.string "y limpiar. ¡Qué práctico!\p"
-	.string "{PLAYER}, tu cuarto está arriba.\n"
-	.string "¡Ve a verlo!\p"
-	.string "PAPÁ te compró un reloj nuevo para\n"
-	.string "celebrar la mudanza.\l"
-	.string "¡No olvides ponerlo en hora!$"
+	.string "Tu cuarto está arriba, {PLAYER}.\p"
+	.string "PAPÁ te compró un reloj.\n"
+	.string "¡Ponlo en hora!$"
 
 PlayersHouse_1F_Text_ArentYouInterestedInRoom:
 	.string "MAMÁ: ¿Y bien, {PLAYER}?\p"
@@ -373,9 +368,7 @@ PlayersHouse_1F_Text_TheresAMovieOnTV:
 PlayersHouse_1F_Text_RunningShoesManual:
 	.string "Es el manual de las ZAPATILLAS\n"
 	.string "DEPORTIVAS.\p"
-	.string "“Mantén B para correr con tus\n"
-	.string "ZAPATILLAS DEPORTIVAS.\p"
-	.string "¡Póntelas y sal a correr!”$"
+	.string "“Mantén B para correr.”$"
 
 PlayersHouse_1F_Text_TicketFromBrineyCameForYou:
 	.string "PAPÁ: ¿Hm?\p"
@@ -409,13 +402,10 @@ PlayersHouse_1F_Text_IsThatABreakingStory:
 	.string "momento?$"
 
 PlayersHouse_1F_Text_LatiEmergencyNewsFlash:
-	.string "¡Interrumpimos la programación con\n"
-	.string "una noticia de último momento!\p"
-	.string "En varias zonas de HOENN se ha visto\n"
-	.string "volar un POKéMON de color\l"
-	.string "BZZT…\p"
-	.string "Su identidad aún se desconoce.\p"
-	.string "Volvemos a la película.$"
+	.string "¡Noticia de último momento!\p"
+	.string "En HOENN se ha visto volar un\n"
+	.string "POKéMON de color BZZT…\p"
+	.string "Su identidad aún se desconoce.$"
 
 PlayersHouse_1F_Text_WhatColorDidTheySay:
 	.string "MAMÁ: {PLAYER}, ¿oíste eso?\p"

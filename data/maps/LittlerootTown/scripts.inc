@@ -852,42 +852,27 @@ LittlerootTown_EventScript_GiveRunningShoes::
 	return
 
 LittlerootTown_Text_OurNewHomeLetsGoInside:
-	.string "MAMÁ: ¡Llegamos, {PLAYER}!\p"
-	.string "Debes estar cansado de viajar\n"
-	.string "con las cosas en el camión.\p"
-	.string "Esta es VILLA RAÍZ.\p"
-	.string "¿Te gusta?\n"
-	.string "¡Es nuestro nuevo hogar!\p"
-	.string "Se ve tranquilo y agradable para\n"
-	.string "vivir, ¿no crees?\p"
-	.string "¡Y tendrás tu propia habitación!\n"
-	.string "Entremos.$"
+	.string "MAMÁ: ¡Llegamos, {PLAYER}!\n"
+	.string "Esta es VILLA RAÍZ, nuestro nuevo\l"
+	.string "hogar.\p"
+	.string "¡Tendrás tu propio cuarto! Entremos.$"
 
 LittlerootTown_Text_WaitPlayer:
 	.string "MAMÁ: ¡Espera, {PLAYER}!$"
 
 LittlerootTown_Text_WearTheseRunningShoes:
-	.string "MAMÁ: ¡{PLAYER}! ¿Te presentaste\n"
-	.string "con el PROF. ABEDUL?\p"
-	.string "¡Oh, qué POKéMON tan adorable!\n"
-	.string "¡Te lo dio el PROF. ABEDUL!\p"
-	.string "Eres hijo de tu padre, sin duda.\n"
-	.string "¡Te ves muy bien con un POKéMON!\p"
-	.string "Toma. Si vas de aventura, ponte\n"
-	.string "estas ZAPATILLAS DEPORTIVAS.\p"
-	.string "¡Te darán más energía!$"
+	.string "MAMÁ: ¿Ya saludaste al PROF.\n"
+	.string "ABEDUL? ¡Qué POKéMON tan lindo!\p"
+	.string "Toma, ponte estas ZAPATILLAS\n"
+	.string "DEPORTIVAS. ¡Te darán energía!$"
 
 LittlerootTown_Text_SwitchShoesWithRunningShoes:
 	.string "{PLAYER} se puso las\n"
 	.string "ZAPATILLAS DEPORTIVAS.$"
 
 LittlerootTown_Text_ExplainRunningShoes:
-	.string "MAMÁ: {PLAYER}, estas zapatillas\n"
-	.string "traen instrucciones.\p"
-	.string "“¡Mantén el botón B con las\n"
-	.string "ZAPATILLAS DEPORTIVAS para correr\l"
-	.string "más rápido!\p"
-	.string "¡Póntelas y corre al aire libre!”$"
+	.string "MAMÁ: Las instrucciones dicen:\n"
+	.string "“Mantén B para correr.”$"
 
 LittlerootTown_Text_ComeHomeIfAnythingHappens:
 	.string "… … … … … … … …\n"

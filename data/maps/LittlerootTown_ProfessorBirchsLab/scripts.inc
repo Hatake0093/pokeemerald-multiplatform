@@ -648,21 +648,14 @@ LittlerootTown_ProfessorBirchsLab_EventScript_ScottAboardSSTidalCall::
 	end
 
 LittlerootTown_ProfessorBirchsLab_Text_BirchAwayOnFieldwork:
-	.string "¿Eh? ¿El PROF. ABEDUL?\p"
-	.string "Está de trabajo de campo,\n"
-	.string "así que no está aquí.\p"
-	.string "Ah, el trabajo de campo es estudiar\n"
-	.string "las cosas en su entorno natural,\l"
-	.string "como campos y montañas, en vez de\l"
-	.string "en un laboratorio.\p"
-	.string "El PROF. no es de estar en un\n"
-	.string "escritorio. Prefiere salir y vivirlo\l"
-	.string "antes que leerlo aquí.$"
+	.string "¿El PROF. ABEDUL? Está de trabajo\n"
+	.string "de campo.\p"
+	.string "Prefiere salir al campo antes que\n"
+	.string "leer en un escritorio.$"
 
 LittlerootTown_ProfessorBirchsLab_Text_BirchIsntOneForDeskWork:
-	.string "El PROF. no es de estar en un\n"
-	.string "escritorio. Prefiere salir y vivirlo\l"
-	.string "antes que leerlo aquí.$"
+	.string "El PROF. prefiere el campo al\n"
+	.string "escritorio.$"
 
 LittlerootTown_ProfessorBirchsLab_Text_BirchEnjoysRivalsHelpToo:
 	.string "El PROF. ABEDUL estudia el hábitat\n"
@@ -734,15 +727,9 @@ LittlerootTown_ProfessorBirchsLab_Text_ReceivedPokedex:
 	.string "¡{PLAYER} recibió el POKéDEX!$"
 
 LittlerootTown_ProfessorBirchsLab_Text_ExplainPokedex:
-	.string "PROF. ABEDUL: El POKéDEX es una\n"
-	.string "herramienta de alta tecnología que\l"
-	.string "registra automáticamente cada\l"
+	.string "PROF. ABEDUL: El POKéDEX registra los\n"
 	.string "POKéMON que ves o capturas.\p"
-	.string "{RIVAL} va a todas partes con él.\p"
-	.string "Cada vez que captura un POKéMON\n"
-	.string "raro y lo registra, me busca en\l"
-	.string "pleno trabajo de campo para\l"
-	.string "mostrármelo.$"
+	.string "¡{RIVAL} lo lleva a todas partes!$"
 
 LittlerootTown_ProfessorBirchsLab_Text_CountlessPokemonAwait:
 	.string "PROF. ABEDUL: ¡Incontables POKéMON\n"
@@ -757,12 +744,9 @@ LittlerootTown_ProfessorBirchsLab_Text_MayGotPokedexTooTakeThese:
 	.string "¡Yo también tengo algo para ti!$"
 
 LittlerootTown_ProfessorBirchsLab_Text_CatchCutePokemonWithPokeBalls:
-	.string "MAY: ¡Es divertido tener muchos\n"
-	.string "POKéMON!\p"
-	.string "Voy a buscar por todas partes\n"
-	.string "porque quiero POKéMON distintos.\p"
-	.string "¡Si encuentro alguno lindo, lo\n"
-	.string "atraparé con POKé BALLS!$"
+	.string "MAY: ¡Quiero muchos POKéMON!\n"
+	.string "Buscaré por todas partes y atraparé\l"
+	.string "los más lindos con POKé BALLS.$"
 
 LittlerootTown_ProfessorBirchsLab_Text_OhYourBagsFull:
 	.string "¿Oh? Tu MOCHILA está llena.$"
@@ -777,12 +761,9 @@ LittlerootTown_ProfessorBirchsLab_Text_BrendanGotPokedexTooTakeThese:
 	.string "Pues toma, te daré esto.$"
 
 LittlerootTown_ProfessorBirchsLab_Text_CatchCoolPokemonWithPokeBalls:
-	.string "BRENDAN: Es más divertido tener\n"
-	.string "muchos POKéMON.\p"
-	.string "Voy a explorar por todas partes\n"
-	.string "para encontrar POKéMON distintos.\p"
-	.string "Si veo alguno genial, seguro lo\n"
-	.string "intento atrapar con POKé BALLS.$"
+	.string "BRENDAN: Cuantos más POKéMON, mejor.\n"
+	.string "Exploraré todo para atrapar los más\l"
+	.string "geniales con POKé BALLS.$"
 
 LittlerootTown_ProfessorBirchsLab_Text_HeyYourBagsFull:
 	.string "Oye, tu MOCHILA está llena.$"
