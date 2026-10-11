@@ -168,6 +168,8 @@ static u8 *AddTextPrinterAndCreateWindowOnHealthbox(const u8 *, u32, u32, u32, u
 
 static void RemoveWindowOnHealthbox(u32 windowId);
 static void UpdateHpTextInHealthboxInDoubles(u8, s16, u8);
+static bool8 ShouldShowEnemyHpNumbers(u8 battler);
+static void DrawEnemyHpNumbers(u8 healthboxSpriteId, s16 hp, s16 maxHp);
 static void UpdateStatusIconInHealthbox(u8);
 
 static void TextIntoHealthboxObject(void *, u8 *, s32);
@@ -1147,6 +1149,16 @@ void UpdateHpTextInHealthbox(u8 healthboxSpriteId, s16 value, u8 maxOrCurrent)
     u8 *windowTileData;
     u8 text[32];
     void *objVram;
+
+    if (GetBattlerSide(gSprites[healthboxSpriteId].hMain_Battler) == B_SIDE_OPPONENT
+     && ShouldShowEnemyHpNumbers(gSprites[healthboxSpriteId].hMain_Battler))
+    {
+        u8 enemy = gSprites[healthboxSpriteId].hMain_Battler;
+
+        if (maxOrCurrent == HP_CURRENT)
+            DrawEnemyHpNumbers(healthboxSpriteId, value, gBattleMons[enemy].maxHP);
+        return;
+    }
 
     if (GetBattlerSide(gSprites[healthboxSpriteId].hMain_Battler) == B_SIDE_PLAYER && !IsDoubleBattle())
     {
@@ -2198,8 +2210,9 @@ static void UpdateLeftNoOfBallsTextOnHealthbox(u8 healthboxSpriteId)
     RemoveWindowOnHealthbox(windowId);
 }
 
-// Jazz: HP numbers on the enemy healthbox (they replace the bar), except against Gym Leaders,
-// the Elite Four and the Champion
+// Jazz: HP numbers on the enemy healthbox, except against Gym Leaders, the Elite Four and the
+// Champion. They are printed on the right sprite of the healthbox (the 8x4 tile sprite that
+// follows the 64x32 box), in its two bottom tile rows and columns 3 to 7, so the bar stays as is.
 static bool8 ShouldShowEnemyHpNumbers(u8 battler)
 {
     u16 trainerId;
@@ -2221,6 +2234,28 @@ static bool8 ShouldShowEnemyHpNumbers(u8 battler)
 
     class = gTrainers[trainerId].trainerClass;
     return class != TRAINER_CLASS_LEADER && class != TRAINER_CLASS_ELITE_FOUR && class != TRAINER_CLASS_CHAMPION;
+}
+
+static void DrawEnemyHpNumbers(u8 healthboxSpriteId, s16 hp, s16 maxHp)
+{
+    u32 windowId, spriteTileNum, row;
+    u8 *windowTileData;
+    u8 text[16];
+    u8 *ptr;
+    u8 *objVram;
+
+    ptr = ConvertIntToDecimalStringN(text, hp, STR_CONV_MODE_LEFT_ALIGN, 3);
+    *ptr++ = CHAR_SLASH;
+    ConvertIntToDecimalStringN(ptr, maxHp, STR_CONV_MODE_LEFT_ALIGN, 3);
+
+    windowTileData = AddTextPrinterAndCreateWindowOnHealthbox(text, 26, 3, 0, &windowId);
+    spriteTileNum = (gSprites[healthboxSpriteId].oam.tileNum + 32) * TILE_SIZE_4BPP;
+    for (row = 0; row < 2; row++)
+    {
+        objVram = (void *)(OBJ_VRAM0) + spriteTileNum + (2 + row) * 8 * TILE_SIZE_4BPP + 3 * TILE_SIZE_4BPP;
+        CpuCopy32(windowTileData + (row * 8 + 3) * TILE_SIZE_4BPP, objVram, 5 * TILE_SIZE_4BPP);
+    }
+    RemoveWindowOnHealthbox(windowId);
 }
 
 void UpdateHealthboxAttribute(u8 healthboxSpriteId, struct Pokemon *mon, u8 elementId)
@@ -2287,17 +2322,10 @@ void UpdateHealthboxAttribute(u8 healthboxSpriteId, struct Pokemon *mon, u8 elem
             LoadBattleBarGfx(0);
             maxHp = GetMonData(mon, MON_DATA_MAX_HP);
             currHp = GetMonData(mon, MON_DATA_HP);
-            gBattleSpritesDataPtr->battlerData[battler].hpNumbersNoBars = showNumbers;
             SetBattleBarStruct(battler, healthboxSpriteId, maxHp, currHp, 0);
             MoveBattleBar(battler, healthboxSpriteId, HEALTH_BAR, 0);
             if (showNumbers)
-            {
-                u8 healthBarSpriteId = gSprites[healthboxSpriteId].hMain_HealthBarSpriteId;
-
-                CpuFill32(0, (void *)(OBJ_VRAM0 + gSprites[healthBarSpriteId].oam.tileNum * TILE_SIZE_4BPP), 0x100);
-                UpdateHpTextInHealthboxInDoubles(healthboxSpriteId, currHp, HP_CURRENT);
-                UpdateHpTextInHealthboxInDoubles(healthboxSpriteId, maxHp, HP_MAX);
-            }
+                DrawEnemyHpNumbers(healthboxSpriteId, currHp, maxHp);
         }
         if (elementId == HEALTHBOX_NICK || elementId == HEALTHBOX_ALL)
             UpdateNickInHealthbox(healthboxSpriteId, mon);
