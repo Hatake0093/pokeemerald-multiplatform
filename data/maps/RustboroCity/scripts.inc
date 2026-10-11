@@ -915,10 +915,12 @@ RustboroCity_EventScript_Boy1::
 	end
 
 RustboroCity_Text_WeShortenItToDevon:
-	.string "The DEVON CORPORATION…\n"
-	.string "We all just shorten it to DEVON.\p"
-	.string "That company makes all sorts of\n"
-	.string "convenient products.$"
+	.string "Soy TICONO, fanático de los\n"
+	.string "POKéMON.\p"
+	.string "La DEVON CORPORATION… todos la\n"
+	.string "llamamos DEVON.\p"
+	.string "Hacen todo tipo de productos\n"
+	.string "muy útiles.$"
 
 RustboroCity_Text_SneakyLookingManWentAroundCorner:
 	.string "Hm? A sneaky-looking man?\p"

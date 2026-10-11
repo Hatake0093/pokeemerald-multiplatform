@@ -648,14 +648,16 @@ LittlerootTown_ProfessorBirchsLab_EventScript_ScottAboardSSTidalCall::
 	end
 
 LittlerootTown_ProfessorBirchsLab_Text_BirchAwayOnFieldwork:
+	.string "Soy SANTOS, ayudante del\n"
+	.string "laboratorio.\p"
 	.string "¿El PROF. ABEDUL? Está de trabajo\n"
 	.string "de campo.\p"
 	.string "Prefiere salir al campo antes que\n"
 	.string "leer en un escritorio.$"
 
 LittlerootTown_ProfessorBirchsLab_Text_BirchIsntOneForDeskWork:
-	.string "El PROF. prefiere el campo al\n"
-	.string "escritorio.$"
+	.string "SANTOS: El PROF. prefiere el\n"
+	.string "campo al escritorio.$"
 
 LittlerootTown_ProfessorBirchsLab_Text_BirchEnjoysRivalsHelpToo:
 	.string "El PROF. ABEDUL estudia el hábitat\n"

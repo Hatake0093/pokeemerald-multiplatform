@@ -106,16 +106,17 @@ RustboroCity_DevonCorp_1F_Text_SoundsLikeStolenGoodsRecovered:
 	.string "the ripped-off DEVON GOODS.$"
 
 RustboroCity_DevonCorp_1F_Text_OnlyAuthorizedPeopleEnter:
-	.string "I'm sorry, only authorized people\n"
-	.string "are allowed to enter here.$"
+	.string "Soy CUCHU, de seguridad.\n"
+	.string "Solo el personal autorizado\n"
+	.string "puede pasar.$"
 
 RustboroCity_DevonCorp_1F_Text_HowCouldWeGetRobbed:
 	.string "It's beyond stupid.\n"
 	.string "How could we get robbed?$"
 
 RustboroCity_DevonCorp_1F_Text_YoureAlwaysWelcomeHere:
-	.string "Hi, there!\n"
-	.string "You're always welcome here!$"
+	.string "Soy CUCHU, de seguridad.\n"
+	.string "¡Aquí siempre eres bienvenido!$"
 
 RustboroCity_DevonCorp_1F_Text_RocksMetalDisplay:
 	.string "Samples of rocks and metal are\n"
