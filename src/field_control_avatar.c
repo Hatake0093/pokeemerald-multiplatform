@@ -71,6 +71,7 @@ static bool8 TryStartWarpEventScript(struct MapPosition *, u16);
 static bool8 TryStartMiscWalkingScripts(u16);
 static bool8 TryStartStepCountScript(u16);
 static void UpdateFriendshipStepCounter(void);
+static bool8 UpdatePoisonStepCounter(void);
 
 void FieldClearPlayerInput(struct FieldInput *input)
 {
@@ -550,6 +551,11 @@ static bool8 TryStartStepCountScript(u16 metatileBehavior)
 
     if (!(gPlayerAvatar.flags & PLAYER_AVATAR_FLAG_FORCED_MOVE) && !MetatileBehavior_IsForcedMovementTile(metatileBehavior))
     {
+        if (UpdatePoisonStepCounter() == TRUE)
+        {
+            ScriptContext_SetupScript(EventScript_FieldPoison);
+            return TRUE;
+        }
         if (ShouldEggHatch())
         {
             IncrementGameStat(GAME_STAT_HATCHED_EGGS);
@@ -631,6 +637,31 @@ static void UpdateFriendshipStepCounter(void)
 void ClearPoisonStepCounter(void)
 {
     VarSet(VAR_POISON_STEP_COUNTER, 0);
+}
+
+static bool8 UpdatePoisonStepCounter(void)
+{
+    u16 *ptr;
+
+    if (gMapHeader.mapType != MAP_TYPE_SECRET_BASE)
+    {
+        ptr = GetVarPointer(VAR_POISON_STEP_COUNTER);
+        (*ptr)++;
+        (*ptr) %= 4;
+        if (*ptr == 0)
+        {
+            switch (DoPoisonFieldEffect())
+            {
+            case FLDPSN_NONE:
+                return FALSE;
+            case FLDPSN_PSN:
+                return FALSE;
+            case FLDPSN_FNT:
+                return TRUE;
+            }
+        }
+    }
+    return FALSE;
 }
 
 void RestartWildEncounterImmunitySteps(void)
