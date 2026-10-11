@@ -1,11 +1,13 @@
 #include "global.h"
 #include "permadeath.h"
+#include "event_data.h"
 #include "item.h"
 #include "mail.h"
 #include "pokemon.h"
 #include "pokemon_storage_system.h"
 #include "string_util.h"
 #include "constants/battle.h"
+#include "constants/flags.h"
 #include "constants/items.h"
 
 extern u32 gBattleTypeFlags;
@@ -16,14 +18,16 @@ static const u8 sGraveyardBoxNames[GRAVEYARD_BOXES_COUNT][BOX_NAME_LENGTH + 1] =
     _("GRAVE 2"),
 };
 
+// Jazz: once the League has been won (the Hall of Fame is entered) the graveyard opens up: the
+// dead can be taken out of their boxes and revived, so the MVPs can join the commemorative rounds
 bool8 IsPermadeathOn(void)
 {
-    return gSaveBlock2Ptr->optionsPermadeath;
+    return gSaveBlock2Ptr->optionsPermadeath && !FlagGet(FLAG_SYS_GAME_CLEAR);
 }
 
 bool8 IsGraveyardBox(u8 boxId)
 {
-    return boxId >= FIRST_GRAVEYARD_BOX && boxId < TOTAL_BOXES_COUNT;
+    return !FlagGet(FLAG_SYS_GAME_CLEAR) && boxId >= FIRST_GRAVEYARD_BOX && boxId < TOTAL_BOXES_COUNT;
 }
 
 void InitGraveyardBoxNames(void)
