@@ -1544,13 +1544,20 @@ static void MoveSelectionDisplayMoveType(void)
 {
     u8 *txtPtr;
     struct ChooseMoveStruct *moveInfo = (struct ChooseMoveStruct *)(&gBattleBufferA[gActiveBattler][4]);
+    const struct BattleMove *move = &gBattleMoves[moveInfo->moves[gMoveSelectionCursor[gActiveBattler]]];
 
-    txtPtr = StringCopy(gDisplayedStringBattle, gText_MoveInterfaceType);
+    // Jazz: show the damage category (decided by the move type in this game) instead of "TYPE/"
+    if (move->power == 0)
+        txtPtr = StringCopy(gDisplayedStringBattle, gText_MoveInterfaceStatus);
+    else if (IS_TYPE_PHYSICAL(move->type))
+        txtPtr = StringCopy(gDisplayedStringBattle, gText_MoveInterfacePhysical);
+    else
+        txtPtr = StringCopy(gDisplayedStringBattle, gText_MoveInterfaceSpecial);
     *(txtPtr)++ = EXT_CTRL_CODE_BEGIN;
     *(txtPtr)++ = EXT_CTRL_CODE_FONT;
     *(txtPtr)++ = FONT_NORMAL;
 
-    StringCopy(txtPtr, gTypeNames[gBattleMoves[moveInfo->moves[gMoveSelectionCursor[gActiveBattler]]].type]);
+    StringCopy(txtPtr, gTypeNames[move->type]);
     BattlePutTextOnWindow(gDisplayedStringBattle, B_WIN_MOVE_TYPE);
 }
 
