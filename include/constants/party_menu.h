@@ -43,7 +43,11 @@
 #define TUTOR_MOVE_FIRE_PUNCH      28
 #define TUTOR_MOVE_FURY_CUTTER     29
 #define TUTOR_MOVE_FALSE_SWIPE     30
-#define TUTOR_MOVE_COUNT           31
+#define TUTOR_MOVE_DRAGON_DANCE    31
+#define TUTOR_MOVE_RECOVER         32
+#define TUTOR_MOVE_WISH            33
+#define TUTOR_MOVE_CURSE           34
+#define TUTOR_MOVE_COUNT           35
 
 #define PARTY_LAYOUT_SINGLE          0
 #define PARTY_LAYOUT_DOUBLE          1

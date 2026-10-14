@@ -1,4 +1,4 @@
-@ Jazz: the Battle Frontier move tutors (plus Substitute, Sleep Talk, Double-Edge and Dynamic Punch)
+@ Jazz: the Battle Frontier move tutors (plus the egg moves Dragon Dance, Recover, Wish and Curse)
 @ taught in the Battle Tents for money. Every Pokemon can learn any of them, as many times as wanted.
 
 JazzTutor_Declined::
@@ -88,8 +88,8 @@ JazzTutor_VerdanturfTown_TutorA_Move2::
 	end
 
 JazzTutor_VerdanturfTown_TutorA_Move3::
-	buffermovename STR_VAR_1, MOVE_DYNAMIC_PUNCH
-	setvar VAR_0x8006, TUTOR_MOVE_DYNAMIC_PUNCH
+	buffermovename STR_VAR_1, MOVE_DRAGON_DANCE
+	setvar VAR_0x8006, TUTOR_MOVE_DRAGON_DANCE
 	goto JazzTutor_Tier4800
 	end
 
@@ -125,8 +125,8 @@ JazzTutor_VerdanturfTown_TutorB_Move2::
 	end
 
 JazzTutor_VerdanturfTown_TutorB_Move3::
-	buffermovename STR_VAR_1, MOVE_DOUBLE_EDGE
-	setvar VAR_0x8006, TUTOR_MOVE_DOUBLE_EDGE
+	buffermovename STR_VAR_1, MOVE_RECOVER
+	setvar VAR_0x8006, TUTOR_MOVE_RECOVER
 	goto JazzTutor_Tier4800
 	end
 
@@ -193,8 +193,8 @@ JazzTutor_SlateportCity_TutorB_Move1::
 	end
 
 JazzTutor_SlateportCity_TutorB_Move2::
-	buffermovename STR_VAR_1, MOVE_SUBSTITUTE
-	setvar VAR_0x8006, TUTOR_MOVE_SUBSTITUTE
+	buffermovename STR_VAR_1, MOVE_WISH
+	setvar VAR_0x8006, TUTOR_MOVE_WISH
 	goto JazzTutor_Tier4800
 	end
 
@@ -236,8 +236,8 @@ JazzTutor_FallarborTown_TutorA_Move2::
 	end
 
 JazzTutor_FallarborTown_TutorA_Move3::
-	buffermovename STR_VAR_1, MOVE_SLEEP_TALK
-	setvar VAR_0x8006, TUTOR_MOVE_SLEEP_TALK
+	buffermovename STR_VAR_1, MOVE_CURSE
+	setvar VAR_0x8006, TUTOR_MOVE_CURSE
 	goto JazzTutor_Tier4800
 	end
 
