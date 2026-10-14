@@ -923,12 +923,12 @@
               {
                 "min_level": 14,
                 "max_level": 19,
-                "species": "SPECIES_OMANYTE"
+                "species": "SPECIES_SHUCKLE"
               },
               {
                 "min_level": 14,
                 "max_level": 19,
-                "species": "SPECIES_KABUTO"
+                "species": "SPECIES_GEODUDE"
               },
               {
                 "min_level": 14,
@@ -4643,7 +4643,7 @@
               {
                 "min_level": 22,
                 "max_level": 27,
-                "species": "SPECIES_CARVANHA"
+                "species": "SPECIES_OMANYTE"
               }
             ]
           },
@@ -4698,7 +4698,7 @@
               {
                 "min_level": 37,
                 "max_level": 42,
-                "species": "SPECIES_CARVANHA"
+                "species": "SPECIES_OMANYTE"
               }
             ]
           }
@@ -5242,7 +5242,7 @@
               {
                 "min_level": 22,
                 "max_level": 27,
-                "species": "SPECIES_CARVANHA"
+                "species": "SPECIES_KABUTO"
               }
             ]
           },
@@ -5297,7 +5297,7 @@
               {
                 "min_level": 37,
                 "max_level": 42,
-                "species": "SPECIES_CARVANHA"
+                "species": "SPECIES_KABUTO"
               }
             ]
           }
@@ -7329,7 +7329,7 @@
               {
                 "min_level": 39,
                 "max_level": 39,
-                "species": "SPECIES_KABUTO"
+                "species": "SPECIES_MAKUHITA"
               },
               {
                 "min_level": 39,
@@ -7428,7 +7428,7 @@
               {
                 "min_level": 41,
                 "max_level": 41,
-                "species": "SPECIES_OMANYTE"
+                "species": "SPECIES_SABLEYE"
               },
               {
                 "min_level": 41,
