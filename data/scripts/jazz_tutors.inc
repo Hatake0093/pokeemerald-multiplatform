@@ -66,6 +66,8 @@ JazzTutor_VerdanturfTown_TutorA::
 	case 1, JazzTutor_VerdanturfTown_TutorA_Move1
 	case 2, JazzTutor_VerdanturfTown_TutorA_Move2
 	case 3, JazzTutor_VerdanturfTown_TutorA_Move3
+	case 4, JazzTutor_VerdanturfTown_TutorA_Move4
+	case 5, JazzTutor_VerdanturfTown_TutorA_Move5
 	goto JazzTutor_Declined
 	end
 
@@ -93,6 +95,18 @@ JazzTutor_VerdanturfTown_TutorA_Move3::
 	goto JazzTutor_Tier4800
 	end
 
+JazzTutor_VerdanturfTown_TutorA_Move4::
+	buffermovename STR_VAR_1, MOVE_SPORE
+	setvar VAR_0x8006, TUTOR_MOVE_SPORE
+	goto JazzTutor_Tier4800
+	end
+
+JazzTutor_VerdanturfTown_TutorA_Move5::
+	buffermovename STR_VAR_1, MOVE_BATON_PASS
+	setvar VAR_0x8006, TUTOR_MOVE_BATON_PASS
+	goto JazzTutor_Tier4800
+	end
+
 JazzTutor_VerdanturfTown_TutorB::
 	lock
 	faceplayer
@@ -103,6 +117,8 @@ JazzTutor_VerdanturfTown_TutorB::
 	case 1, JazzTutor_VerdanturfTown_TutorB_Move1
 	case 2, JazzTutor_VerdanturfTown_TutorB_Move2
 	case 3, JazzTutor_VerdanturfTown_TutorB_Move3
+	case 4, JazzTutor_VerdanturfTown_TutorB_Move4
+	case 5, JazzTutor_VerdanturfTown_TutorB_Move5
 	goto JazzTutor_Declined
 	end
 
@@ -130,6 +146,18 @@ JazzTutor_VerdanturfTown_TutorB_Move3::
 	goto JazzTutor_Tier4800
 	end
 
+JazzTutor_VerdanturfTown_TutorB_Move4::
+	buffermovename STR_VAR_1, MOVE_LEECH_SEED
+	setvar VAR_0x8006, TUTOR_MOVE_LEECH_SEED
+	goto JazzTutor_Tier4800
+	end
+
+JazzTutor_VerdanturfTown_TutorB_Move5::
+	buffermovename STR_VAR_1, MOVE_BELLY_DRUM
+	setvar VAR_0x8006, TUTOR_MOVE_BELLY_DRUM
+	goto JazzTutor_Tier4800
+	end
+
 JazzTutor_SlateportCity_TutorA::
 	lock
 	faceplayer
@@ -140,6 +168,8 @@ JazzTutor_SlateportCity_TutorA::
 	case 1, JazzTutor_SlateportCity_TutorA_Move1
 	case 2, JazzTutor_SlateportCity_TutorA_Move2
 	case 3, JazzTutor_SlateportCity_TutorA_Move3
+	case 4, JazzTutor_SlateportCity_TutorA_Move4
+	case 5, JazzTutor_SlateportCity_TutorA_Move5
 	goto JazzTutor_Declined
 	end
 
@@ -167,6 +197,18 @@ JazzTutor_SlateportCity_TutorA_Move3::
 	goto JazzTutor_Tier2400
 	end
 
+JazzTutor_SlateportCity_TutorA_Move4::
+	buffermovename STR_VAR_1, MOVE_ENCORE
+	setvar VAR_0x8006, TUTOR_MOVE_ENCORE
+	goto JazzTutor_Tier4800
+	end
+
+JazzTutor_SlateportCity_TutorA_Move5::
+	buffermovename STR_VAR_1, MOVE_WILL_O_WISP
+	setvar VAR_0x8006, TUTOR_MOVE_WILL_O_WISP
+	goto JazzTutor_Tier4800
+	end
+
 JazzTutor_SlateportCity_TutorB::
 	lock
 	faceplayer
@@ -177,6 +219,7 @@ JazzTutor_SlateportCity_TutorB::
 	case 1, JazzTutor_SlateportCity_TutorB_Move1
 	case 2, JazzTutor_SlateportCity_TutorB_Move2
 	case 3, JazzTutor_SlateportCity_TutorB_Move3
+	case 4, JazzTutor_SlateportCity_TutorB_Move4
 	goto JazzTutor_Declined
 	end
 
@@ -204,6 +247,12 @@ JazzTutor_SlateportCity_TutorB_Move3::
 	goto JazzTutor_Tier4800
 	end
 
+JazzTutor_SlateportCity_TutorB_Move4::
+	buffermovename STR_VAR_1, MOVE_YAWN
+	setvar VAR_0x8006, TUTOR_MOVE_YAWN
+	goto JazzTutor_Tier4800
+	end
+
 JazzTutor_FallarborTown_TutorA::
 	lock
 	faceplayer
@@ -214,6 +263,7 @@ JazzTutor_FallarborTown_TutorA::
 	case 1, JazzTutor_FallarborTown_TutorA_Move1
 	case 2, JazzTutor_FallarborTown_TutorA_Move2
 	case 3, JazzTutor_FallarborTown_TutorA_Move3
+	case 4, JazzTutor_FallarborTown_TutorA_Move4
 	goto JazzTutor_Declined
 	end
 
@@ -241,6 +291,12 @@ JazzTutor_FallarborTown_TutorA_Move3::
 	goto JazzTutor_Tier4800
 	end
 
+JazzTutor_FallarborTown_TutorA_Move4::
+	buffermovename STR_VAR_1, MOVE_EXTREME_SPEED
+	setvar VAR_0x8006, TUTOR_MOVE_EXTREME_SPEED
+	goto JazzTutor_Tier4800
+	end
+
 JazzTutor_FallarborTown_TutorB::
 	lock
 	faceplayer
@@ -251,6 +307,7 @@ JazzTutor_FallarborTown_TutorB::
 	case 1, JazzTutor_FallarborTown_TutorB_Move1
 	case 2, JazzTutor_FallarborTown_TutorB_Move2
 	case 3, JazzTutor_FallarborTown_TutorB_Move3
+	case 4, JazzTutor_FallarborTown_TutorB_Move4
 	goto JazzTutor_Declined
 	end
 
@@ -276,6 +333,12 @@ JazzTutor_FallarborTown_TutorB_Move3::
 	buffermovename STR_VAR_1, MOVE_ICY_WIND
 	setvar VAR_0x8006, TUTOR_MOVE_ICY_WIND
 	goto JazzTutor_Tier2400
+	end
+
+JazzTutor_FallarborTown_TutorB_Move4::
+	buffermovename STR_VAR_1, MOVE_MEGAHORN
+	setvar VAR_0x8006, TUTOR_MOVE_MEGAHORN
+	goto JazzTutor_Tier4800
 	end
 
 JazzTutor_Text_Welcome:

@@ -47,7 +47,16 @@
 #define TUTOR_MOVE_RECOVER         32
 #define TUTOR_MOVE_WISH            33
 #define TUTOR_MOVE_CURSE           34
-#define TUTOR_MOVE_COUNT           35
+#define TUTOR_MOVE_SPORE           35
+#define TUTOR_MOVE_BATON_PASS      36
+#define TUTOR_MOVE_LEECH_SEED      37
+#define TUTOR_MOVE_BELLY_DRUM      38
+#define TUTOR_MOVE_ENCORE          39
+#define TUTOR_MOVE_WILL_O_WISP     40
+#define TUTOR_MOVE_YAWN            41
+#define TUTOR_MOVE_EXTREME_SPEED   42
+#define TUTOR_MOVE_MEGAHORN        43
+#define TUTOR_MOVE_COUNT           44
 
 #define PARTY_LAYOUT_SINGLE          0
 #define PARTY_LAYOUT_DOUBLE          1

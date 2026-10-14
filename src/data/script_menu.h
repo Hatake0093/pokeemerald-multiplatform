@@ -778,6 +778,8 @@ static const struct MenuAction MultichoiceList_JazzTutor1[] =
     {gMoveNames[MOVE_ICE_PUNCH]},
     {gMoveNames[MOVE_THUNDER_PUNCH]},
     {gMoveNames[MOVE_DRAGON_DANCE]},
+    {gMoveNames[MOVE_SPORE]},
+    {gMoveNames[MOVE_BATON_PASS]},
     {gText_Exit},
 };
 
@@ -787,6 +789,8 @@ static const struct MenuAction MultichoiceList_JazzTutor2[] =
     {gMoveNames[MOVE_MEGA_KICK]},
     {gMoveNames[MOVE_BODY_SLAM]},
     {gMoveNames[MOVE_RECOVER]},
+    {gMoveNames[MOVE_LEECH_SEED]},
+    {gMoveNames[MOVE_BELLY_DRUM]},
     {gText_Exit},
 };
 
@@ -796,6 +800,8 @@ static const struct MenuAction MultichoiceList_JazzTutor3[] =
     {gMoveNames[MOVE_COUNTER]},
     {gMoveNames[MOVE_ROCK_SLIDE]},
     {gMoveNames[MOVE_SWIFT]},
+    {gMoveNames[MOVE_ENCORE]},
+    {gMoveNames[MOVE_WILL_O_WISP]},
     {gText_Exit},
 };
 
@@ -805,6 +811,7 @@ static const struct MenuAction MultichoiceList_JazzTutor4[] =
     {gMoveNames[MOVE_SWORDS_DANCE]},
     {gMoveNames[MOVE_WISH]},
     {gMoveNames[MOVE_ENDURE]},
+    {gMoveNames[MOVE_YAWN]},
     {gText_Exit},
 };
 
@@ -814,6 +821,7 @@ static const struct MenuAction MultichoiceList_JazzTutor5[] =
     {gMoveNames[MOVE_DREAM_EATER]},
     {gMoveNames[MOVE_PSYCH_UP]},
     {gMoveNames[MOVE_CURSE]},
+    {gMoveNames[MOVE_EXTREME_SPEED]},
     {gText_Exit},
 };
 
@@ -823,6 +831,7 @@ static const struct MenuAction MultichoiceList_JazzTutor6[] =
     {gMoveNames[MOVE_SNORE]},
     {gMoveNames[MOVE_MUD_SLAP]},
     {gMoveNames[MOVE_ICY_WIND]},
+    {gMoveNames[MOVE_MEGAHORN]},
     {gText_Exit},
 };
 
