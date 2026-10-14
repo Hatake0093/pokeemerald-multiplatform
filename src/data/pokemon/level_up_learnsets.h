@@ -479,8 +479,8 @@ static const u16 sClefableLevelUpLearnset[] = {
 static const u16 sVulpixLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_EMBER),
     LEVEL_UP_MOVE( 5, MOVE_TAIL_WHIP),
-    LEVEL_UP_MOVE( 9, MOVE_ROAR),
     LEVEL_UP_MOVE(13, MOVE_QUICK_ATTACK),
+    LEVEL_UP_MOVE(15, MOVE_ROAR),
     LEVEL_UP_MOVE(17, MOVE_WILL_O_WISP),
     LEVEL_UP_MOVE(21, MOVE_CONFUSE_RAY),
     LEVEL_UP_MOVE(25, MOVE_IMPRISON),
@@ -767,9 +767,9 @@ static const u16 sPrimeapeLevelUpLearnset[] = {
 
 static const u16 sGrowlitheLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_BITE),
-    LEVEL_UP_MOVE( 1, MOVE_ROAR),
     LEVEL_UP_MOVE( 7, MOVE_EMBER),
     LEVEL_UP_MOVE(13, MOVE_LEER),
+    LEVEL_UP_MOVE(15, MOVE_ROAR),
     LEVEL_UP_MOVE(19, MOVE_ODOR_SLEUTH),
     LEVEL_UP_MOVE(25, MOVE_TAKE_DOWN),
     LEVEL_UP_MOVE(31, MOVE_FLAME_WHEEL),
@@ -781,9 +781,9 @@ static const u16 sGrowlitheLevelUpLearnset[] = {
 
 static const u16 sArcanineLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_BITE),
-    LEVEL_UP_MOVE( 1, MOVE_ROAR),
     LEVEL_UP_MOVE( 1, MOVE_EMBER),
     LEVEL_UP_MOVE( 1, MOVE_ODOR_SLEUTH),
+    LEVEL_UP_MOVE(15, MOVE_ROAR),
     LEVEL_UP_MOVE(49, MOVE_EXTREME_SPEED),
     LEVEL_UP_END
 };
