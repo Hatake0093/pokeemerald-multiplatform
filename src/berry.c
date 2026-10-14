@@ -1084,7 +1084,8 @@ void BerryTreeTimeUpdate(s32 minutes)
     {
         tree = &gSaveBlock1Ptr->berryTrees[i];
 
-        if (tree->berry && tree->stage && !tree->stopGrowth)
+        // Jazz: ripe BERRIES wait on the tree until they are picked, they never drop
+        if (tree->berry && tree->stage && tree->stage != BERRY_STAGE_BERRIES && !tree->stopGrowth)
         {
             if (minutes >= GetStageDurationByBerryType(tree->berry) * 71)
             {

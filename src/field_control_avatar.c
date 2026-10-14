@@ -46,8 +46,8 @@ static void GetInFrontOfPlayerPosition(struct MapPosition *);
 static u16 GetPlayerCurMetatileBehavior(int);
 static bool8 TryStartInteractionScript(struct MapPosition *, u16, u8);
 static const u8 *GetInteractionScript(struct MapPosition *, u8, u8);
-// Each step counts as this many minutes of berry growth (a 3 hour stage takes 180 steps)
-#define BERRY_MINUTES_PER_STEP 1
+// This many steps count as one minute of berry growth (a 3 hour stage takes 180 * this many steps)
+#define BERRY_STEPS_PER_MINUTE 3
 
 static const u8 *GetInteractedObjectEventScript(struct MapPosition *, u8, u8);
 static const u8 *GetInteractedBackgroundEventScript(struct MapPosition *, u8, u8);
@@ -159,7 +159,8 @@ int ProcessPlayerFieldInput(struct FieldInput *input)
     if (input->tookStep)
     {
         IncrementGameStat(GAME_STAT_STEPS);
-        BerryTreeTimeUpdate(BERRY_MINUTES_PER_STEP); // Jazz: berries grow with steps, not with the clock
+        if (GetGameStat(GAME_STAT_STEPS) % BERRY_STEPS_PER_MINUTE == 0)
+            BerryTreeTimeUpdate(1); // Jazz: berries grow with steps, not with the clock
         IncrementBirthIslandRockStepCount();
         if (TryStartStepBasedScript(&position, metatileBehavior, playerDirection) == TRUE)
             return TRUE;
