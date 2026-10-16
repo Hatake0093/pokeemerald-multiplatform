@@ -818,8 +818,8 @@ static const struct MenuAction MultichoiceList_JazzTutor4[] =
 static const struct MenuAction MultichoiceList_JazzTutor5[] =
 {
     {gMoveNames[MOVE_SOFT_BOILED]},
-    {gMoveNames[MOVE_DREAM_EATER]},
-    {gMoveNames[MOVE_PSYCH_UP]},
+    {gMoveNames[MOVE_AROMATHERAPY]},
+    {gMoveNames[MOVE_LEAF_BLADE]},
     {gMoveNames[MOVE_CURSE]},
     {gMoveNames[MOVE_EXTREME_SPEED]},
     {gText_Exit},
@@ -828,7 +828,7 @@ static const struct MenuAction MultichoiceList_JazzTutor5[] =
 static const struct MenuAction MultichoiceList_JazzTutor6[] =
 {
     {gMoveNames[MOVE_FALSE_SWIPE]},
-    {gMoveNames[MOVE_SNORE]},
+    {gMoveNames[MOVE_METEOR_MASH]},
     {gMoveNames[MOVE_MUD_SLAP]},
     {gMoveNames[MOVE_ICY_WIND]},
     {gMoveNames[MOVE_MEGAHORN]},

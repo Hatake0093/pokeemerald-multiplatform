@@ -274,14 +274,14 @@ JazzTutor_FallarborTown_TutorA_Move0::
 	end
 
 JazzTutor_FallarborTown_TutorA_Move1::
-	buffermovename STR_VAR_1, MOVE_DREAM_EATER
-	setvar VAR_0x8006, TUTOR_MOVE_DREAM_EATER
-	goto JazzTutor_Tier2400
+	buffermovename STR_VAR_1, MOVE_AROMATHERAPY
+	setvar VAR_0x8006, TUTOR_MOVE_AROMATHERAPY
+	goto JazzTutor_Tier4800
 	end
 
 JazzTutor_FallarborTown_TutorA_Move2::
-	buffermovename STR_VAR_1, MOVE_PSYCH_UP
-	setvar VAR_0x8006, TUTOR_MOVE_PSYCH_UP
+	buffermovename STR_VAR_1, MOVE_LEAF_BLADE
+	setvar VAR_0x8006, TUTOR_MOVE_LEAF_BLADE
 	goto JazzTutor_Tier4800
 	end
 
@@ -318,9 +318,9 @@ JazzTutor_FallarborTown_TutorB_Move0::
 	end
 
 JazzTutor_FallarborTown_TutorB_Move1::
-	buffermovename STR_VAR_1, MOVE_SNORE
-	setvar VAR_0x8006, TUTOR_MOVE_SNORE
-	goto JazzTutor_Tier2400
+	buffermovename STR_VAR_1, MOVE_METEOR_MASH
+	setvar VAR_0x8006, TUTOR_MOVE_METEOR_MASH
+	goto JazzTutor_Tier4800
 	end
 
 JazzTutor_FallarborTown_TutorB_Move2::

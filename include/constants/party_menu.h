@@ -56,7 +56,10 @@
 #define TUTOR_MOVE_YAWN            41
 #define TUTOR_MOVE_EXTREME_SPEED   42
 #define TUTOR_MOVE_MEGAHORN        43
-#define TUTOR_MOVE_COUNT           44
+#define TUTOR_MOVE_AROMATHERAPY    44
+#define TUTOR_MOVE_METEOR_MASH     45
+#define TUTOR_MOVE_LEAF_BLADE      46
+#define TUTOR_MOVE_COUNT           47
 
 #define PARTY_LAYOUT_SINGLE          0
 #define PARTY_LAYOUT_DOUBLE          1
