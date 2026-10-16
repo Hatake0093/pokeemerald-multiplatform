@@ -106,9 +106,8 @@ RustboroCity_DevonCorp_1F_Text_SoundsLikeStolenGoodsRecovered:
 	.string "the ripped-off DEVON GOODS.$"
 
 RustboroCity_DevonCorp_1F_Text_OnlyAuthorizedPeopleEnter:
-	.string "Soy CUCHU, de seguridad.\n"
-	.string "Solo el personal autorizado\n"
-	.string "puede pasar.$"
+	.string "CUCHU: Dale, Dale no pueden pasar,\n"
+	.string "no pueden pasar.$"
 
 RustboroCity_DevonCorp_1F_Text_HowCouldWeGetRobbed:
 	.string "It's beyond stupid.\n"
