@@ -115,8 +115,9 @@ RustboroCity_DevonCorp_1F_Text_HowCouldWeGetRobbed:
 	.string "How could we get robbed?$"
 
 RustboroCity_DevonCorp_1F_Text_YoureAlwaysWelcomeHere:
-	.string "Soy CUCHU, de seguridad.\n"
-	.string "¡Aquí siempre eres bienvenido!$"
+	.string "CUCHU: Otto, Otto, Otto\n"
+	.string "podrás creer…\p"
+	.string "Veo y no creo.$"
 
 RustboroCity_DevonCorp_1F_Text_RocksMetalDisplay:
 	.string "Samples of rocks and metal are\n"
