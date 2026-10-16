@@ -110,8 +110,9 @@ RustboroCity_DevonCorp_1F_Text_OnlyAuthorizedPeopleEnter:
 	.string "no pueden pasar.$"
 
 RustboroCity_DevonCorp_1F_Text_HowCouldWeGetRobbed:
-	.string "It's beyond stupid.\n"
-	.string "How could we get robbed?$"
+	.string "CUCHU: Este Vigarne, valórelo\n"
+	.string "usted, están robando…\l"
+	.string "¡no, no, nooo!$"
 
 RustboroCity_DevonCorp_1F_Text_YoureAlwaysWelcomeHere:
 	.string "CUCHU: Otto, Otto, Otto\n"
