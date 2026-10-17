@@ -39,6 +39,7 @@
 #include "script_menu.h"
 #include "sound.h"
 #include "starter_choose.h"
+#include "pokemon_summary_screen.h"
 #include "string_util.h"
 #include "strings.h"
 #include "task.h"
@@ -4345,4 +4346,16 @@ void BufferDayAndTime(void)
     *str++ = CHAR_COLON;
     str = ConvertIntToDecimalStringN(str, gLocalTime.minutes, STR_CONV_MODE_LEADING_ZEROS, 2);
     *str = EOS;
+}
+
+// Jazz: VAR_0x8004 = party slot, VAR_0x8005 = stat to raise, VAR_0x8006 = stat to lower
+// (0 Attack, 1 Defense, 2 Speed, 3 Sp. Attack, 4 Sp. Defense). The nature order of the game is
+// raised stat * 5 + lowered stat. VAR_RESULT: 0 changed, 1 it already had it, 2 cannot be changed.
+// STR_VAR_2 gets the name of the nature.
+void ChangeMonNatureFromScript(void)
+{
+    u8 nature = gSpecialVar_0x8005 * 5 + gSpecialVar_0x8006;
+
+    StringCopy(gStringVar2, gNatureNamePointers[nature]);
+    gSpecialVar_Result = ChangeMonNature(&gPlayerParty[gSpecialVar_0x8004], nature);
 }

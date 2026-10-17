@@ -835,6 +835,22 @@ static const struct MenuAction MultichoiceList_JazzTutor6[] =
     {gText_Exit},
 };
 
+static const u8 sText_NatureAtk[] = _("ATAQUE");
+static const u8 sText_NatureDef[] = _("DEFENSA");
+static const u8 sText_NatureSpe[] = _("VELOCIDAD");
+static const u8 sText_NatureSpA[] = _("AT. ESPECIAL");
+static const u8 sText_NatureSpD[] = _("DEF. ESPECIAL");
+
+static const struct MenuAction MultichoiceList_NatureStat[] =
+{
+    {sText_NatureAtk},
+    {sText_NatureDef},
+    {sText_NatureSpe},
+    {sText_NatureSpA},
+    {sText_NatureSpD},
+    {gText_Exit},
+};
+
 static const struct MenuAction MultichoiceList_TagMatchType[] =
 {
     {gText_NormalTagMatch},
@@ -978,6 +994,7 @@ static const struct MultichoiceListStruct sMultichoiceLists[] =
     [MULTI_JAZZ_TUTOR_4]                 = MULTICHOICE(MultichoiceList_JazzTutor4),
     [MULTI_JAZZ_TUTOR_5]                 = MULTICHOICE(MultichoiceList_JazzTutor5),
     [MULTI_JAZZ_TUTOR_6]                 = MULTICHOICE(MultichoiceList_JazzTutor6),
+    [MULTI_NATURE_STAT]                  = MULTICHOICE(MultichoiceList_NatureStat),
 };
 
 const u8 *const gStdStrings[] =

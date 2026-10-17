@@ -129,6 +129,7 @@
 #define MULTI_JAZZ_TUTOR_4                 118
 #define MULTI_JAZZ_TUTOR_5                 119
 #define MULTI_JAZZ_TUTOR_6                 120
+#define MULTI_NATURE_STAT                  121
 
 // Lilycove SS Tidal Multichoice Selections
 #define SSTIDAL_SELECTION_SLATEPORT        0

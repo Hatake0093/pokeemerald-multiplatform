@@ -545,3 +545,4 @@ gSpecials::
 	def_special SetFixedEncounterWildMon
 	def_special BuyPokeblock
 	def_special BufferDayAndTime
+	def_special ChangeMonNatureFromScript

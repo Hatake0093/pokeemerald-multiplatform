@@ -5530,6 +5530,43 @@ u8 GetNatureFromPersonality(u32 personality)
     return personality % NUM_NATURES;
 }
 
+// Jazz: gives the Pokemon a new personality with the wanted nature, keeping its gender, ability
+// slot, shininess and the order of its substructures (the low byte and personality % 3 stay the same).
+// Returns 0 if changed, 1 if it already has that nature and 2 if it cannot be changed.
+u8 ChangeMonNature(struct Pokemon *mon, u8 nature)
+{
+    struct BoxPokemon *box = &mon->box;
+    u32 oldPersonality = box->personality;
+    u32 lowByte = oldPersonality & 0xFF;
+    u32 high = oldPersonality >> 8;
+    u32 i, personality;
+    bool8 shiny = IsShinyOtIdPersonality(box->otId, oldPersonality);
+    u16 species = GetMonData(mon, MON_DATA_SPECIES_OR_EGG);
+
+    // Unown, Wurmple and Spinda would change their form or evolution with a new personality
+    if (species == SPECIES_NONE || species == SPECIES_EGG || species == SPECIES_UNOWN
+     || species == SPECIES_WURMPLE || species == SPECIES_SPINDA)
+        return 2;
+    if (oldPersonality % NUM_NATURES == nature)
+        return 1;
+
+    for (i = 1; i < 20000; i++)
+    {
+        personality = (((high + i) & 0xFFFFFF) << 8) | lowByte;
+        if (personality % NUM_NATURES == nature
+         && personality % 3 == oldPersonality % 3
+         && IsShinyOtIdPersonality(box->otId, personality) == shiny)
+        {
+            DecryptBoxMon(box);
+            box->personality = personality;
+            EncryptBoxMon(box);
+            CalculateMonStats(mon);
+            return 0;
+        }
+    }
+    return 2;
+}
+
 u16 GetEvolutionTargetSpecies(struct Pokemon *mon, u8 mode, u16 evolutionItem)
 {
     int i;
