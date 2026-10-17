@@ -41,23 +41,10 @@ Route104_PrettyPetalFlowerShop_EventScript_DontExplainBerries::
 	msgbox Route104_PrettyPetalFlowerShop_Text_FlowersBringHappiness, MSGBOX_DEFAULT
 	return
 
+@ Jazz: the flower shop sells POKEBLOCKS (same vendor as the Lilycove Department Store 5F)
 Route104_PrettyPetalFlowerShop_EventScript_SellDecorations::
-	message gText_PlayerWhatCanIDoForYou
-	waitmessage
-	pokemartdecoration2 Route104_PrettyPetalFlowerShop_Pokemart_Plants
-	msgbox gText_PleaseComeAgain, MSGBOX_DEFAULT
-	release
+	goto LilycoveCity_DepartmentStore_5F_EventScript_PokeblockClerk
 	end
-
-	.align 2
-Route104_PrettyPetalFlowerShop_Pokemart_Plants:
-	.2byte DECOR_RED_PLANT
-	.2byte DECOR_TROPICAL_PLANT
-	.2byte DECOR_PRETTY_FLOWERS
-	.2byte DECOR_COLORFUL_PLANT
-	.2byte DECOR_BIG_PLANT
-	.2byte DECOR_GORGEOUS_PLANT
-	pokemartlistend
 
 Route104_PrettyPetalFlowerShop_EventScript_WailmerPailGirl::
 	lock
