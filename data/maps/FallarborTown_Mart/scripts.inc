@@ -26,7 +26,6 @@ FallarborTown_Mart_Pokemart:
 	.2byte ITEM_DIRE_HIT
 	.2byte ITEM_GUARD_SPEC
 	.2byte ITEM_HEART_SCALE
-	.2byte ITEM_PP_UP
 	pokemartlistend
 
 FallarborTown_Mart_EventScript_Woman::
