@@ -2,6 +2,8 @@
 #define GUARD_LOTTERY_CORNER_H
 
 void ResetLotteryCorner(void);
+void DrawNewLotteryNumber(void);
+void CheckJazzLottery(void);
 void SetRandomLotteryNumber(u16 i);
 void RetrieveLotteryNumber(void);
 void PickLotteryCornerTicket(void);

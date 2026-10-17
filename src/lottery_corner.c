@@ -11,22 +11,47 @@
 static EWRAM_DATA u16 sWinNumberDigit = 0;
 static EWRAM_DATA u16 sOtIdDigit = 0;
 
+// Jazz: the lottery number goes from 1 to 3 and a new one is drawn every LOTTERY_STEPS_PER_DRAW steps.
+// The player picks a number: if it matches, the prize is the one of that number, otherwise a consolation prize.
 static const u16 sLotteryPrizes[] =
 {
+    ITEM_RARE_CANDY,
     ITEM_PP_UP,
-    ITEM_EXP_SHARE,
-    ITEM_MAX_REVIVE,
-    ITEM_MASTER_BALL,
+    ITEM_NUGGET,
 };
 
 static u8 GetMatchingDigits(u16, u16);
 
 void ResetLotteryCorner(void)
 {
-    u16 rand = Random();
-
-    SetLotteryNumber((Random() << 16) | rand);
+    SetLotteryNumber(1 + Random() % 3);
+    FlagClear(FLAG_JAZZ_LOTTERY_PLAYED);
     VarSet(VAR_POKELOT_PRIZE_ITEM, ITEM_NONE);
+}
+
+// Called every LOTTERY_STEPS_PER_DRAW steps
+void DrawNewLotteryNumber(void)
+{
+    SetLotteryNumber(1 + Random() % 3);
+    FlagClear(FLAG_JAZZ_LOTTERY_PLAYED);
+}
+
+// Script special. VAR_0x8008 = number picked by the player (0 to 2).
+// VAR_0x8004 = number that won (0 if the player did not win), VAR_0x8005 = prize item
+void CheckJazzLottery(void)
+{
+    u32 drawn = GetLotteryNumber();
+
+    if (gSpecialVar_0x8008 + 1 == drawn)
+    {
+        gSpecialVar_0x8004 = drawn;
+        gSpecialVar_0x8005 = sLotteryPrizes[drawn - 1];
+    }
+    else
+    {
+        gSpecialVar_0x8004 = 0;
+        gSpecialVar_0x8005 = ITEM_ULTRA_BALL;
+    }
 }
 
 void SetRandomLotteryNumber(u16 i)

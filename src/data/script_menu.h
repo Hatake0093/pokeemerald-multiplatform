@@ -851,6 +851,18 @@ static const struct MenuAction MultichoiceList_NatureStat[] =
     {gText_Exit},
 };
 
+static const u8 sText_LotteryNum1[] = _("1");
+static const u8 sText_LotteryNum2[] = _("2");
+static const u8 sText_LotteryNum3[] = _("3");
+
+static const struct MenuAction MultichoiceList_LotteryNumber[] =
+{
+    {sText_LotteryNum1},
+    {sText_LotteryNum2},
+    {sText_LotteryNum3},
+    {gText_Exit},
+};
+
 static const struct MenuAction MultichoiceList_TagMatchType[] =
 {
     {gText_NormalTagMatch},
@@ -995,6 +1007,7 @@ static const struct MultichoiceListStruct sMultichoiceLists[] =
     [MULTI_JAZZ_TUTOR_5]                 = MULTICHOICE(MultichoiceList_JazzTutor5),
     [MULTI_JAZZ_TUTOR_6]                 = MULTICHOICE(MultichoiceList_JazzTutor6),
     [MULTI_NATURE_STAT]                  = MULTICHOICE(MultichoiceList_NatureStat),
+    [MULTI_LOTTERY_NUMBER]               = MULTICHOICE(MultichoiceList_LotteryNumber),
 };
 
 const u8 *const gStdStrings[] =

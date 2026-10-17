@@ -2,6 +2,7 @@
 #include "battle_setup.h"
 #include "berry.h"
 #include "bike.h"
+#include "lottery_corner.h"
 #include "coord_event_weather.h"
 #include "daycare.h"
 #include "faraway_island.h"
@@ -46,6 +47,9 @@ static void GetInFrontOfPlayerPosition(struct MapPosition *);
 static u16 GetPlayerCurMetatileBehavior(int);
 static bool8 TryStartInteractionScript(struct MapPosition *, u16, u8);
 static const u8 *GetInteractionScript(struct MapPosition *, u8, u8);
+// A new lottery number is drawn every this many steps
+#define LOTTERY_STEPS_PER_DRAW 1000
+
 // This many steps count as one minute of berry growth (a 3 hour stage takes 180 * this many steps)
 #define BERRY_STEPS_PER_MINUTE 3
 
@@ -161,6 +165,8 @@ int ProcessPlayerFieldInput(struct FieldInput *input)
         IncrementGameStat(GAME_STAT_STEPS);
         if (GetGameStat(GAME_STAT_STEPS) % BERRY_STEPS_PER_MINUTE == 0)
             BerryTreeTimeUpdate(1); // Jazz: berries grow with steps, not with the clock
+        if (GetGameStat(GAME_STAT_STEPS) % LOTTERY_STEPS_PER_DRAW == 0)
+            DrawNewLotteryNumber();
         IncrementBirthIslandRockStepCount();
         if (TryStartStepBasedScript(&position, metatileBehavior, playerDirection) == TRUE)
             return TRUE;

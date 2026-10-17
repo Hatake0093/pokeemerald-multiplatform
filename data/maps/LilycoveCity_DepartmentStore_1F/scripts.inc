@@ -5,43 +5,62 @@ LilycoveCity_DepartmentStore_1F_EventScript_Greeter::
 	msgbox LilycoveCity_DepartmentStore_1F_Text_WelcomeToDeptStore, MSGBOX_NPC
 	end
 
+@ Jazz: pick a number from 1 to 3. A new number is drawn every 1000 steps. If it matches the player
+@ wins the prize of that number (Rare Candy, PP Up, Nugget), otherwise an Ultra Ball.
 LilycoveCity_DepartmentStore_1F_EventScript_LotteryClerk::
 	lock
 	faceplayer
-	dotimebasedevents
 	goto_if_ne VAR_POKELOT_PRIZE_ITEM, ITEM_NONE, LilycoveCity_DepartmentStore_1F_EventScript_GivePrizeFromEarlier
-	goto_if_set FLAG_DAILY_PICKED_LOTO_TICKET, LilycoveCity_DepartmentStore_1F_EventScript_ComeBackTomorrow
-	msgbox LilycoveCity_DepartmentStore_1F_Text_LotteryCornerDrawTicket, MSGBOX_YESNO
+	goto_if_set FLAG_JAZZ_LOTTERY_PLAYED, LilycoveCity_DepartmentStore_1F_EventScript_ComeBackTomorrow
+	msgbox LilycoveCity_DepartmentStore_1F_Text_JazzLotteryIntro, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, LilycoveCity_DepartmentStore_1F_EventScript_PleaseVisitAgain
-	setflag FLAG_DAILY_PICKED_LOTO_TICKET
-	message LilycoveCity_DepartmentStore_1F_Text_PleasePickTicket
+	message LilycoveCity_DepartmentStore_1F_Text_JazzLotteryPick
 	waitmessage
-	special RetrieveLotteryNumber
+	multichoice 15, 0, MULTI_LOTTERY_NUMBER, FALSE
+	goto_if_ge VAR_RESULT, 3, LilycoveCity_DepartmentStore_1F_EventScript_PleaseVisitAgain
 	copyvar VAR_0x8008, VAR_RESULT
-	special BufferLottoTicketNumber
-	msgbox LilycoveCity_DepartmentStore_1F_Text_TicketNumberIsXPleaseWait, MSGBOX_DEFAULT
+	setflag FLAG_JAZZ_LOTTERY_PLAYED
+	msgbox LilycoveCity_DepartmentStore_1F_Text_JazzLotteryChecking, MSGBOX_DEFAULT
 	applywaitmovement LOCALID_LOTTERY_CLERK, Common_Movement_WalkInPlaceFasterRight
 	playse SE_PC_ON
 	special DoLotteryCornerComputerEffect
-	special PickLotteryCornerTicket
+	special CheckJazzLottery
 	delay 220
 	special EndLotteryCornerComputerEffect
 	delay 10
 	applywaitmovement LOCALID_LOTTERY_CLERK, Common_Movement_FacePlayer
-	goto_if_eq VAR_0x8004, 0, LilycoveCity_DepartmentStore_1F_EventScript_NoMatch
-	incrementgamestat GAME_STAT_WON_POKEMON_LOTTERY
-	call_if_eq VAR_0x8006, 0, LilycoveCity_DepartmentStore_1F_EventScript_TicketMatchPartyMon
-	call_if_eq VAR_0x8006, 1, LilycoveCity_DepartmentStore_1F_EventScript_TicketMatchPCMon
 	bufferitemname STR_VAR_1, VAR_0x8005
-	call_if_eq VAR_0x8004, 1, LilycoveCity_DepartmentStore_1F_EventScript_TwoDigitMatch
-	call_if_eq VAR_0x8004, 2, LilycoveCity_DepartmentStore_1F_EventScript_ThreeDigitMatch
-	call_if_eq VAR_0x8004, 3, LilycoveCity_DepartmentStore_1F_EventScript_FourDigitMatch
-	call_if_eq VAR_0x8004, 4, LilycoveCity_DepartmentStore_1F_EventScript_FullMatch
+	goto_if_eq VAR_0x8004, 0, LilycoveCity_DepartmentStore_1F_EventScript_JazzLotteryLost
+	incrementgamestat GAME_STAT_WON_POKEMON_LOTTERY
+	msgbox LilycoveCity_DepartmentStore_1F_Text_JazzLotteryWon, MSGBOX_DEFAULT
+	goto LilycoveCity_DepartmentStore_1F_EventScript_JazzLotteryGivePrize
+	end
+
+LilycoveCity_DepartmentStore_1F_EventScript_JazzLotteryLost::
+	msgbox LilycoveCity_DepartmentStore_1F_Text_JazzLotteryLost, MSGBOX_DEFAULT
+	goto LilycoveCity_DepartmentStore_1F_EventScript_JazzLotteryGivePrize
+	end
+
+LilycoveCity_DepartmentStore_1F_EventScript_JazzLotteryGivePrize::
 	giveitem VAR_0x8005
 	goto_if_eq VAR_RESULT, FALSE, LilycoveCity_DepartmentStore_1F_EventScript_RecordPrizeNoRoom
-	special TryPutLotteryWinnerReportOnAir
 	goto LilycoveCity_DepartmentStore_1F_EventScript_PleaseVisitAgain2
 	end
+
+LilycoveCity_DepartmentStore_1F_Text_JazzLotteryIntro:
+	.string "¡Bienvenido a la LOTERÍA!\pElige un número del 1 al 3.\nSi coincide con el sorteo, ganas el\npremio de ese número.\pEl sorteo cambia cada 1000 pasos.\p¿Quieres jugar?$"
+
+LilycoveCity_DepartmentStore_1F_Text_JazzLotteryPick:
+	.string "¿Qué número eliges?$"
+
+LilycoveCity_DepartmentStore_1F_Text_JazzLotteryChecking:
+	.string "Muy bien, voy a comprobar el sorteo…$"
+
+LilycoveCity_DepartmentStore_1F_Text_JazzLotteryWon:
+	.string "¡Tu número coincide!\p¡Has ganado {STR_VAR_1}!$"
+
+LilycoveCity_DepartmentStore_1F_Text_JazzLotteryLost:
+	.string "Tu número no coincide…\pPero toma esto de consolación:\n{STR_VAR_1}.$"
 
 LilycoveCity_DepartmentStore_1F_EventScript_TicketMatchPartyMon::
 	msgbox LilycoveCity_DepartmentStore_1F_Text_TicketMatchesPartyMon, MSGBOX_DEFAULT

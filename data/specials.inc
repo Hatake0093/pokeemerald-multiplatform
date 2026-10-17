@@ -546,3 +546,4 @@ gSpecials::
 	def_special BuyPokeblock
 	def_special BufferDayAndTime
 	def_special ChangeMonNatureFromScript
+	def_special CheckJazzLottery
