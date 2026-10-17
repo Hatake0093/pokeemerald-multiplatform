@@ -15,21 +15,45 @@ LilycoveCity_DepartmentStore_5F_EventScript_BlockRoofStairs::
 	turnobject LOCALID_DEPARTMENT_STORE_STAIRS_WOMAN, DIR_NORTH
 	end
 
-@ Jazz: the four decoration clerks are POKEBLOCK vendors
+@ Jazz: the four clerks sell held items (the POKEBLOCK vendor script below is used by the flower shop)
 LilycoveCity_DepartmentStore_5F_EventScript_ClerkFarLeft::
-	goto LilycoveCity_DepartmentStore_5F_EventScript_PokeblockClerk
+	lock
+	faceplayer
+	message gText_PlayerWhatCanIDoForYou
+	waitmessage
+	pokemart LilycoveCity_DepartmentStore_5F_Pokemart_Types1
+	msgbox gText_PleaseComeAgain, MSGBOX_DEFAULT
+	release
 	end
 
 LilycoveCity_DepartmentStore_5F_EventScript_ClerkMidLeft::
-	goto LilycoveCity_DepartmentStore_5F_EventScript_PokeblockClerk
+	lock
+	faceplayer
+	message gText_PlayerWhatCanIDoForYou
+	waitmessage
+	pokemart LilycoveCity_DepartmentStore_5F_Pokemart_Types2
+	msgbox gText_PleaseComeAgain, MSGBOX_DEFAULT
+	release
 	end
 
 LilycoveCity_DepartmentStore_5F_EventScript_ClerkMidRight::
-	goto LilycoveCity_DepartmentStore_5F_EventScript_PokeblockClerk
+	lock
+	faceplayer
+	message gText_PlayerWhatCanIDoForYou
+	waitmessage
+	pokemart LilycoveCity_DepartmentStore_5F_Pokemart_Battle
+	msgbox gText_PleaseComeAgain, MSGBOX_DEFAULT
+	release
 	end
 
 LilycoveCity_DepartmentStore_5F_EventScript_ClerkFarRight::
-	goto LilycoveCity_DepartmentStore_5F_EventScript_PokeblockClerk
+	lock
+	faceplayer
+	message gText_PlayerWhatCanIDoForYou
+	waitmessage
+	pokemart LilycoveCity_DepartmentStore_5F_Pokemart_Growth
+	msgbox gText_PleaseComeAgain, MSGBOX_DEFAULT
+	release
 	end
 
 LilycoveCity_DepartmentStore_5F_EventScript_PokeblockClerk::
@@ -101,6 +125,65 @@ LilycoveCity_DepartmentStore_5F_Text_NoRoomInCase:
 LilycoveCity_DepartmentStore_5F_Text_NeedPokeblockCase:
 	.string "You need a {POKEBLOCK} CASE to carry\n"
 	.string "{POKEBLOCK}S.$"
+
+	.align 2
+LilycoveCity_DepartmentStore_5F_Pokemart_Types1:
+	.2byte ITEM_CHARCOAL
+	.2byte ITEM_MYSTIC_WATER
+	.2byte ITEM_MIRACLE_SEED
+	.2byte ITEM_MAGNET
+	.2byte ITEM_NEVER_MELT_ICE
+	.2byte ITEM_BLACK_BELT
+	.2byte ITEM_POISON_BARB
+	.2byte ITEM_SOFT_SAND
+	.2byte ITEM_SHARP_BEAK
+	pokemartlistend
+
+	.align 2
+LilycoveCity_DepartmentStore_5F_Pokemart_Types2:
+	.2byte ITEM_TWISTED_SPOON
+	.2byte ITEM_SILVER_POWDER
+	.2byte ITEM_HARD_STONE
+	.2byte ITEM_SPELL_TAG
+	.2byte ITEM_DRAGON_FANG
+	.2byte ITEM_BLACK_GLASSES
+	.2byte ITEM_METAL_COAT
+	.2byte ITEM_SILK_SCARF
+	pokemartlistend
+
+	.align 2
+LilycoveCity_DepartmentStore_5F_Pokemart_Battle:
+	.2byte ITEM_LEFTOVERS
+	.2byte ITEM_SHELL_BELL
+	.2byte ITEM_SCOPE_LENS
+	.2byte ITEM_FOCUS_BAND
+	.2byte ITEM_QUICK_CLAW
+	.2byte ITEM_KINGS_ROCK
+	.2byte ITEM_CHOICE_BAND
+	.2byte ITEM_SMOKE_BALL
+	.2byte ITEM_BRIGHT_POWDER
+	.2byte ITEM_WHITE_HERB
+	.2byte ITEM_MENTAL_HERB
+	pokemartlistend
+
+	.align 2
+LilycoveCity_DepartmentStore_5F_Pokemart_Growth:
+	.2byte ITEM_EXP_SHARE
+	.2byte ITEM_LUCKY_EGG
+	.2byte ITEM_AMULET_COIN
+	.2byte ITEM_SOOTHE_BELL
+	.2byte ITEM_EVERSTONE
+	.2byte ITEM_MACHO_BRACE
+	.2byte ITEM_LIGHT_BALL
+	.2byte ITEM_LUCKY_PUNCH
+	.2byte ITEM_STICK
+	.2byte ITEM_THICK_CLUB
+	.2byte ITEM_METAL_POWDER
+	.2byte ITEM_DEEP_SEA_TOOTH
+	.2byte ITEM_DEEP_SEA_SCALE
+	.2byte ITEM_SEA_INCENSE
+	.2byte ITEM_LAX_INCENSE
+	pokemartlistend
 
 LilycoveCity_DepartmentStore_5F_EventScript_PokefanF::
 	msgbox LilycoveCity_DepartmentStore_5F_Text_PlaceFullOfCuteDolls, MSGBOX_NPC

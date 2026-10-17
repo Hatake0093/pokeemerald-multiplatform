@@ -165,24 +165,52 @@ static u32 GetShopBuyPrice(u16 itemId)
         return 15000;
     switch (itemId)
     {
-    case ITEM_CHOICE_BAND:
-    case ITEM_SCOPE_LENS:
-    case ITEM_BRIGHT_POWDER:
+    // Jazz: held item prices of the Lilycove Department Store 5F (selling still uses the item price)
     case ITEM_BLACK_BELT:
-    case ITEM_SPELL_TAG:
-    case ITEM_METAL_COAT:
-    case ITEM_DRAGON_SCALE:
+    case ITEM_BLACK_GLASSES:
+    case ITEM_CHARCOAL:
     case ITEM_DRAGON_FANG:
-    case ITEM_SILVER_POWDER:
-    case ITEM_LIGHT_BALL:
-    case ITEM_SHARP_BEAK:
+    case ITEM_HARD_STONE:
+    case ITEM_MAGNET:
+    case ITEM_METAL_COAT:
+    case ITEM_MIRACLE_SEED:
+    case ITEM_MYSTIC_WATER:
+    case ITEM_NEVER_MELT_ICE:
     case ITEM_POISON_BARB:
+    case ITEM_SHARP_BEAK:
+    case ITEM_SILVER_POWDER:
+    case ITEM_SOFT_SAND:
+    case ITEM_SPELL_TAG:
     case ITEM_TWISTED_SPOON:
-    case ITEM_LUCKY_EGG:
-    case ITEM_THICK_CLUB:
-    case ITEM_STICK:
-    case ITEM_METAL_POWDER:
+    case ITEM_SILK_SCARF:
+        return 4000;
+    case ITEM_LEFTOVERS:
+    case ITEM_SHELL_BELL:
+    case ITEM_SCOPE_LENS:
+    case ITEM_FOCUS_BAND:
+    case ITEM_QUICK_CLAW:
+    case ITEM_KINGS_ROCK:
+    case ITEM_CHOICE_BAND:
+    case ITEM_SMOKE_BALL:
+    case ITEM_BRIGHT_POWDER:
+    case ITEM_WHITE_HERB:
+    case ITEM_MENTAL_HERB:
+    case ITEM_SOOTHE_BELL:
+    case ITEM_EVERSTONE:
+    case ITEM_MACHO_BRACE:
+    case ITEM_LIGHT_BALL:
     case ITEM_LUCKY_PUNCH:
+    case ITEM_STICK:
+    case ITEM_THICK_CLUB:
+    case ITEM_METAL_POWDER:
+    case ITEM_DEEP_SEA_TOOTH:
+    case ITEM_DEEP_SEA_SCALE:
+        return 6000;
+    case ITEM_EXP_SHARE:
+    case ITEM_LUCKY_EGG:
+    case ITEM_AMULET_COIN:
+        return 10000;
+    case ITEM_DRAGON_SCALE:
         return 3000;
     }
     return GetItemPrice(itemId);
