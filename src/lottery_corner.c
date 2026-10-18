@@ -11,20 +11,27 @@
 static EWRAM_DATA u16 sWinNumberDigit = 0;
 static EWRAM_DATA u16 sOtIdDigit = 0;
 
-// Jazz: the lottery number goes from 1 to 3 and a new one is drawn every LOTTERY_STEPS_PER_DRAW steps.
-// The player picks a number: if it matches, the prize is the one of that number, otherwise a consolation prize.
-static const u16 sLotteryPrizes[] =
+// Jazz: the lottery number goes from 1 to 10 and a new one is drawn every LOTTERY_STEPS_PER_DRAW steps.
+// The player picks a number: if it matches, the prize is chosen at random with the chances below
+// (so picking a number says nothing about the prize), otherwise it is a consolation prize.
+#define LOTTERY_NUMBERS 10
+
+static const struct
 {
-    ITEM_RARE_CANDY,
-    ITEM_PP_MAX,
-    ITEM_LUXURY_BALL,
+    u16 item;
+    u8 chance; // out of 100
+} sLotteryPrizes[] =
+{
+    {ITEM_RARE_CANDY,  60},
+    {ITEM_PP_MAX,      30},
+    {ITEM_LUXURY_BALL, 10},
 };
 
 static u8 GetMatchingDigits(u16, u16);
 
 void ResetLotteryCorner(void)
 {
-    SetLotteryNumber(1 + Random() % 3);
+    SetLotteryNumber(1 + Random() % LOTTERY_NUMBERS);
     FlagClear(FLAG_JAZZ_LOTTERY_PLAYED);
     VarSet(VAR_POKELOT_PRIZE_ITEM, ITEM_NONE);
 }
@@ -32,20 +39,30 @@ void ResetLotteryCorner(void)
 // Called every LOTTERY_STEPS_PER_DRAW steps
 void DrawNewLotteryNumber(void)
 {
-    SetLotteryNumber(1 + Random() % 3);
+    SetLotteryNumber(1 + Random() % LOTTERY_NUMBERS);
     FlagClear(FLAG_JAZZ_LOTTERY_PLAYED);
 }
 
-// Script special. VAR_0x8008 = number picked by the player (0 to 2).
-// VAR_0x8004 = number that won (0 if the player did not win), VAR_0x8005 = prize item
+// Script special. VAR_0x8009 = 0 for the numbers 1 to 5 and 1 for the numbers 6 to 10,
+// VAR_0x8008 = position of the number picked inside that group (0 to 4).
+// VAR_0x8004 = 1 if the player won and 0 if not, VAR_0x8005 = prize item
 void CheckJazzLottery(void)
 {
-    u32 drawn = GetLotteryNumber();
+    u32 picked = gSpecialVar_0x8009 * 5 + gSpecialVar_0x8008 + 1;
 
-    if (gSpecialVar_0x8008 + 1 == drawn)
+    if (picked == GetLotteryNumber())
     {
-        gSpecialVar_0x8004 = drawn;
-        gSpecialVar_0x8005 = sLotteryPrizes[drawn - 1];
+        u32 roll = Random() % 100;
+        u32 i, total = 0;
+
+        gSpecialVar_0x8004 = 1;
+        for (i = 0; i < ARRAY_COUNT(sLotteryPrizes); i++)
+        {
+            total += sLotteryPrizes[i].chance;
+            if (roll < total)
+                break;
+        }
+        gSpecialVar_0x8005 = sLotteryPrizes[i].item;
     }
     else
     {
@@ -128,7 +145,7 @@ void PickLotteryCornerTicket(void)
 
     if (gSpecialVar_0x8004 != 0)
     {
-        gSpecialVar_0x8005 = sLotteryPrizes[gSpecialVar_0x8004 - 1];
+        gSpecialVar_0x8005 = sLotteryPrizes[gSpecialVar_0x8004 - 1].item;
 
         if (box == TOTAL_BOXES_COUNT)
         {

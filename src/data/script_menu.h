@@ -854,12 +854,25 @@ static const struct MenuAction MultichoiceList_NatureStat[] =
 static const u8 sText_LotteryNum1[] = _("1");
 static const u8 sText_LotteryNum2[] = _("2");
 static const u8 sText_LotteryNum3[] = _("3");
+static const u8 sText_LotteryNum4[] = _("4");
+static const u8 sText_LotteryNum5[] = _("5");
+static const u8 sText_LotteryRangeLow[] = _("DEL 1 AL 5");
+static const u8 sText_LotteryRangeHigh[] = _("DEL 6 AL 10");
 
 static const struct MenuAction MultichoiceList_LotteryNumber[] =
 {
     {sText_LotteryNum1},
     {sText_LotteryNum2},
     {sText_LotteryNum3},
+    {sText_LotteryNum4},
+    {sText_LotteryNum5},
+    {gText_Exit},
+};
+
+static const struct MenuAction MultichoiceList_LotteryRange[] =
+{
+    {sText_LotteryRangeLow},
+    {sText_LotteryRangeHigh},
     {gText_Exit},
 };
 
@@ -1008,6 +1021,7 @@ static const struct MultichoiceListStruct sMultichoiceLists[] =
     [MULTI_JAZZ_TUTOR_6]                 = MULTICHOICE(MultichoiceList_JazzTutor6),
     [MULTI_NATURE_STAT]                  = MULTICHOICE(MultichoiceList_NatureStat),
     [MULTI_LOTTERY_NUMBER]               = MULTICHOICE(MultichoiceList_LotteryNumber),
+    [MULTI_LOTTERY_RANGE]                = MULTICHOICE(MultichoiceList_LotteryRange),
 };
 
 const u8 *const gStdStrings[] =

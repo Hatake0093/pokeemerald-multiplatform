@@ -5,8 +5,8 @@ LilycoveCity_DepartmentStore_1F_EventScript_Greeter::
 	msgbox LilycoveCity_DepartmentStore_1F_Text_WelcomeToDeptStore, MSGBOX_NPC
 	end
 
-@ Jazz: pick a number from 1 to 3. A new number is drawn every 1000 steps. If it matches the player
-@ wins the prize of that number (Rare Candy, PP Max, Luxury Ball), otherwise an Ultra Ball.
+@ Jazz: pick a number from 1 to 10. A new number is drawn every 1000 steps. If it matches the player
+@ wins a random prize (Rare Candy, PP Max or Luxury Ball), otherwise an Ultra Ball.
 LilycoveCity_DepartmentStore_1F_EventScript_LotteryClerk::
 	lock
 	faceplayer
@@ -16,8 +16,13 @@ LilycoveCity_DepartmentStore_1F_EventScript_LotteryClerk::
 	goto_if_eq VAR_RESULT, NO, LilycoveCity_DepartmentStore_1F_EventScript_PleaseVisitAgain
 	message LilycoveCity_DepartmentStore_1F_Text_JazzLotteryPick
 	waitmessage
+	multichoice 15, 0, MULTI_LOTTERY_RANGE, FALSE
+	goto_if_ge VAR_RESULT, 2, LilycoveCity_DepartmentStore_1F_EventScript_PleaseVisitAgain
+	copyvar VAR_0x8009, VAR_RESULT
+	message LilycoveCity_DepartmentStore_1F_Text_JazzLotteryPick
+	waitmessage
 	multichoice 15, 0, MULTI_LOTTERY_NUMBER, FALSE
-	goto_if_ge VAR_RESULT, 3, LilycoveCity_DepartmentStore_1F_EventScript_PleaseVisitAgain
+	goto_if_ge VAR_RESULT, 5, LilycoveCity_DepartmentStore_1F_EventScript_PleaseVisitAgain
 	copyvar VAR_0x8008, VAR_RESULT
 	setflag FLAG_JAZZ_LOTTERY_PLAYED
 	msgbox LilycoveCity_DepartmentStore_1F_Text_JazzLotteryChecking, MSGBOX_DEFAULT
@@ -48,7 +53,7 @@ LilycoveCity_DepartmentStore_1F_EventScript_JazzLotteryGivePrize::
 	end
 
 LilycoveCity_DepartmentStore_1F_Text_JazzLotteryIntro:
-	.string "¡Bienvenido a la LOTERÍA!\pElige un número del 1 al 3.\nSi coincide con el sorteo, ganas el\npremio de ese número.\pEl sorteo cambia cada 1000 pasos.\p¿Quieres jugar?$"
+	.string "¡Bienvenido a la LOTERÍA!\pElige un número del 1 al 10.\nSi coincide con el sorteo, ganas un\npremio especial.\pEl sorteo cambia cada 1000 pasos.\p¿Quieres jugar?$"
 
 LilycoveCity_DepartmentStore_1F_Text_JazzLotteryPick:
 	.string "¿Qué número eliges?$"
