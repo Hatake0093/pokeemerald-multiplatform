@@ -212,6 +212,8 @@ static u32 GetShopBuyPrice(u16 itemId)
         return 10000;
     case ITEM_DRAGON_SCALE:
         return 3000;
+    case ITEM_MOON_STONE: // its item price is 0 (it cannot be sold), the other stones cost 2100
+        return 2100;
     }
     return GetItemPrice(itemId);
 }
