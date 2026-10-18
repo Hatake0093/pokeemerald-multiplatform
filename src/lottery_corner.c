@@ -17,7 +17,7 @@ static const u16 sLotteryPrizes[] =
 {
     ITEM_RARE_CANDY,
     ITEM_PP_UP,
-    ITEM_NUGGET,
+    ITEM_LUXURY_BALL,
 };
 
 static u8 GetMatchingDigits(u16, u16);

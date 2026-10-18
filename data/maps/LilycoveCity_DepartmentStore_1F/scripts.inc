@@ -6,7 +6,7 @@ LilycoveCity_DepartmentStore_1F_EventScript_Greeter::
 	end
 
 @ Jazz: pick a number from 1 to 3. A new number is drawn every 1000 steps. If it matches the player
-@ wins the prize of that number (Rare Candy, PP Up, Nugget), otherwise an Ultra Ball.
+@ wins the prize of that number (Rare Candy, PP Up, Luxury Ball), otherwise an Ultra Ball.
 LilycoveCity_DepartmentStore_1F_EventScript_LotteryClerk::
 	lock
 	faceplayer
