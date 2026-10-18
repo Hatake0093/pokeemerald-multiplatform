@@ -36,6 +36,15 @@ LilycoveCity_DepartmentStore_3F_EventScript_ClerkRight::
 
 	.align 2
 LilycoveCity_DepartmentStore_3F_Pokemart_StatBoosters:
+	.2byte ITEM_POKE_BALL
+	.2byte ITEM_GREAT_BALL
+	.2byte ITEM_ULTRA_BALL
+	.2byte ITEM_NET_BALL
+	.2byte ITEM_DIVE_BALL
+	.2byte ITEM_NEST_BALL
+	.2byte ITEM_REPEAT_BALL
+	.2byte ITEM_TIMER_BALL
+	.2byte ITEM_LUXURY_BALL
 	.2byte ITEM_X_SPEED
 	.2byte ITEM_X_SPECIAL
 	.2byte ITEM_X_ATTACK
@@ -43,24 +52,7 @@ LilycoveCity_DepartmentStore_3F_Pokemart_StatBoosters:
 	.2byte ITEM_DIRE_HIT
 	.2byte ITEM_GUARD_SPEC
 	.2byte ITEM_X_ACCURACY
-	.2byte ITEM_CHOICE_BAND
-	.2byte ITEM_SCOPE_LENS
-	.2byte ITEM_BRIGHT_POWDER
-	.2byte ITEM_BLACK_BELT
-	.2byte ITEM_SPELL_TAG
-	.2byte ITEM_METAL_COAT
 	.2byte ITEM_DRAGON_SCALE
-	.2byte ITEM_DRAGON_FANG
-	.2byte ITEM_SILVER_POWDER
-	.2byte ITEM_LIGHT_BALL
-	.2byte ITEM_SHARP_BEAK
-	.2byte ITEM_POISON_BARB
-	.2byte ITEM_TWISTED_SPOON
-	.2byte ITEM_LUCKY_EGG
-	.2byte ITEM_THICK_CLUB
-	.2byte ITEM_STICK
-	.2byte ITEM_METAL_POWDER
-	.2byte ITEM_LUCKY_PUNCH
 	.2byte ITEM_RARE_CANDY
 	pokemartlistend
 
