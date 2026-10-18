@@ -100,7 +100,7 @@ FallarborTown_BattleTentLobby_EventScript_ResumeChallenge::
 	setvar VAR_TEMP_CHALLENGE_STATUS, 255
 	goto FallarborTown_BattleTentLobby_EventScript_EnterChallenge
 
-@ Jazz: the attendant is a training coach. Repeatable battle, no prize: it is only there to farm less.
+@ Jazz: the attendant is a training coach. Repeatable battle, with a Nugget only the first time it is won.
 FallarborTown_BattleTentLobby_EventScript_Attendant::
 	lock
 	faceplayer
@@ -109,6 +109,16 @@ FallarborTown_BattleTentLobby_EventScript_Attendant::
 	msgbox FallarborTown_BattleTentLobby_Text_TrainingStart, MSGBOX_DEFAULT
 	trainerbattle_no_intro TRAINER_TENT_FALLARBOR, FallarborTown_BattleTentLobby_Text_TrainingDefeat
 	cleartrainerflag TRAINER_TENT_FALLARBOR
+	goto_if_set FLAG_JAZZ_FALLARBOR_PRIZE, FallarborTown_BattleTentLobby_EventScript_TrainingNoPrize
+	msgbox FallarborTown_BattleTentLobby_Text_TrainingPrize, MSGBOX_DEFAULT
+	giveitem ITEM_NUGGET
+	goto_if_eq VAR_RESULT, FALSE, Common_EventScript_ShowBagIsFull
+	setflag FLAG_JAZZ_FALLARBOR_PRIZE
+	msgbox FallarborTown_BattleTentLobby_Text_TrainingReward, MSGBOX_DEFAULT
+	release
+	end
+
+FallarborTown_BattleTentLobby_EventScript_TrainingNoPrize::
 	msgbox FallarborTown_BattleTentLobby_Text_TrainingReward, MSGBOX_DEFAULT
 	release
 	end
@@ -128,6 +138,10 @@ FallarborTown_BattleTentLobby_Text_TrainingStart:
 FallarborTown_BattleTentLobby_Text_TrainingDefeat:
 	.string "Has mejorado.\n"
 	.string "Sigue así.$"
+
+FallarborTown_BattleTentLobby_Text_TrainingPrize:
+	.string "Te has ganado esto.\n"
+	.string "Es tu primera victoria.$"
 
 FallarborTown_BattleTentLobby_Text_TrainingReward:
 	.string "Descansa y vuelve\n"

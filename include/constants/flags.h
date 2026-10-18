@@ -44,7 +44,7 @@
 #define NUM_TEMP_FLAGS   (TEMP_FLAGS_END - TEMP_FLAGS_START + 1)
 
 #define FLAG_JAZZ_LOTTERY_PLAYED 0x20 // Jazz: the lottery was played since the last draw (every 1000 steps)
-#define FLAG_UNUSED_0x021    0x21 // Unused Flag
+#define FLAG_JAZZ_FALLARBOR_PRIZE 0x21 // Jazz: the Fallarbor Battle Tent coach already gave the Nugget
 #define FLAG_UNUSED_0x022    0x22 // Unused Flag
 #define FLAG_UNUSED_0x023    0x23 // Unused Flag
 #define FLAG_UNUSED_0x024    0x24 // Unused Flag
