@@ -20,6 +20,7 @@ LilycoveCity_DepartmentStore_3F_Pokemart_Vitamins:
 	.2byte ITEM_CARBOS
 	.2byte ITEM_HP_UP
 	.2byte ITEM_PP_UP
+	.2byte ITEM_DRAGON_SCALE
 	.2byte ITEM_THUNDER_STONE
 	.2byte ITEM_WATER_STONE
 	.2byte ITEM_MOON_STONE
@@ -45,15 +46,6 @@ LilycoveCity_DepartmentStore_3F_Pokemart_StatBoosters:
 	.2byte ITEM_NEST_BALL
 	.2byte ITEM_REPEAT_BALL
 	.2byte ITEM_TIMER_BALL
-	.2byte ITEM_X_SPEED
-	.2byte ITEM_X_SPECIAL
-	.2byte ITEM_X_ATTACK
-	.2byte ITEM_X_DEFEND
-	.2byte ITEM_DIRE_HIT
-	.2byte ITEM_GUARD_SPEC
-	.2byte ITEM_X_ACCURACY
-	.2byte ITEM_DRAGON_SCALE
-	.2byte ITEM_RARE_CANDY
 	pokemartlistend
 
 LilycoveCity_DepartmentStore_3F_EventScript_TriathleteM::
