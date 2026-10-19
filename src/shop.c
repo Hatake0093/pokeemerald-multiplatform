@@ -212,6 +212,12 @@ static u32 GetShopBuyPrice(u16 itemId)
         return 10000;
     case ITEM_DRAGON_SCALE:
         return 3000;
+    // Jazz: the hard to find TMs sold in the Lilycove Department Store 4F cost like the other TMs of their clerk
+    case ITEM_TM_SOLAR_BEAM:
+    case ITEM_TM_EARTHQUAKE:
+        return 5500;
+    case ITEM_TM_SUNNY_DAY:
+        return 3000;
     case ITEM_MOON_STONE: // its item price is 0 (it cannot be sold), the other stones cost 2100
         return 2100;
     }
