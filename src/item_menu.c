@@ -83,6 +83,7 @@ enum {
     ACTION_CHECK,
     ACTION_WALK,
     ACTION_DESELECT,
+    ACTION_SWITCH_BIKE,
     ACTION_CHECK_TAG,
     ACTION_CONFIRM,
     ACTION_SHOW,
@@ -193,6 +194,7 @@ static void BagMenu_ItemPrintCallback(u8, u32, u8);
 static void ItemMenu_UseOutOfBattle(u8);
 static void ItemMenu_Toss(u8);
 static void ItemMenu_Register(u8);
+static void ItemMenu_SwitchBike(u8);
 static void ItemMenu_Give(u8);
 static void ItemMenu_Cancel(u8);
 static void ItemMenu_UseInBattle(u8);
@@ -273,6 +275,7 @@ static const struct MenuAction sItemMenuActions[] = {
     [ACTION_CHECK]             = {gMenuText_Check,    {ItemMenu_UseOutOfBattle}},
     [ACTION_WALK]              = {gMenuText_Walk,     {ItemMenu_UseOutOfBattle}},
     [ACTION_DESELECT]          = {gMenuText_Deselect, {ItemMenu_Register}},
+    [ACTION_SWITCH_BIKE]       = {gMenuText_Switch,   {ItemMenu_SwitchBike}},
     [ACTION_CHECK_TAG]         = {gMenuText_CheckTag, {ItemMenu_CheckTag}},
     [ACTION_CONFIRM]           = {gMenuText_Confirm,  {Task_FadeAndCloseBagMenu}},
     [ACTION_SHOW]              = {gMenuText_Show,     {ItemMenu_Show}},
@@ -1622,6 +1625,8 @@ static void OpenContextMenu(u8 taskId)
                 {
                     if (TestPlayerAvatarFlags(PLAYER_AVATAR_FLAG_MACH_BIKE | PLAYER_AVATAR_FLAG_ACRO_BIKE))
                         gBagMenu->contextMenuItemsBuffer[0] = ACTION_WALK;
+                    else
+                        gBagMenu->contextMenuItemsBuffer[2] = ACTION_SWITCH_BIKE;
                 }
                 break;
             case BALLS_POCKET:
@@ -1911,6 +1916,35 @@ static void ItemMenu_Register(u8 taskId)
         gSaveBlock1Ptr->registeredItem = ITEM_NONE;
     else
         gSaveBlock1Ptr->registeredItem = gSpecialVar_ItemId;
+    DestroyListMenuTask(tListTaskId, scrollPos, cursorPos);
+    LoadBagItemListBuffers(gBagPosition.pocket);
+    tListTaskId = ListMenuInit(&gMultiuseListMenuTemplate, *scrollPos, *cursorPos);
+    ScheduleBgCopyTilemapToVram(0);
+    ItemMenu_Cancel(taskId);
+}
+
+static void ItemMenu_SwitchBike(u8 taskId)
+{
+    s16 *data = gTasks[taskId].data;
+    u16 *scrollPos = &gBagPosition.scrollPosition[gBagPosition.pocket];
+    u16 *cursorPos = &gBagPosition.cursorPosition[gBagPosition.pocket];
+    u16 newBike = (gSpecialVar_ItemId == ITEM_MACH_BIKE) ? ITEM_ACRO_BIKE : ITEM_MACH_BIKE;
+    struct BagPocket *pocket = &gBagPockets[gBagPosition.pocket];
+    u16 i;
+
+    // Swap in place so the cursor keeps pointing at the bike
+    for (i = 0; i < pocket->capacity; i++)
+    {
+        if (pocket->itemSlots[i].itemId == gSpecialVar_ItemId)
+        {
+            pocket->itemSlots[i].itemId = newBike;
+            break;
+        }
+    }
+    if (gSaveBlock1Ptr->registeredItem == gSpecialVar_ItemId)
+        gSaveBlock1Ptr->registeredItem = newBike;
+    gSpecialVar_ItemId = newBike;
+    IncrementGameStat(GAME_STAT_TRADED_BIKES);
     DestroyListMenuTask(tListTaskId, scrollPos, cursorPos);
     LoadBagItemListBuffers(gBagPosition.pocket);
     tListTaskId = ListMenuInit(&gMultiuseListMenuTemplate, *scrollPos, *cursorPos);

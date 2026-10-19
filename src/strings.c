@@ -197,6 +197,7 @@ const u8 gText_Store[] = _("STORE");
 const u8 gMenuText_Check[] = _("CHECK");
 const u8 gText_None[] = _("NONE");
 const u8 gMenuText_Deselect[] = _("DESELECT");
+const u8 gMenuText_Switch[] = _("SWITCH");
 const u8 gText_ThreeMarks[] = _("???");
 const u8 gText_FiveMarks[] = _("?????");
 const u8 gText_Slash[] = _("/");
