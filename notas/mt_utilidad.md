@@ -10,19 +10,19 @@ Datos de poder, precisión y tipo leídos de `src/data/battle_moves.h` (revisió
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | 01 | Focus Punch | Lucha | 150 | 100 | Daño | Muy potente, pero falla si te golpean antes de atacar. | C |
 | 02 | Dragon Claw | Dragón | 80 | 100 | Daño | Ataque Dragón fiable, sin efectos extra. | A |
-| 03 | Water Pulse | Agua | 60 | 100 | Ambas | Daño Agua con 20 % de confundir. | C |
+| 03 | Water Pulse | Agua | 60 | 100 | Ambas | 20 % de confundir; MT tardía, útil como cobertura si no aprende Surf. | C |
 | 04 | Calm Mind | Psíquico | — | — | Soporte | Sube Ataque Esp. y Defensa Esp. un nivel. | A |
-| 05 | Roar | Normal | — | 100 | Soporte | Obliga al rival a huir y entra otro Pokémon. | C |
+| 05 | Roar | Normal | — | 100 | Soporte | Obliga al rival a huir y entra otro Pokémon. | D |
 | 06 | Toxic | Veneno | — | 85 | Soporte | Envenena gravemente; el daño crece cada turno. | B |
-| 07 | Hail | Hielo | — | — | Soporte | Granizo 5 turnos; daña a los que no son de Hielo. | C |
+| 07 | Hail | Hielo | — | — | Soporte | Granizo 5 turnos; resta 1/16 de PS máximos por turno a los que no son de Hielo. No potencia Hielo. | C |
 | 08 | Bulk Up | Lucha | — | — | Soporte | Sube Ataque y Defensa un nivel. | A |
 | 09 | Bullet Seed | Planta | 10 | 100 | Daño | Golpea de 2 a 5 veces; ideal contra sustitutos. | C |
 | 10 | Hidden Power | Normal | var. | 100 | Daño | Tipo y poder según los IV del usuario. | B |
 | 11 | Sunny Day | Fuego | — | — | Soporte | Sol 5 turnos; potencia Fuego y Rayo Solar sin carga. | B |
-| 12 | Taunt | Siniestro | — | 100 | Soporte | Impide usar movimientos de estado al rival. | B |
+| 12 | Taunt | Siniestro | — | 100 | Soporte | Impide usar movimientos de estado al rival. | C |
 | 13 | Ice Beam | Hielo | 95 | 100 | Ambas | Daño Hielo fiable con 10 % de congelar. | S |
-| 14 | Blizzard | Hielo | 120 | 70 | Ambas | Muy potente con 10 % de congelar; impreciso salvo con granizo. | B |
-| 15 | Hyper Beam | Normal | 150 | 90 | Daño | Enorme daño, pero hay que descansar el turno siguiente. | C |
+| 14 | Blizzard | Hielo | 120 | 70 | Ambas | Muy potente con 10 % de congelar; conserva precisión 70 incluso con granizo. | B |
+| 15 | Hyper Beam | Normal | 150 | 90 | Daño | Gran remate contra el último rival; solo 5 PP y recarga si el combate continúa. | C |
 | 16 | Light Screen | Psíquico | — | — | Soporte | Reduce el daño especial recibido 5 turnos. | B |
 | 17 | Protect | Normal | — | — | Soporte | Bloquea cualquier ataque este turno (falla si se repite). | A |
 | 18 | Rain Dance | Agua | — | — | Soporte | Lluvia 5 turnos; potencia Agua y Trueno no falla. | B |
@@ -35,7 +35,7 @@ Datos de poder, precisión y tipo leídos de `src/data/battle_moves.h` (revisió
 | 25 | Thunder | Eléctrico | 120 | 70 | Ambas | Muy potente con 30 % de paralizar; no falla bajo la lluvia. | B |
 | 26 | Earthquake | Tierra | 100 | 100 | Daño | Golpea también bajo tierra; hace daño doble a quien usa Excavar. | S |
 | 27 | Return | Normal | var. | 100 | Daño | Más fuerte cuanta más felicidad tenga el Pokémon (máx. 102). | A |
-| 28 | Dig | Tierra | 60 | 100 | Daño | Se oculta bajo tierra un turno y ataca al siguiente; sirve para salir de cuevas. | C |
+| 28 | Dig | Tierra | 60 | 100 | Daño | Cobertura Tierra antes de Terremoto; tarda 2 turnos y permite salir de cuevas. | B |
 | 29 | Psychic | Psíquico | 90 | 100 | Ambas | Daño Psíquico con 10 % de bajar la Defensa Esp. | S |
 | 30 | Shadow Ball | Fantasma | 80 | 100 | Ambas | Daño Fantasma con 20 % de bajar la Defensa Esp. | S |
 | 31 | Brick Break | Lucha | 75 | 100 | Ambas | Daño Lucha que rompe Pantalla de Luz y Reflejo. | A |
@@ -50,7 +50,7 @@ Datos de poder, precisión y tipo leídos de `src/data/battle_moves.h` (revisió
 | 40 | Aerial Ace | Volador | 60 | — | Daño | Volador que nunca falla. | B |
 | 41 | Torment | Siniestro | — | 100 | Soporte | El rival no puede repetir el mismo movimiento. | D |
 | 42 | Facade | Normal | 70 | 100 | Daño | Duplica el poder (140) si el usuario está envenenado, quemado o paralizado. | B |
-| 43 | Secret Power | Normal | 70 | 100 | Ambas | Daño Normal con 30 % de un efecto según el terreno. | D |
+| 43 | Secret Power | Normal | 70 | 100 | Ambas | Daño Normal con 30 % de un efecto según el terreno. | B |
 | 44 | Rest | Psíquico | — | — | Soporte | Cura toda la vida y los estados, pero duerme 2 turnos. | A |
 | 45 | Attract | Normal | — | 100 | Soporte | Enamora al rival de distinto género; a veces no ataca. | D |
 | 46 | Thief | Siniestro | 40 | 100 | Ambas | Daño Siniestro que roba el objeto del rival si no lleva uno. | C |
