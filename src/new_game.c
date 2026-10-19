@@ -185,6 +185,7 @@ void NewGameInitData(void)
     ClearRoamerLocationData();
     gSaveBlock1Ptr->registeredItem = ITEM_NONE;
     ClearBag();
+    AddBagItem(ITEM_POKE_BALL, 10); // Jazz: start with 10 Poke Balls
     NewGameInitPCItems();
     ClearPokeblocks();
     ClearDecorationInventories();
