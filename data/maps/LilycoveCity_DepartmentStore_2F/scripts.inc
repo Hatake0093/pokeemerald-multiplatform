@@ -61,8 +61,6 @@ LilycoveCity_DepartmentStore_2F_Pokemart2:
 	.2byte ITEM_X_ACCURACY
 	.2byte ITEM_DIRE_HIT
 	.2byte ITEM_GUARD_SPEC
-	.2byte ITEM_WAVE_MAIL
-	.2byte ITEM_MECH_MAIL
 	pokemartlistend
 
 LilycoveCity_DepartmentStore_2F_Text_LearnToUseItemsProperly:
