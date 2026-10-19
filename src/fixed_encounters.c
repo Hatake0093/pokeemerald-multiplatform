@@ -4,7 +4,7 @@
 #include "constants/species.h"
 #include "data/fixed_encounters.h"
 
-// Jazz: the species of the 13 fixed wild encounters (8 Kecleon, 5 Voltorb) are decided per seed
+// Jazz: the species of the 14 fixed wild encounters (8 Kecleon, 5 Voltorb, 1 fossil) are decided per seed
 // by tools/randomize_wild.pl, which writes data/fixed_encounters.h.
 //
 // Script special. VAR_0x8004 = index in sFixedEncounterSpecies, VAR_0x8005 = level.

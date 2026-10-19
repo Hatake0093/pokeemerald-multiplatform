@@ -120,7 +120,27 @@ RustboroCity_DevonCorp_2F_EventScript_StillRegenerating::
 	release
 	end
 
+@ Jazz: the only fossil brings back a random POKeMON (the 14th fixed encounter) that has to be caught
 RustboroCity_DevonCorp_2F_EventScript_FossilMonReady::
+	setvar VAR_0x8004, 13
+	setvar VAR_0x8005, 15
+	special SetFixedEncounterWildMon
+	bufferspeciesname STR_VAR_2, VAR_0x8006
+	msgbox RustboroCity_DevonCorp_2F_Text_FossilizedMonBroughtBackToLife, MSGBOX_DEFAULT
+	msgbox RustboroCity_DevonCorp_2F_Text_FossilMonAttacks, MSGBOX_DEFAULT
+	closemessage
+	playmoncry VAR_0x8006, CRY_MODE_ENCOUNTER
+	waitmoncry
+	dowildbattle
+	setvar VAR_FOSSIL_RESURRECTION_STATE, 0
+	setflag FLAG_RECEIVED_REVIVED_FOSSIL_MON
+	release
+	end
+
+RustboroCity_DevonCorp_2F_Text_FossilMonAttacks:
+	.string "¡Pero no está nada tranquilo!\n¡Te ataca!$"
+
+RustboroCity_DevonCorp_2F_EventScript_FossilMonReadyOld::
 	goto_if_eq VAR_WHICH_FOSSIL_REVIVED, 1, RustboroCity_DevonCorp_2F_EventScript_LileepReady
 	goto_if_eq VAR_WHICH_FOSSIL_REVIVED, 2, RustboroCity_DevonCorp_2F_EventScript_AnorithReady
 	end

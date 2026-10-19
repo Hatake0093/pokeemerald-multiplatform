@@ -3,10 +3,10 @@
 # Levels, slots and rates stay the same. There are two independent pools:
 #
 #   terrestrial = grass (land_mons) + rock smash (rock_smash_mons)
-#   water       = surf (water_mons) + fishing (fishing_mons)
+#   water       = surf / dive (water_mons) + fishing (fishing_mons)
 #
-# A species is in the pool of the tables it appears in, so a species never goes from one pool
-# to the other (the data keeps the two pools disjoint).
+# Pools come from the source tables, with the 28 species in %waterOnly reassigned to water.
+# These species cannot appear in randomized terrestrial tables or fixed encounters.
 #
 # Terrestrial: land and rock smash tables share one pool.
 #   1. every species is first placed once in a common slot (rate >= 10%), so everything that
@@ -23,9 +23,10 @@
 use strict;
 use warnings;
 
-# Species of the 13 fixed wild encounters, in the order of sFixedEncounterSpecies
+# Species of the 14 fixed wild encounters, in the order of sFixedEncounterSpecies
 my @fixedNames = ('Kecleon bridge', map({ "Kecleon hidden $_" } 1 .. 7),
-                  map({ "New Mauville Voltorb $_" } 1 .. 3), map({ "Aqua Hideout Voltorb $_" } 1 .. 2));
+                  map({ "New Mauville Voltorb $_" } 1 .. 3), map({ "Aqua Hideout Voltorb $_" } 1 .. 2),
+                  'Devon Corp fossil');
 
 sub write_fixed_header {
     my ($path, @species) = @_;
@@ -40,7 +41,7 @@ sub write_fixed_header {
 
 # --vanilla <fixed.h>: the original species, no randomization
 if (@ARGV && $ARGV[0] eq '--vanilla') {
-    write_fixed_header($ARGV[1], ('SPECIES_KECLEON') x 8, ('SPECIES_VOLTORB') x 5);
+    write_fixed_header($ARGV[1], ('SPECIES_KECLEON') x 8, ('SPECIES_VOLTORB') x 5, 'SPECIES_LILEEP');
     exit 0;
 }
 
@@ -51,6 +52,19 @@ srand($seed);
 
 # Species that are obtained some other way (gift, egg) and must never be in the pool
 my %excluded = map { $_ => 1 } qw(SPECIES_CASTFORM SPECIES_WYNAUT);
+
+# Jazz: expand the aquatic pool with flying, wetland and cold-climate families.
+# Apply this before choosing the 14 terrestrial-only fixed encounters. The source JSON
+# remains unchanged for non-random builds. Dive continues to share the aquatic pool.
+my %waterOnly = map { $_ => 1 } qw(
+    SPECIES_PIDGEY SPECIES_SPEAROW SPECIES_FARFETCHD SPECIES_DODUO
+    SPECIES_HOOTHOOT SPECIES_MURKROW SPECIES_DELIBIRD SPECIES_TAILLOW
+    SPECIES_NATU SPECIES_SWABLU SPECIES_ZUBAT SPECIES_AERODACTYL
+    SPECIES_SKARMORY SPECIES_GLIGAR SPECIES_YANMA SPECIES_LEDYBA
+    SPECIES_SCYTHER SPECIES_HOPPIP SPECIES_TROPIUS SPECIES_LOTAD
+    SPECIES_GRIMER SPECIES_BELLSPROUT SPECIES_TANGELA SPECIES_PARAS
+    SPECIES_SNORUNT SPECIES_SMOOCHUM SPECIES_SNEASEL SPECIES_SWINUB
+);
 
 # Slots with an encounter rate of 10% or more, by index in their table
 my %commonSlots = (
@@ -98,7 +112,7 @@ for my $i (0 .. $#lines) {
         }
     }
     if ($lines[$i] =~ /"species":\s*"(\w+)"/) {
-        my $pool = $poolOf{$type};
+        my $pool = $waterOnly{$1} ? 'water' : $poolOf{$type};
         push @{$species{$pool}}, $1 unless $excluded{$1} || $seen{$pool}{$1}++;
         push @{$table->{slots}}, { line => $i, species => undef };
     }
@@ -116,7 +130,7 @@ sub place {
     $lines[$slot->{line}] =~ s/("species":\s*")\w+(")/$1$species$2/;
 }
 
-# The 13 fixed encounters take distinct species from the terrestrial pool. Those species are
+# The 14 fixed encounters take distinct species from the terrestrial pool. Those species are
 # removed from the pool: they can only be caught in their fixed encounter.
 {
     my @candidates = shuffle(@{$species{terrestrial}});

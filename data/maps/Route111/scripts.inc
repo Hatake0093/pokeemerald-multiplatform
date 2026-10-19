@@ -119,7 +119,6 @@ Route111_EventScript_MirageTowerDisappear::
 	special StartMirageTowerDisintegration
 	special StartMirageTowerFossilFallAndSink
 	setvar VAR_MIRAGE_TOWER_STATE, 2
-	clearflag FLAG_HIDE_DESERT_UNDERPASS_FOSSIL
 	goto_if_set FLAG_CHOSE_CLAW_FOSSIL, Route111_EventScript_RootFossilDisappeared
 	msgbox Route111_Text_ClawFossilDisappeared, MSGBOX_DEFAULT
 	releaseall
