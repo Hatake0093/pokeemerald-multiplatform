@@ -2,15 +2,15 @@ MauvilleCity_GameCorner_MapScripts::
 	.byte 0
 
     @ Game Corner prices
-	.set TM_DOUBLE_TEAM_COINS, 1500
-	.set TM_PSYCHIC_COINS, 3500
-	.set TM_FLAMETHROWER_COINS, 4000
-	.set TM_THUNDERBOLT_COINS, 4000
-	.set TM_ICE_BEAM_COINS, 4000
+	.set TM_DOUBLE_TEAM_COINS, 500
+	.set TM_PSYCHIC_COINS, 1200
+	.set TM_FLAMETHROWER_COINS, 1300
+	.set TM_THUNDERBOLT_COINS, 1300
+	.set TM_ICE_BEAM_COINS, 1300
 	.set DOLL_COINS, 1000
 
-	.set COINS_PRICE_50,  1000
-	.set COINS_PRICE_500, 10000
+	.set COINS_PRICE_50,  500
+	.set COINS_PRICE_500, 5000
 
 MauvilleCity_GameCorner_EventScript_CoinsClerk::
 	lock
