@@ -976,8 +976,25 @@ static void ApplyCleanseTagEncounterRateMod(u32 *encRate)
 STATIC_ASSERT(MAPSEC_LITTLEROOT_TOWN == 0 && MAPSEC_DYNAMIC + 1 == 88, ZoneEncounterFlagsHoenn)
 STATIC_ASSERT(MAPSEC_TRAINER_HILL - MAPSEC_AQUA_HIDEOUT + 1 == 16, ZoneEncounterFlagsEmerald)
 
+// Jazz: the underwater maps share the encounter of the route they are under
+static u8 GetSurfaceMapSec(u8 mapSec)
+{
+    switch (mapSec)
+    {
+    case MAPSEC_UNDERWATER_105: return MAPSEC_ROUTE_105;
+    case MAPSEC_UNDERWATER_124: return MAPSEC_ROUTE_124;
+    case MAPSEC_UNDERWATER_125: return MAPSEC_ROUTE_125;
+    case MAPSEC_UNDERWATER_126: return MAPSEC_ROUTE_126;
+    case MAPSEC_UNDERWATER_127: return MAPSEC_ROUTE_127;
+    case MAPSEC_UNDERWATER_128: return MAPSEC_ROUTE_128;
+    case MAPSEC_UNDERWATER_129: return MAPSEC_ROUTE_129;
+    }
+    return mapSec;
+}
+
 static u16 GetZoneEncounterFlag(u8 mapSec)
 {
+    mapSec = GetSurfaceMapSec(mapSec);
     if (mapSec <= MAPSEC_DYNAMIC)
         return FLAG_ZONE_ENCOUNTERS_HOENN_START + mapSec;
     if (mapSec >= MAPSEC_AQUA_HIDEOUT && mapSec <= MAPSEC_TRAINER_HILL)
