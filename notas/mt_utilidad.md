@@ -17,13 +17,13 @@ Datos de poder, precisión y tipo leídos de `src/data/battle_moves.h` (revisió
 | 07 | Hail | Hielo | — | — | Soporte | Granizo 5 turnos; resta 1/16 de PS máximos por turno a los que no son de Hielo. No potencia Hielo. | C |
 | 08 | Bulk Up | Lucha | — | — | Soporte | Sube Ataque y Defensa un nivel. | A |
 | 09 | Bullet Seed | Planta | 10 | 100 | Daño | Golpea de 2 a 5 veces; ideal contra sustitutos. | C |
-| 10 | Hidden Power | Normal | var. | 100 | Daño | Tipo y poder según los IV del usuario. | B |
+| 10 | Hidden Power | Normal | var. | 100 | Daño | Tipo y potencia (30–70) según los IV; utilidad incierta sin conocer ambos. | D |
 | 11 | Sunny Day | Fuego | — | — | Soporte | Sol 5 turnos; potencia Fuego y Rayo Solar sin carga. | B |
 | 12 | Taunt | Siniestro | — | 100 | Soporte | Impide usar movimientos de estado al rival. | C |
 | 13 | Ice Beam | Hielo | 95 | 100 | Ambas | Daño Hielo fiable con 10 % de congelar. | S |
 | 14 | Blizzard | Hielo | 120 | 70 | Ambas | Muy potente con 10 % de congelar; conserva precisión 70 incluso con granizo. | B |
 | 15 | Hyper Beam | Normal | 150 | 90 | Daño | Gran remate contra el último rival; solo 5 PP y recarga si el combate continúa. | C |
-| 16 | Light Screen | Psíquico | — | — | Soporte | Reduce el daño especial recibido 5 turnos. | B |
+| 16 | Light Screen | Psíquico | — | — | Soporte | Reduce el daño especial recibido 5 turnos. | C |
 | 17 | Protect | Normal | — | — | Soporte | Bloquea cualquier ataque este turno (falla si se repite). | A |
 | 18 | Rain Dance | Agua | — | — | Soporte | Lluvia 5 turnos; potencia Agua y Trueno no falla. | B |
 | 19 | Giga Drain | Planta | 60 | 100 | Ambas | Daño Planta que cura la mitad del daño hecho. | A |
@@ -40,7 +40,7 @@ Datos de poder, precisión y tipo leídos de `src/data/battle_moves.h` (revisió
 | 30 | Shadow Ball | Fantasma | 80 | 100 | Ambas | Daño Fantasma con 20 % de bajar la Defensa Esp. | S |
 | 31 | Brick Break | Lucha | 75 | 100 | Ambas | Daño Lucha que rompe Pantalla de Luz y Reflejo. | A |
 | 32 | Double Team | Normal | — | — | Soporte | Sube la Evasión un nivel. | C |
-| 33 | Reflect | Psíquico | — | — | Soporte | Reduce el daño físico recibido 5 turnos. | B |
+| 33 | Reflect | Psíquico | — | — | Soporte | Reduce el daño físico recibido 5 turnos. | C |
 | 34 | Shock Wave | Eléctrico | 60 | — | Daño | Eléctrico que nunca falla. | C |
 | 35 | Flamethrower | Fuego | 95 | 100 | Ambas | Daño Fuego fiable con 10 % de quemar. | S |
 | 36 | Sludge Bomb | Veneno | 90 | 100 | Ambas | Daño Veneno con 30 % de envenenar. | A |
