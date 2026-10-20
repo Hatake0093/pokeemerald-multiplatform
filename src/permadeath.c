@@ -25,9 +25,12 @@ bool8 IsPermadeathOn(void)
     return gSaveBlock2Ptr->optionsPermadeath && !FlagGet(FLAG_SYS_GAME_CLEAR);
 }
 
+// The graveyard is also unlocked while the permadeath option is off: its Pokemon can be taken
+// out and revived like any other, and the two boxes work as ordinary boxes.
 bool8 IsGraveyardBox(u8 boxId)
 {
-    return !FlagGet(FLAG_SYS_GAME_CLEAR) && boxId >= FIRST_GRAVEYARD_BOX && boxId < TOTAL_BOXES_COUNT;
+    return gSaveBlock2Ptr->optionsPermadeath && !FlagGet(FLAG_SYS_GAME_CLEAR)
+        && boxId >= FIRST_GRAVEYARD_BOX && boxId < TOTAL_BOXES_COUNT;
 }
 
 void InitGraveyardBoxNames(void)
