@@ -203,7 +203,9 @@ struct BoxPokemon
     u8 hasSpecies:1;
     u8 isEgg:1;
     u8 blockBoxRS:1; // Unused, but Pokémon Box Ruby & Sapphire will refuse to deposit a Pokémon with this flag set
-    u8 unused:4;
+    u8 gymUsed:1;    // Jazz: fought in an earlier battle of the current gym (src/gym_rule.c)
+    u8 gymUsedNow:1; // Jazz: sent out in the battle in progress
+    u8 unused:2;
     u8 otName[PLAYER_NAME_LENGTH];
     u8 markings;
     u16 checksum;
