@@ -1,4 +1,5 @@
 #include "global.h"
+#include "gym_rule.h"
 #include "permadeath.h"
 #include "battle.h"
 #include "battle_anim.h"
@@ -5230,6 +5231,7 @@ static void ReturnFromBattleToOverworld(void)
     gSpecialVar_Result = gBattleOutcome;
     gMain.inBattle = FALSE;
     gMain.callback1 = gPreBattleCallback1;
+    GymRule_EndOfBattle();
     SendFaintedMonsToGraveyardAfterBattle();
 
     if (gBattleTypeFlags & BATTLE_TYPE_ROAMER)

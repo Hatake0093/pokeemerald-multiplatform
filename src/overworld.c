@@ -1,4 +1,5 @@
 #include "global.h"
+#include "gym_rule.h"
 #include "permadeath.h"
 #include "overworld.h"
 #include "battle_pyramid.h"
@@ -806,6 +807,7 @@ void LoadMapFromCameraTransition(u8 mapGroup, u8 mapNum)
     SetDefaultFlashLevel();
     Overworld_ClearSavedMusic();
     RunOnTransitionMapScript();
+    GymRule_OnMapLoaded();
     InitMap();
     CopySecondaryTilesetToVramUsingHeap(gMapHeader.mapLayout);
     LoadSecondaryTilesetPalette(gMapHeader.mapLayout);
@@ -859,6 +861,7 @@ static void LoadMapFromWarp(bool32 a1)
     SetDefaultFlashLevel();
     Overworld_ClearSavedMusic();
     RunOnTransitionMapScript();
+    GymRule_OnMapLoaded();
     UpdateLocationHistoryForRoamer();
     RoamerMoveToOtherLocationSet();
     if (gMapHeader.mapLayoutId == LAYOUT_BATTLE_FRONTIER_BATTLE_PYRAMID_FLOOR)

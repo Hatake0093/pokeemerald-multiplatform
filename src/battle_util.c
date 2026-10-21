@@ -1,4 +1,5 @@
 #include "global.h"
+#include "gym_rule.h"
 #include "battle.h"
 #include "battle_anim.h"
 #include "battle_arena.h"
@@ -926,7 +927,10 @@ void ResetSentPokesToOpponentValue(void)
     gSentPokesToOpponent[1] = 0;
 
     for (i = 0; i < gBattlersCount; i += 2)
+    {
         bits |= gBitTable[gBattlerPartyIndexes[i]];
+        GymRule_MarkBattlerSentIn(i);
+    }
 
     for (i = 1; i < gBattlersCount; i += 2)
         gSentPokesToOpponent[(i & BIT_FLANK) >> 1] = bits;
@@ -960,6 +964,7 @@ void UpdateSentPokesToOpponentValue(u8 battler)
     else
     {
         s32 i;
+        GymRule_MarkBattlerSentIn(battler);
         for (i = 1; i < gBattlersCount; i++)
             gSentPokesToOpponent[(i & BIT_FLANK) >> 1] |= gBitTable[gBattlerPartyIndexes[battler]];
     }

@@ -1,4 +1,5 @@
 #include "global.h"
+#include "gym_rule.h"
 #include "battle.h"
 #include "battle_setup.h"
 #include "battle_transition.h"
@@ -460,6 +461,7 @@ static void DoBattlePikeWildBattle(void)
 
 static void DoTrainerBattle(void)
 {
+    GymRule_PrepareLead();
     CreateBattleStartTask(GetTrainerBattleTransition(), 0);
     IncrementGameStat(GAME_STAT_TOTAL_BATTLES);
     IncrementGameStat(GAME_STAT_TRAINER_BATTLES);
