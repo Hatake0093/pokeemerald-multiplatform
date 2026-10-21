@@ -1,4 +1,5 @@
 #include "global.h"
+#include "gym_rule.h"
 #include "permadeath.h"
 #include "malloc.h"
 #include "battle.h"
@@ -5833,6 +5834,12 @@ static bool8 TrySwitchInPokemon(void)
     {
         GetMonNickname(&gPlayerParty[slot], gStringVar1);
         StringExpandPlaceholders(gStringVar4, gText_PkmnHasNoEnergy);
+        return FALSE;
+    }
+    if (GymRule_IsMonBlocked(&gPlayerParty[slot]))
+    {
+        GetMonNickname(&gPlayerParty[slot], gStringVar1);
+        StringExpandPlaceholders(gStringVar4, gText_PkmnUsedInGym);
         return FALSE;
     }
     for (i = 0; i < gBattlersCount; i++)
