@@ -5533,6 +5533,23 @@ u8 GetNatureFromPersonality(u32 personality)
 // Jazz: gives the Pokemon a new personality with the wanted nature, keeping its gender, ability
 // slot, shininess and the order of its substructures (the low byte and personality % 3 stay the same).
 // Returns 0 if changed, 1 if it already has that nature and 2 if it cannot be changed.
+// Jazz: swaps the ability slot of a Pokemon (the slot is stored apart from the personality, so the
+// nature, gender and shininess do not change). Returns 0 if changed, 2 if it has only one ability.
+u8 ChangeMonAbility(struct Pokemon *mon)
+{
+    u16 species = GetMonData(mon, MON_DATA_SPECIES_OR_EGG);
+    u8 abilityNum;
+
+    if (species == SPECIES_NONE || species == SPECIES_EGG
+     || gSpeciesInfo[species].abilities[1] == ABILITY_NONE
+     || gSpeciesInfo[species].abilities[0] == gSpeciesInfo[species].abilities[1])
+        return 2;
+
+    abilityNum = GetMonData(mon, MON_DATA_ABILITY_NUM) ^ 1;
+    SetMonData(mon, MON_DATA_ABILITY_NUM, &abilityNum);
+    return 0;
+}
+
 u8 ChangeMonNature(struct Pokemon *mon, u8 nature)
 {
     struct BoxPokemon *box = &mon->box;

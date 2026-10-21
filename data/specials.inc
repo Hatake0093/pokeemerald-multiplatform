@@ -547,3 +547,5 @@ gSpecials::
 	def_special BufferDayAndTime
 	def_special ChangeMonNatureFromScript
 	def_special CheckJazzLottery
+	def_special PreviewMonAbilityChange
+	def_special ChangeMonAbilityFromScript

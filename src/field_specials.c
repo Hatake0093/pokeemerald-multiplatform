@@ -40,6 +40,7 @@
 #include "sound.h"
 #include "starter_choose.h"
 #include "pokemon_summary_screen.h"
+#include "battle_main.h"
 #include "string_util.h"
 #include "strings.h"
 #include "task.h"
@@ -47,6 +48,7 @@
 #include "tv.h"
 #include "wallclock.h"
 #include "window.h"
+#include "constants/abilities.h"
 #include "constants/battle_frontier.h"
 #include "constants/battle_pyramid.h"
 #include "constants/battle_tower.h"
@@ -4358,4 +4360,29 @@ void ChangeMonNatureFromScript(void)
 
     StringCopy(gStringVar2, gNatureNamePointers[nature]);
     gSpecialVar_Result = ChangeMonNature(&gPlayerParty[gSpecialVar_0x8004], nature);
+}
+
+// Jazz: VAR_0x8004 = party slot. STR_VAR_2 = the current ability, STR_VAR_3 = the other one.
+// VAR_RESULT: 0 if it can be changed, 2 if the Pokemon has only one ability
+void PreviewMonAbilityChange(void)
+{
+    struct Pokemon *mon = &gPlayerParty[gSpecialVar_0x8004];
+    u16 species = GetMonData(mon, MON_DATA_SPECIES_OR_EGG);
+    u8 abilityNum;
+
+    gSpecialVar_Result = 2;
+    if (species == SPECIES_NONE || species == SPECIES_EGG
+     || gSpeciesInfo[species].abilities[1] == ABILITY_NONE
+     || gSpeciesInfo[species].abilities[0] == gSpeciesInfo[species].abilities[1])
+        return;
+
+    abilityNum = GetMonData(mon, MON_DATA_ABILITY_NUM);
+    StringCopy(gStringVar2, gAbilityNames[gSpeciesInfo[species].abilities[abilityNum]]);
+    StringCopy(gStringVar3, gAbilityNames[gSpeciesInfo[species].abilities[abilityNum ^ 1]]);
+    gSpecialVar_Result = 0;
+}
+
+void ChangeMonAbilityFromScript(void)
+{
+    gSpecialVar_Result = ChangeMonAbility(&gPlayerParty[gSpecialVar_0x8004]);
 }
