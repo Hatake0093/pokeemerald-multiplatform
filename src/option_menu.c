@@ -28,6 +28,7 @@
 #define tPermadeathOff data[9]
 #define tZoneLimitOff data[10]
 #define tLevelCapOff data[11]
+#define tGymRuleOff data[12]
 
 enum
 {
@@ -49,6 +50,7 @@ enum
     MENUITEM_JAZZ_PERMADEATH,
     MENUITEM_JAZZ_ZONELIMIT,
     MENUITEM_JAZZ_LEVELCAP,
+    MENUITEM_JAZZ_GYMRULE,
     MENUITEM_JAZZ_CANCEL,
     MENUITEM_JAZZ_COUNT,
 };
@@ -72,6 +74,7 @@ enum
 #define YPOS_PERMADEATH   (MENUITEM_JAZZ_PERMADEATH * 16)
 #define YPOS_ZONELIMIT    (MENUITEM_JAZZ_ZONELIMIT * 16)
 #define YPOS_LEVELCAP     (MENUITEM_JAZZ_LEVELCAP * 16)
+#define YPOS_GYMRULE      (MENUITEM_JAZZ_GYMRULE * 16)
 
 static void Task_OptionMenuFadeIn(u8 taskId);
 static void Task_OptionMenuProcessInput(u8 taskId);
@@ -123,6 +126,7 @@ static const u8 *const sOptionMenuItemsNamesPage2[MENUITEM_JAZZ_COUNT] =
     [MENUITEM_JAZZ_PERMADEATH]  = gText_Permadeath,
     [MENUITEM_JAZZ_ZONELIMIT]   = gText_ZoneLimit,
     [MENUITEM_JAZZ_LEVELCAP]    = gText_LevelCap,
+    [MENUITEM_JAZZ_GYMRULE]     = gText_GymRule,
     [MENUITEM_JAZZ_CANCEL]     = gText_OptionMenuCancel,
 };
 
@@ -279,6 +283,7 @@ void CB2_InitOptionMenu(void)
         gTasks[taskId].tPermadeathOff = !gSaveBlock2Ptr->optionsPermadeath; // on by default (see SetDefaultOptions)
         gTasks[taskId].tZoneLimitOff = gSaveBlock2Ptr->optionsZoneLimitOff;
         gTasks[taskId].tLevelCapOff = gSaveBlock2Ptr->optionsLevelCapOff;
+        gTasks[taskId].tGymRuleOff = gSaveBlock2Ptr->optionsGymRuleOff;
 
         DrawPageChoices(taskId);
 
@@ -377,6 +382,13 @@ static void Task_OptionMenuProcessInput(u8 taskId)
             if (previousOption != gTasks[taskId].tLevelCapOff)
                 OnOff_DrawChoices(gTasks[taskId].tLevelCapOff, YPOS_LEVELCAP);
             break;
+        case MENUITEM_JAZZ_GYMRULE:
+            previousOption = gTasks[taskId].tGymRuleOff;
+            gTasks[taskId].tGymRuleOff = OnOff_ProcessInput(gTasks[taskId].tGymRuleOff);
+
+            if (previousOption != gTasks[taskId].tGymRuleOff)
+                OnOff_DrawChoices(gTasks[taskId].tGymRuleOff, YPOS_GYMRULE);
+            break;
         default:
             return;
         }
@@ -460,6 +472,7 @@ static void Task_OptionMenuSave(u8 taskId)
     gSaveBlock2Ptr->optionsPermadeath = !gTasks[taskId].tPermadeathOff;
     gSaveBlock2Ptr->optionsZoneLimitOff = gTasks[taskId].tZoneLimitOff;
     gSaveBlock2Ptr->optionsLevelCapOff = gTasks[taskId].tLevelCapOff;
+    gSaveBlock2Ptr->optionsGymRuleOff = gTasks[taskId].tGymRuleOff;
 
     BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 16, RGB_BLACK);
     gTasks[taskId].func = Task_OptionMenuFadeOut;
@@ -766,6 +779,7 @@ static void DrawPageChoices(u8 taskId)
         OnOff_DrawChoices(gTasks[taskId].tPermadeathOff, YPOS_PERMADEATH);
         OnOff_DrawChoices(gTasks[taskId].tZoneLimitOff, YPOS_ZONELIMIT);
         OnOff_DrawChoices(gTasks[taskId].tLevelCapOff, YPOS_LEVELCAP);
+        OnOff_DrawChoices(gTasks[taskId].tGymRuleOff, YPOS_GYMRULE);
     }
     HighlightOptionMenuItem(gTasks[taskId].tMenuSelection);
 }

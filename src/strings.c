@@ -1482,6 +1482,7 @@ const u8 gText_MoveColors[] = _("MOVE COLORS");
 const u8 gText_Permadeath[] = _("PERMADEATH");
 const u8 gText_ZoneLimit[] = _("ZONE LIMIT");
 const u8 gText_LevelCap[] = _("LEVEL CAP");
+const u8 gText_GymRule[] = _("GYM RULE");
 const u8 gText_PermadeathGameOver[] = _("All your POKéMON have fallen.\nGAME OVER. Press A to restart.");
 const u8 gText_RiskWarning[] = _("RISK WARNING");
 const u8 gText_TextSpeed[] = _("TEXT SPEED");

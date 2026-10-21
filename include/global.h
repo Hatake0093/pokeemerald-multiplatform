@@ -527,6 +527,7 @@ struct SaveBlock2
              u16 optionsPermadeath:1; // Jazz: fainted Pokemon go to the graveyard boxes
              u16 optionsZoneLimitOff:1; // Jazz: one catch per zone (Nuzlocke) switched off
              u16 optionsLevelCapOff:1; // Jazz: badge level cap switched off
+             u16 optionsGymRuleOff:1; // Jazz: gym rule (a Pokemon can't fight twice in a gym) switched off
              //u16 padding1:15;
              //u16 padding2;
     /*0x18*/ struct Pokedex pokedex;

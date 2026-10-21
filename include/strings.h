@@ -315,6 +315,7 @@ extern const u8 gText_MoveColors[];
 extern const u8 gText_Permadeath[];
 extern const u8 gText_ZoneLimit[];
 extern const u8 gText_LevelCap[];
+extern const u8 gText_GymRule[];
 extern const u8 gText_RiskWarning[];
 extern const u8 gText_OptionMenu[];
 extern const u8 gText_TextSpeed[];

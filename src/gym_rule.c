@@ -42,7 +42,7 @@ static bool8 IsGymTrainerBattle(void)
     if (gBattleTypeFlags & (BATTLE_TYPE_LINK | BATTLE_TYPE_RECORDED | BATTLE_TYPE_FRONTIER | BATTLE_TYPE_PYRAMID
                           | BATTLE_TYPE_TRAINER_HILL | BATTLE_TYPE_MULTI | BATTLE_TYPE_INGAME_PARTNER))
         return FALSE;
-    return IsInGymMap();
+    return !gSaveBlock2Ptr->optionsGymRuleOff && IsInGymMap();
 }
 
 static bool8 CanFight(struct Pokemon *mon)
