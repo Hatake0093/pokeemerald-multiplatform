@@ -2586,10 +2586,13 @@ void SetMoveEffect(bool8 primary, u8 certain)
             case MOVE_EFFECT_PAYDAY:
                 if (GET_BATTLER_SIDE(gBattlerAttacker) == B_SIDE_PLAYER)
                 {
-                    u16 payday = gPaydayMoney;
-                    gPaydayMoney += (gBattleMons[gBattlerAttacker].level * 5);
-                    if (payday > gPaydayMoney)
-                        gPaydayMoney = 0xFFFF;
+                    // Jazz: every use pays more than the last: level * 5 * number of uses
+                    u32 payday = gPaydayMoney;
+
+                    if (gPaydayHits < 255)
+                        gPaydayHits++;
+                    payday += gBattleMons[gBattlerAttacker].level * 5 * gPaydayHits;
+                    gPaydayMoney = payday > 0xFFFF ? 0xFFFF : payday;
                 }
                 BattleScriptPush(gBattlescriptCurrInstr + 1);
                 gBattlescriptCurrInstr = sMoveEffectBS_Ptrs[gBattleCommunication[MOVE_EFFECT_BYTE]];
