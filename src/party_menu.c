@@ -2286,6 +2286,20 @@ static void DisplayPartyPokemonBarDetail(u8 windowId, const u8 *str, u8 color, c
     AddTextPrinterParameterized3(windowId, FONT_SMALL, align[0], align[1], sFontColorTable[color], 0, str);
 }
 
+// Jazz: a x next to the level (before the gender symbol) marks a Pokemon that already fought in this gym.
+// Drawn from the nickname and level code too, because clearing either rectangle also erases the mark.
+static void DisplayPartyPokemonGymMark(struct Pokemon *mon, struct PartyMenuBox *menuBox)
+{
+    static const u8 sText_GymUsedMark[] = _("×");
+    u8 x, y;
+
+    if (!GymRule_IsMonUsed(mon) || GetMonData(mon, MON_DATA_IS_EGG))
+        return;
+    x = menuBox->infoRects->dimensions[8] - 8;
+    y = menuBox->infoRects->dimensions[5];
+    AddTextPrinterParameterized3(menuBox->windowId, FONT_SMALL, x, y, sFontColorTable[0], 0, sText_GymUsedMark);
+}
+
 static void DisplayPartyPokemonNickname(struct Pokemon *mon, struct PartyMenuBox *menuBox, u8 c)
 {
     u8 nickname[POKEMON_NAME_LENGTH + 1];
@@ -2296,6 +2310,7 @@ static void DisplayPartyPokemonNickname(struct Pokemon *mon, struct PartyMenuBox
             menuBox->infoRects->blitFunc(menuBox->windowId, menuBox->infoRects->dimensions[0] >> 3, menuBox->infoRects->dimensions[1] >> 3, menuBox->infoRects->dimensions[2] >> 3, menuBox->infoRects->dimensions[3] >> 3, FALSE);
         GetMonNickname(mon, nickname);
         DisplayPartyPokemonBarDetail(menuBox->windowId, nickname, 0, menuBox->infoRects->dimensions);
+        DisplayPartyPokemonGymMark(mon, menuBox);
     }
 }
 
@@ -2311,6 +2326,7 @@ static void DisplayPartyPokemonLevelCheck(struct Pokemon *mon, struct PartyMenuB
             if (c != 2)
                 DisplayPartyPokemonLevel(GetMonData(mon, MON_DATA_LEVEL), menuBox);
         }
+        DisplayPartyPokemonGymMark(mon, menuBox);
     }
 }
 

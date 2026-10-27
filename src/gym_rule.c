@@ -52,6 +52,12 @@ static bool8 CanFight(struct Pokemon *mon)
     return species != SPECIES_NONE && species != SPECIES_EGG && GetMonData(mon, MON_DATA_HP) != 0;
 }
 
+// TRUE if the Pokemon fought in this gym, for the mark in the party menu
+bool8 GymRule_IsMonUsed(struct Pokemon *mon)
+{
+    return mon->box.gymUsed && !gSaveBlock2Ptr->optionsGymRuleOff && IsInGymMap();
+}
+
 // TRUE if the Pokemon already fought in this gym and another Pokemon that hasn't can still fight
 bool8 GymRule_IsMonBlocked(struct Pokemon *mon)
 {
