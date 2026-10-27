@@ -2,8 +2,14 @@
 #include "gym_rule.h"
 #include "battle.h"
 #include "battle_anim.h"
+#include "battle_setup.h"
+#include "data.h"
+#include "mail.h"
+#include "permadeath.h"
 #include "pokemon.h"
+#include "pokemon_storage_system.h"
 #include "constants/maps.h"
+#include "constants/trainers.h"
 
 // box.gymUsed: the Pokemon fought in an earlier battle of the gym the player is in.
 // box.gymUsedNow: it has been sent out in the battle in progress. It becomes gymUsed at the end.
@@ -120,16 +126,69 @@ void GymRule_EndOfBattle(void)
     }
 }
 
-// Leaving the gym clears the list; every gym starts with all the Pokemon available
+// After a won trainer battle in a gym, each Pokemon that has fought goes to the current box and the next
+// Pokemon of that box that hasn't fought takes its party slot. Runs after the permadeath graveyard pass,
+// so the dead never come back through here. The Gym Leader battle is left alone: the gym is over.
+void GymRule_SwapUsedWithBox(void)
+{
+    u8 box = gPokemonStoragePtr->currentBox;
+    u8 pos = 0;
+    u8 i;
+
+    if (!IsGymTrainerBattle() || gBattleOutcome != B_OUTCOME_WON || IsGraveyardBox(box))
+        return;
+    if (gTrainers[gTrainerBattleOpponent_A].trainerClass == TRAINER_CLASS_LEADER)
+        return;
+
+    for (i = 0; i < PARTY_SIZE; i++)
+    {
+        struct Pokemon *mon = &gPlayerParty[i];
+        u16 species = GetMonData(mon, MON_DATA_SPECIES_OR_EGG);
+        struct Pokemon next;
+
+        if (species == SPECIES_NONE || species == SPECIES_EGG || !mon->box.gymUsed
+         || ItemIsMail(GetMonData(mon, MON_DATA_HELD_ITEM)))
+            continue;
+
+        for (; pos < IN_BOX_COUNT; pos++)
+        {
+            struct BoxPokemon *boxMon = GetBoxedMonPtr(box, pos);
+            u16 boxSpecies = GetBoxMonData(boxMon, MON_DATA_SPECIES_OR_EGG);
+
+            if (boxSpecies != SPECIES_NONE && boxSpecies != SPECIES_EGG && !boxMon->gymUsed)
+                break;
+        }
+        if (pos == IN_BOX_COUNT)
+            return;
+
+        BoxMonAtToMon(box, pos, &next);
+        SetBoxMonAt(box, pos, &mon->box);
+        *mon = next;
+        pos++;
+    }
+    CalculatePlayerPartyCount();
+}
+
+// Leaving the gym clears the list, in the party and in the boxes; every gym starts with all the Pokemon available
 void GymRule_OnMapLoaded(void)
 {
     bool8 inGym = IsInGymMap();
-    u8 i;
+    u8 i, j;
 
     for (i = 0; i < PARTY_SIZE; i++)
     {
         gPlayerParty[i].box.gymUsedNow = FALSE;
         if (!inGym)
             gPlayerParty[i].box.gymUsed = FALSE;
+    }
+    if (inGym)
+        return;
+    for (i = 0; i < TOTAL_BOXES_COUNT; i++)
+    {
+        for (j = 0; j < IN_BOX_COUNT; j++)
+        {
+            gPokemonStoragePtr->boxes[i][j].gymUsed = FALSE;
+            gPokemonStoragePtr->boxes[i][j].gymUsedNow = FALSE;
+        }
     }
 }

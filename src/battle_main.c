@@ -5235,6 +5235,7 @@ static void ReturnFromBattleToOverworld(void)
     gMain.callback1 = gPreBattleCallback1;
     GymRule_EndOfBattle();
     SendFaintedMonsToGraveyardAfterBattle();
+    GymRule_SwapUsedWithBox();
 
     if (gBattleTypeFlags & BATTLE_TYPE_ROAMER)
     {

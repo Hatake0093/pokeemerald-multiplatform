@@ -9,6 +9,7 @@ bool8 GymRule_IsMonBlocked(struct Pokemon *mon);
 void GymRule_MarkBattlerSentIn(u8 battler);
 void GymRule_PrepareLead(void);
 void GymRule_EndOfBattle(void);
+void GymRule_SwapUsedWithBox(void);
 void GymRule_OnMapLoaded(void);
 
 #endif // GUARD_GYM_RULE_H
